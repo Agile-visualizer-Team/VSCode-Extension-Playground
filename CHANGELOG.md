@@ -1,0 +1,14 @@
+# Change Log
+
+All notable changes to the "hello-extension" extension will be documented in this file.
+
+Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+
+## [Unreleased]
+
+- Add keybindings for the commands
+- Add icons
+
+## [0.1]
+
+- Added a new command 'time.current' to display the current time.
