@@ -9,6 +9,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Add keybindings for the commands
 - Add icons
 
+## [0.2]
+
+- Integrated external script to render the answersets as images using node.
+
 ## [0.1]
 
 - Added a new command 'time.current' to display the current time.
