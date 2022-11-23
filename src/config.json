@@ -1,3 +1,4 @@
 {
-    "cell" : ["cell", "cell2"]
+    "cell" : ["cell", "cell2"],
+    "maxNumOfAnswerSetToConvert" : 1
 }

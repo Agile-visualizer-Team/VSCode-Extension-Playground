@@ -1,7 +1,21 @@
+import path = require("path");
 import * as vscode from "vscode";
+import MatrixCreator from "./matrix_visualization";
+process = require("process");
 
 export function activate(context: vscode.ExtensionContext) {
   console.log('Congratulations, "hello-extension" is now active!');
+
+  //create a new env variable CHROME_PATH used for puppeteer to save the matrix
+  process.env.CHROME_PATH = path.join(
+    "C:",
+    "Program Files",
+    "Google",
+    "Chrome",
+    "Application",
+    "chrome.exe"
+  );
+  console.log(process.env.CHROME_PATH);
 
   const watcher = vscode.workspace.createFileSystemWatcher("**/*matrix_0.png");
   watcher.onDidCreate((uri) => {
@@ -26,19 +40,10 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
-  let matrix = vscode.commands.registerCommand("hello-extension.cmd", () => {
-    vscode.tasks.executeTask(
-      new vscode.Task(
-        { type: "shell" },
-        vscode.TaskScope.Workspace,
-        "hello-extension",
-        "Rendering Matrix",
-        new vscode.ShellExecution(
-          "node D:\\AlexFazio64\\Dev\\js\\VSCode-Extension-Playground\\src\\script.js"
-        )
-      )
-    );
-  });
+  let matrix = vscode.commands.registerCommand("hello-extension.cmd", () =>
+    //save an image to Downloads folder
+    new MatrixCreator().run_script()
+  );
 
   context.subscriptions.push(disposable);
   context.subscriptions.push(time);
