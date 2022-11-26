@@ -1,8 +1,6 @@
 name: Publish in Artifact Repository Candidate Release
 run-name: Checking if unit tests pass
 on:
-  release:
-    types: [created]
   workflow_dispatch:
 
 jobs:
