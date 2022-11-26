@@ -15,8 +15,8 @@ jobs:
         run: echo "echo ${GITHUB_REF##*/}"
       - name: check commit
         run : git show $GITHUB_SHA
-      # - uses: actions/setup-node@v3
-      #   with:
-      #     node-version: 16
-      # - run: npm ci
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm ci
       # - run: npm test
