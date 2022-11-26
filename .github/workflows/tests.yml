@@ -4,6 +4,7 @@ on:
     pull_request_target:
         types: [assigned, opened, synchronize, reopened]
     workflow_dispatch:
+    workflow_call:
   
 jobs:
   test:
@@ -14,9 +15,8 @@ jobs:
         run: echo "echo ${GITHUB_REF##*/}"
       - name: check commit
         run : git show $GITHUB_SHA
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-      - run: sudo apt install python3-pip
-      - run: pip3 install -r requirements.txt
-      - run: pytest randomness/tests/
+      # - uses: actions/setup-node@v3
+      #   with:
+      #     node-version: 16
+      # - run: npm ci
+      # - run: npm test
