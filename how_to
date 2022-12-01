@@ -1,2 +1,2 @@
 how to publish -> npm publish
-how to upgrade version -> npm upgrade [major | minor | patch]
+how to upgrade version -> npm version [major | minor | patch]
