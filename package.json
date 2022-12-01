@@ -1,6 +1,6 @@
 {
-    "name": "@Agile-visualizer-Team/vscode-extension-playground",
-    "displayName": "vscode-extension-playground",
+    "name": "@agile-visualizer-team/visualizer-asp",
+    "displayName": "visualizer-asp",
     "description": "",
     "version": "0.0.1",
     "engines": {
