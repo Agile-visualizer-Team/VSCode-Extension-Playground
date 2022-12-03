@@ -11,10 +11,9 @@ jobs:
   create_pull_request:
     runs-on: ubuntu-latest
     steps:
-      - uses: rokroskar/workflow-run-cleanup-action
+      - uses: rokroskar/workflow-run-cleanup-action@develop_test
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEBUG: FALSE
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
       - name: Check branch
         run: echo "${GITHUB_REF##*/}"
       - uses: actions/checkout@v3
