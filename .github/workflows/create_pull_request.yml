@@ -8,13 +8,15 @@ on:
     - '!main'
   workflow_dispatch:
 jobs:
+  cancel:
+    # Cancel
+    uses: Agile-visualizer-Team/visualizer-asp/.github/workflows/cancel_workflow.yml@develop_test
+    secrets:  inherit
+
   create_pull_request:
+    needs: cancel
     runs-on: ubuntu-latest
     steps:
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.10.0
-        with:
-          access_token: ${{ github.token }}
       - name: Check branch
         run: echo "${GITHUB_REF##*/}"
       - uses: actions/checkout@v3
