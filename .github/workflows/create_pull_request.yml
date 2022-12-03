@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: vishnudxb/cancel-workflow@v1.2
         with:
-          repo: octocat/hello-world
+          repo:  Agile-visualizer-Team/visualizer-asp 
           workflow_id: ${{ github.run_id }}
           access_token: ${{ github.token }}
       - name: Check branch
