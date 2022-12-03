@@ -1,14 +1,22 @@
 run-name: Pull request in a reusable way
 name: Create a pull request CI/CD reusable
 on:
-  push:
-   branches :
-    - '*'
-    - '!master'
-    - '!main'
+  # push:
+  #  branches :
+  #   - '*'
+  #   - '!master'
+  #   - '!main'
   workflow_dispatch:
 jobs:
+  cancel:
+    # Cancel
+    uses: Agile-visualizer-Team/visualizer-asp/.github/workflows/cancel_workflow.yml@develop_test
+    secrets:  inherit
+    with:
+      worflow_id: ${{ github.workflow.id }}
+    
   create_pull_request:
+    needs: cancel
     runs-on: ubuntu-latest
     steps:
       - name: Check branch

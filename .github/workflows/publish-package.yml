@@ -1,9 +1,14 @@
 name: Publish in Artifact Repository Candidate Release
 run-name: Checking if unit tests pass
 on:
+  pull_request:
+    types: [merged]
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
+
   build:
     # Testing
     uses: Agile-visualizer-Team/VsCode-Extension-Playground/.github/workflows/tests.yml@master
