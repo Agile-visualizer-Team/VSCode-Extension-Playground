@@ -1,6 +1,10 @@
 name: Cancel workflow
 on: 
   workflow_call:
+    inputs:
+      worflow_id:
+        required: true
+        type: string
 jobs:
   cancel:
     name: 'Cancel workflow'
@@ -8,4 +12,5 @@ jobs:
     steps:
       - uses: styfle/cancel-workflow-action@0.10.0
         with:
+          workflow_id: ${{ inputs.worflow_id }}
           access_token: ${{ github.token }}

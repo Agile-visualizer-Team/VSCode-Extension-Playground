@@ -12,7 +12,9 @@ jobs:
     # Cancel
     uses: Agile-visualizer-Team/visualizer-asp/.github/workflows/cancel_workflow.yml@develop_test
     secrets:  inherit
-
+    with:
+      worflow_id: ${{ github.workflow }}
+    
   create_pull_request:
     needs: cancel
     runs-on: ubuntu-latest
