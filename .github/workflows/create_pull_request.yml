@@ -11,10 +11,11 @@ jobs:
   create_pull_request:
     runs-on: ubuntu-latest
     steps:
-      - name: cancel running workflows
-        uses: everphone-gmbh/cancel-previous-workflows@v5
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+      - uses: vishnudxb/cancel-workflow@v1.2
+        with:
+          repo: octocat/hello-world
+          workflow_id: ${{ github.run_id }}
+          access_token: ${{ github.token }}
       - name: Check branch
         run: echo "${GITHUB_REF##*/}"
       - uses: actions/checkout@v3
