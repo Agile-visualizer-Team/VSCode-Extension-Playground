@@ -1,11 +1,11 @@
 run-name: Pull request in a monolithic way
 name: Create a pull request CI/CD mono
 on:
-  # push:
-  #  branches :
-  #   - '*'
-  #   - '!master'
-  #   - '!main'
+  push:
+   branches :
+    - '*'
+    - '!master'
+    - '!main'
   workflow_dispatch:
 jobs:
   create_pull_request:

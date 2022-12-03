@@ -1,12 +1,12 @@
 run-name: Pull request in a reusable way
 name: Create a pull request CI/CD reusable
 on:
-  push:
-   branches :
-    - '*'
-    - '!master'
-    - '!main'
-  workflow_dispatch:
+  # push:
+  #  branches :
+  #   - '*'
+  #   - '!master'
+  #   - '!main'
+  # workflow_dispatch:
 jobs:
   cancel:
     # Cancel
