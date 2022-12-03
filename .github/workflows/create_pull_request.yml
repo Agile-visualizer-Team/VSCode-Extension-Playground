@@ -11,7 +11,10 @@ jobs:
   create_pull_request:
     runs-on: ubuntu-latest
     steps:
-      - run: exit 0
+      - name: cancel running workflows
+        uses: everphone-gmbh/cancel-previous-workflows@v5
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
       - name: Check branch
         run: echo "${GITHUB_REF##*/}"
       - uses: actions/checkout@v3
