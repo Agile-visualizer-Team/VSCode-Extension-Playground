@@ -1,0 +1,9 @@
+[submodule "NodeJs-DLV-Wrapper"]
+	path = NodeJs-DLV-Wrapper
+	url = https://github.com/Agile-visualizer-Team/NodeJs-DLV-Wrapper.git
+[submodule "asd-graph-renderer"]
+	path = asd-graph-renderer
+	url = https://github.com/Agile-visualizer-Team/asd-graph-renderer.git
+[submodule "agile_visualizer_matrix_visualizaton"]
+	path = agile_visualizer_matrix_visualizaton
+	url = https://github.com/Agile-visualizer-Team/agile_visualizer_matrix_visualizaton.git

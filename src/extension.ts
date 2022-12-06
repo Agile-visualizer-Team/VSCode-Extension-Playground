@@ -40,6 +40,22 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
+  let wrapper = vscode.commands.registerCommand(
+    "hello-extension.wrapper",
+    () => {
+      //open a terminal in vscode
+      vscode.tasks.executeTask(
+        new vscode.Task(
+          { type: "shell" },
+          vscode.TaskScope.Workspace,
+          "wrapper",
+          "wrapper",
+          new vscode.ShellExecution("ls")
+        )
+      );
+    }
+  );
+
   let matrix = vscode.commands.registerCommand("hello-extension.cmd", () =>
     //save an image to Downloads folder
     new MatrixCreator().run_script()

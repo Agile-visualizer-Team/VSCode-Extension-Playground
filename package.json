@@ -12,6 +12,7 @@
     "activationEvents": [
         "onCommand:hello-extension.helloWorld",
         "onCommand:hello-extension.time.current",
+        "onCommand:hello-extension.wrapper",
         "onCommand:hello-extension.cmd"
     ],
     "main": "./dist/extension.js",
@@ -24,6 +25,10 @@
             {
                 "command": "hello-extension.time.current",
                 "title": "Time"
+            },
+            {
+                "command": "hello-extension.wrapper",
+                "title": "Wrapper"
             },
             {
                 "command": "hello-extension.cmd",

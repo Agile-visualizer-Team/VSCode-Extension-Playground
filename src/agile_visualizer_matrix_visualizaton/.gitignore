@@ -1,0 +1,9 @@
+/node_modules
+/coverage
+coverage
+/.nyc_output
+preview_matrix.html
+preview_table.html
+table_visualization.js
+matrix_visualization.js
+answer_set_table_*
