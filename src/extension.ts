@@ -64,6 +64,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(disposable);
   context.subscriptions.push(time);
   context.subscriptions.push(matrix);
+  context.subscriptions.push(wrapper);
 }
 
 export function deactivate() {
