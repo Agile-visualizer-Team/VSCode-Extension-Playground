@@ -1,3 +1,0 @@
-node visualizer.js -d examples_files/dlv -i examples_files/3col_2.asp -t examples_files/graph-template.json -o output
-node visualizer.js -d examples_files/dlv -i examples_files/matrix_example.asp -t examples_files/matrix-template.json -o output
-node visualizer.js -d examples_files/dlv -i examples_files/matrix_example.asp -t examples_files/table-template.json -o output
