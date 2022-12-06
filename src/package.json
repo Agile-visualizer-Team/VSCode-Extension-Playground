@@ -5,7 +5,7 @@
   "main": "visualizer.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm install && npm-recursive-install && npm run --prefix asd-graph-renderer/ build && tsc visualizer.ts && npx tsc agile_visualizer_matrix_visualizaton/src/matrix_visualization.ts && npx tsc agile_visualizer_matrix_visualizaton/src/table_visualization.ts"
+    "build": "npm install && npm-recursive-install && npm run --prefix asd-graph-renderer/ build && tsc visualizer.ts && npx tsc agile_visualizer_matrix_visualization/src/matrix_visualization.ts && npx tsc agile_visualizer_matrix_visualization/src/table_visualization.ts"
   },
   "author": "",
   "license": "ISC",

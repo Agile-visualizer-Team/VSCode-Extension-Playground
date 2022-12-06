@@ -17,7 +17,7 @@
 		"node_modules",
 		"./src/visualizer.ts",
 		"./src/node_modules/",
-		"./src/agile_visualizer_matrix_visualizaton/",
+		"src/agile_visualizer_matrix_visualization",
 		"./src/asd-graph-renderer/",
 		"./src/examples/",
 		"./src/NodeJs-DLV-Wrapper/",
