@@ -1,10 +1,10 @@
 import path = require("path");
 import * as vscode from "vscode";
-import MatrixCreator from "./matrix_visualization";
+import MatrixCreator from "./matrix_module";
 process = require("process");
 
 export function activate(context: vscode.ExtensionContext) {
-  console.log('Congratulations, "hello-extension" is now active!');
+  console.log('Congratulations, "ASP Visualizer" is now active!');
 
   //create a new env variable CHROME_PATH used for puppeteer to save the matrix
   process.env.CHROME_PATH = path.join(
@@ -24,14 +24,14 @@ export function activate(context: vscode.ExtensionContext) {
   });
 
   let disposable = vscode.commands.registerCommand(
-    "hello-extension.helloWorld",
+    "asp-vis.helloWorld",
     () => {
       vscode.window.showInformationMessage("Hello World");
     }
   );
 
   let time = vscode.commands.registerCommand(
-    "hello-extension.time.current",
+    "asp-vis.time.current",
     () => {
       //show a popup box with the current time
       var date = new Date();
@@ -41,7 +41,7 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   let wrapper = vscode.commands.registerCommand(
-    "hello-extension.wrapper",
+    "asp-vis.wrapper",
     () => {
       //open a terminal in vscode
       vscode.tasks.executeTask(
@@ -56,7 +56,7 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
-  let matrix = vscode.commands.registerCommand("hello-extension.cmd", () =>
+  let matrix = vscode.commands.registerCommand("asp-vis.cmd", () =>
     //save an image to Downloads folder
     new MatrixCreator().run_script()
   );
