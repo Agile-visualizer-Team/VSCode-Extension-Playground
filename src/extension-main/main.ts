@@ -1,6 +1,7 @@
 import path = require("path");
 import * as vscode from "vscode";
 import MatrixCreator from "./matrix_module";
+import { callNode } from "../visualizer-integrator/visualizer";
 process = require("process");
 
 export function activate(context: vscode.ExtensionContext) {
@@ -35,16 +36,27 @@ export function activate(context: vscode.ExtensionContext) {
   });
 
   let wrapper = vscode.commands.registerCommand("asp-vis.wrapper", () => {
-    //open a terminal in vscode
-    vscode.tasks.executeTask(
-      new vscode.Task(
-        { type: "shell" },
-        vscode.TaskScope.Workspace,
-        "wrapper",
-        "wrapper",
-        new vscode.ShellExecution("ls")
-      )
+    let solver_path: string;
+    let program: string;
+    let as_number: number = 1;
+    let out_template: string;
+    let out_dir: string;
+
+    const base_path = path.join(
+      "D:",
+      "AlexFazio64",
+      "Dev",
+      "js",
+      "VSCode-Extension-Playground",
+      "src",
+      "sample-files"
     );
+
+    solver_path = path.join(base_path, "dlv2_win.exe");
+    program = path.join(base_path, "3col.asp");
+    out_dir = base_path;
+
+    callNode("", program, solver_path, as_number, out_dir);
   });
 
   let matrix = vscode.commands.registerCommand("asp-vis.cmd", () =>

@@ -79,7 +79,7 @@ npm run build:all
 
 ## Testing the modules
 
-from the root directory of the __module__
+from the root directory of the **module**
 
 check the `package.json` file for the test scripts
 
