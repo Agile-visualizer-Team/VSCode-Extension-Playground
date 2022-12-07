@@ -23,38 +23,29 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.executeCommand("vscode.open", uri, { preview: false });
   });
 
-  let disposable = vscode.commands.registerCommand(
-    "asp-vis.helloWorld",
-    () => {
-      vscode.window.showInformationMessage("Hello World");
-    }
-  );
+  let disposable = vscode.commands.registerCommand("asp-vis.helloWorld", () => {
+    vscode.window.showInformationMessage("Hello World");
+  });
 
-  let time = vscode.commands.registerCommand(
-    "asp-vis.time.current",
-    () => {
-      //show a popup box with the current time
-      var date = new Date();
-      var time = date.toLocaleTimeString();
-      vscode.window.showWarningMessage("The time is " + time);
-    }
-  );
+  let time = vscode.commands.registerCommand("asp-vis.time.current", () => {
+    //show a popup box with the current time
+    var date = new Date();
+    var time = date.toLocaleTimeString();
+    vscode.window.showWarningMessage("The time is " + time);
+  });
 
-  let wrapper = vscode.commands.registerCommand(
-    "asp-vis.wrapper",
-    () => {
-      //open a terminal in vscode
-      vscode.tasks.executeTask(
-        new vscode.Task(
-          { type: "shell" },
-          vscode.TaskScope.Workspace,
-          "wrapper",
-          "wrapper",
-          new vscode.ShellExecution("ls")
-        )
-      );
-    }
-  );
+  let wrapper = vscode.commands.registerCommand("asp-vis.wrapper", () => {
+    //open a terminal in vscode
+    vscode.tasks.executeTask(
+      new vscode.Task(
+        { type: "shell" },
+        vscode.TaskScope.Workspace,
+        "wrapper",
+        "wrapper",
+        new vscode.ShellExecution("ls")
+      )
+    );
+  });
 
   let matrix = vscode.commands.registerCommand("asp-vis.cmd", () =>
     //save an image to Downloads folder

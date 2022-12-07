@@ -37,20 +37,16 @@
         ]
     },
     "scripts": {
-        "i:graph":        "echo ##### [INSTALLING GRAPH] ##### && cd ./src/visualizer-graph && npm i",
-        "i:matrix":       "echo ##### [INSTALLING MATRIX] ##### && cd ./src/visualizer-matrix && npm i",
-        "i:integrator":   "echo ##### [INSTALLING INTEGRATOR] ##### && cd ./src/visualizer-integrator && npm i",
-        "i:wrapper":      "echo ##### [INSTALLING WRAPPER] ##### && cd ./src/wrapper-dlv && npm i",
-
+        "i:graph": "echo ##### [INSTALLING GRAPH] ##### && cd ./src/visualizer-graph && npm i",
+        "i:matrix": "echo ##### [INSTALLING MATRIX] ##### && cd ./src/visualizer-matrix && npm i",
+        "i:integrator": "echo ##### [INSTALLING INTEGRATOR] ##### && cd ./src/visualizer-integrator && npm i",
+        "i:wrapper": "echo ##### [INSTALLING WRAPPER] ##### && cd ./src/wrapper-dlv && npm i",
         "install:all": "npm run i:graph && npm run i:matrix && npm run i:integrator && npm run i:wrapper",
-
-        "b:graph":      "echo ##### [COMPILING GRAPH] ##### && cd ./src/visualizer-graph/ && npx tsc --outDir ../../dist/",
-        "b:matrix":     "echo ##### [COMPILING MATRIX] ##### && cd ./src/visualizer-matrix/ && npx tsc --outDir ../../dist/",
+        "b:graph": "echo ##### [COMPILING GRAPH] ##### && cd ./src/visualizer-graph/ && npx tsc --outDir ../../dist/",
+        "b:matrix": "echo ##### [COMPILING MATRIX] ##### && cd ./src/visualizer-matrix/ && npx tsc --outDir ../../dist/",
         "b:integrator": "echo ##### [COMPILING INTEGRATOR] ##### && cd ./src/visualizer-integrator/ && npx tsc --outDir ../../dist/",
-        "b:wrapper":    "echo ##### [COMPILING WRAPPER] ##### && cd ./src/wrapper-dlv/ && npx tsc --outDir ../../dist/",
-        
+        "b:wrapper": "echo ##### [COMPILING WRAPPER] ##### && cd ./src/wrapper-dlv/ && npx tsc --outDir ../../dist/",
         "build:all": "npm run b:graph && npm run b:matrix && npm run b:integrator && npm run b:wrapper",
-
         "compile": "webpack",
         "watch": "webpack --watch",
         "vscode:prepublish": "npm run package",
