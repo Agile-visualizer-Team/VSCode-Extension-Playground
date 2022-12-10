@@ -1,6 +1,6 @@
 {
     "name": "@agile-visualizer-team/visualizer-asp",
-    "displayName": "visualizer-asp",
+    "displayName": "ASP Visualizer",
     "description": "",
     "version": "0.0.7",
     "engines": {
@@ -10,37 +10,48 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:hello-extension.helloWorld",
-        "onCommand:hello-extension.time.current",
-        "onCommand:hello-extension.cmd"
+        "onCommand:asp-vis.helloWorld",
+        "onCommand:asp-vis.time.current",
+        "onCommand:asp-vis.wrapper",
+        "onCommand:asp-vis.cmd"
     ],
-    "main": "./dist/extension.js",
+    "main": "./dist/main.js",
     "contributes": {
         "commands": [
             {
-                "command": "hello-extension.helloWorld",
+                "command": "asp-vis.helloWorld",
                 "title": "Hello World"
             },
             {
-                "command": "hello-extension.time.current",
+                "command": "asp-vis.time.current",
                 "title": "Time"
             },
             {
-                "command": "hello-extension.cmd",
+                "command": "asp-vis.wrapper",
+                "title": "Wrapper"
+            },
+            {
+                "command": "asp-vis.cmd",
                 "title": "Render Matrix"
             }
         ]
     },
     "scripts": {
-        "vscode:prepublish": "npm run package",
+        "i:graph": "echo ##### [INSTALLING GRAPH] ##### && cd ./src/visualizer-graph && npm i",
+        "i:matrix": "echo ##### [INSTALLING MATRIX] ##### && cd ./src/visualizer-matrix && npm i",
+        "i:integrator": "echo ##### [INSTALLING INTEGRATOR] ##### && cd ./src/visualizer-integrator && npm i",
+        "i:wrapper": "echo ##### [INSTALLING WRAPPER] ##### && cd ./src/wrapper-dlv && npm i",
+        "install:all": "npm run i:graph && npm run i:matrix && npm run i:integrator && npm run i:wrapper",
+        "b:graph": "echo ##### [COMPILING GRAPH] ##### && cd ./src/visualizer-graph/ && npx tsc --outDir ../../dist/",
+        "b:matrix": "echo ##### [COMPILING MATRIX] ##### && cd ./src/visualizer-matrix/ && npx tsc --outDir ../../dist/",
+        "b:integrator": "echo ##### [COMPILING INTEGRATOR] ##### && cd ./src/visualizer-integrator/ && npx tsc --outDir ../../dist/",
+        "b:wrapper": "echo ##### [COMPILING WRAPPER] ##### && cd ./src/wrapper-dlv/ && npx tsc --outDir ../../dist/",
+        "build:all": "npm run b:graph && npm run b:matrix && npm run b:integrator && npm run b:wrapper",
         "compile": "webpack",
         "watch": "webpack --watch",
+        "vscode:prepublish": "npm run package",
         "package": "webpack --mode production --devtool hidden-source-map",
-        "compile-tests": "tsc -p . --outDir out",
-        "watch-tests": "tsc -p . -w --outDir out",
-        "pretest": "npm run compile-tests && npm run compile && npm run lint",
-        "lint": "eslint src --ext ts",
-        "test": "node ./out/test/runTest.js"
+        "lint": "eslint src --ext ts"
     },
     "devDependencies": {
         "webpack": "^5.74.0",
