@@ -1,9 +1,9 @@
 import { assert, expect } from 'chai';
 import 'mocha';
-import sinon from 'sinon';
 import { DLVWrapper } from '../dlv_wrapper'
 var child_process = require('child_process')
 var fs = require('fs')
+var sinon = require('sinon')
 
 //GIVEN a dlv wrapper
 const dlvWrapper = new DLVWrapper()
@@ -26,6 +26,7 @@ describe('acceptance test',  () => {
         expect(console_stub.calledOnceWithExactly(JSON.stringify([{ 'as': [ 'm(2)', 's(2,3)' ], 'cost': '1@1' }]))).to.be.true;
         dlv_executable_stub.restore()
         console_stub.restore()
+        
     });
 
     it('write to file the correct representation of an AS', () => {
