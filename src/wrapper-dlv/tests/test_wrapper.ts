@@ -1,9 +1,10 @@
 import { assert, expect } from 'chai';
 import 'mocha';
-import sinon from 'sinon';
 import { DLVWrapper } from '../dlv_wrapper'
+import { execute } from '../dlv_wrapper'
 var child_process = require('child_process')
 var fs = require('fs')
+var sinon = require('sinon')
 
 const dlvWrapper = new DLVWrapper()
 
@@ -93,11 +94,20 @@ describe('run_dlv()',() =>{
       test_cases.forEach((test) =>{
         let mocked_writefile =  sinon.mock(fs)
         let expectation = mocked_writefile.expects('writeFile')
-        let spy = sinon.spy(console, 'log')
         dlvWrapper.write_parsed_as_to_file('mock_path', test.input)
         expect(expectation.getCall(0).args.includes(JSON.stringify(test.input))).to.be.true
+        mocked_writefile.restore();
       });
-
+    })
+    it('fails on bad JSON format', () =>{
+      let stubbed_writefile =  sinon.stub(fs, 'writeFile')
+      let console_spy = sinon.spy(console, 'log')
+      stubbed_writefile.yields(new Error('testing errors'))
+      dlvWrapper.write_parsed_as_to_file('mock_path', {})
+      stubbed_writefile.restore();
+      expect(console_spy.calledWith('An error occured while writing JSON Object to File.')).to.be.true
+      stubbed_writefile.restore()
+      console_spy.restore()
     })
   })
 });
