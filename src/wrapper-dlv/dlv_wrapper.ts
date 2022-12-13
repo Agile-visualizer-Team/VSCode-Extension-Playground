@@ -1,41 +1,6 @@
 import { execSync } from "child_process";
 import { writeFile } from "fs";
 
-function parse_args() {
-  var { argv } = require("yargs")
-    .scriptName("dlv_wrapper")
-    .usage("Usage: node $0 -d dlv -i asp_file [-o output_file]")
-    .option("d", {
-      alias: "dlv_path",
-      describe: "The path of the dlv solver",
-      demandOption: "The dlv excutable is required.",
-      type: "string",
-    })
-    .option("i", {
-      alias: "asp_file",
-      describe: "ASP file to solve",
-      demandOption: "The input file is required.",
-      type: "string",
-    })
-    .option("o", {
-      alias: "output",
-      describe: "path to the output file",
-      type: "string",
-    })
-    .option("n", {
-      alias: "as_number",
-      describe: "Number of AS you want to display, insert 0 for all",
-      type: "number",
-      default: 1,
-    })
-    .describe("help", "Show help.");
-  return argv;
-}
-
-export function parseArgs(dlv_path: any, asp_file: any, as_number: any) {
-  return { dlv_path, asp_file, as_number };
-}
-
 export class DLVWrapper {
   run_dlv(dlv_path: string, asp_file: string, as_num: number) {
     return "" + execSync(`${dlv_path} -n ${as_num} ${asp_file}`);
@@ -80,8 +45,9 @@ export class DLVWrapper {
         if (err) {
           console.log("An error occured while writing JSON Object to File.");
         }
-
-        console.log("JSON file has been saved.");
+        else{
+          console.log("JSON file has been saved.");
+        }
       }
     );
   }
@@ -116,17 +82,17 @@ export class DLVWrapper {
       this.write_parsed_as_to_file(argv.output, final_output);
     } else {
       console.log(JSON.stringify(final_output));
-      return JSON.stringify(final_output);
+      //return JSON.stringify(final_output);
     }
   }
 }
 
-function main() {
-  //parsing command args
-  let argv = parse_args();
+export function execute(_dlv_path: string, _asp_file: string, _output: string, _as_number: number){
+  let argv = {
+    dlv_path: _dlv_path,
+    asp_file: _asp_file,
+    output: _output,
+    as_number: _as_number
+  }
   new DLVWrapper().execute(argv);
-}
-
-if (require.main === module) {
-  main();
 }
