@@ -1,5 +1,5 @@
 name: Publish in Artifact Repository Candidate Release
-run-name: Checking if unit tests pass
+run-name:  ${{ github.actor }} is publishing a new version  
 on:
   push:
     branches:
@@ -22,6 +22,8 @@ jobs:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
       - run: npm ci
+      - name: update version
+        run: npm version patch
       - run: npm publish
         env:
             NPM_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
