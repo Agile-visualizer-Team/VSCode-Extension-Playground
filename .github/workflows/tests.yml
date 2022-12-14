@@ -19,4 +19,8 @@ jobs:
         with:
           node-version: 16
       - run: npm ci
-      # - run: npm test
+      - name: wrapper-dlv unit tests
+        run: |
+            cd src/wrapper-dlv
+            npm i 
+            npm run test
