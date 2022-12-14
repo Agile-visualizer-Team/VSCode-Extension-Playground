@@ -1,10 +1,9 @@
 name: Publish in Artifact Repository Candidate Release
 run-name: Checking if unit tests pass
 on:
-  pull_request:
-    types: [closed]
+  push:
     branches:
-      - main
+      - master
   workflow_dispatch:
 
 jobs:

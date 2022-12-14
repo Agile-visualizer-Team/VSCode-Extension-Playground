@@ -20,5 +20,6 @@
   "dependencies": {
     "@types/yargs": "^17.0.13",
     "yargs": "^17.6.2"
-  }
+  },
+  "version": "0.0.1"
 }
