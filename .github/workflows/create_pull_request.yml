@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
         status: ${{ steps.commit_hook.conclusion }}
-        title:  ${{ steps.commit_hook.outputs.title }}
+        title:  ${{ steps.last_step.outputs.title }}
     steps:
       - name: check branch
         run: echo "${GITHUB_REF##*/}"
@@ -32,12 +32,16 @@ jobs:
       - id: commit_hook
         name: setting enviroment variables
         run : ./commit_hook.pl $GITHUB_SHA >> $GITHUB_ENV
+      # - id: last_step2
+      #   name: print output
+      #   run: |
+      #     # echo "::set-output name=title::${{ env.title }}"
+      #     # echo "::set-output name=body::${{ env.body }}"
+      #     # echo "::set-output name=reviewer::${{ env.reviewer }}"
+      - run: 
+          echo "${{ env.title }}"
       - id: last_step
-        name: print output
-        run: |
-          echo "::set-output name=title::${{ env.title }}"
-          echo "::set-output name=body::${{ env.body }}"
-          echo "::set-output name=reviewer::${{ env.reviewer }}"
+        run: echo "title=${{ env.title }}" >> $GITHUB_OUTPUT
 
   # Testing
   tests:
