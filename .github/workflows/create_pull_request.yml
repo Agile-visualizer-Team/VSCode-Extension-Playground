@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
         status: ${{ steps.commit_hook.outputs.conclusion }}
-        status1: AAAA
+        status1: AAAAss
         title:  ${{ steps.commit_hook.outputs.title }}
         body:  ${{ steps.commit_hook.outputs.body }}
         reviewer:  ${{ steps.commit_hook.outputs.reviewer }}
