@@ -14,6 +14,7 @@ jobs:
     continue-on-error: true
     runs-on: ubuntu-latest
     outputs:
+        status: ${{ steps.commit_hook.outputs.conclusion }}
         title:  ${{ steps.commit_hook.outputs.title }}
         body:  ${{ steps.commit_hook.outputs.body }}
         reviewer:  ${{ steps.commit_hook.outputs.reviewer }}
@@ -31,7 +32,7 @@ jobs:
   # Testing
   tests:
     needs: check_commit
-    if:  ${{ success() }}
+    if: needs.check_commit.outputs.status == 'success'
     uses: agile-visualizer-team/visualizer-asp/.github/workflows/tests.yml@master
 
 
@@ -39,7 +40,7 @@ jobs:
   create_pull_request:
     needs: [tests, check_commit]
     runs-on: ubuntu-latest
-    if: ${{ success() }}
+    if: needs.check_commit.outputs.status == 'success'
     steps:
       - uses: actions/checkout@v3
         with:
