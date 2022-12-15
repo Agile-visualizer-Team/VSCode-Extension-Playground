@@ -21,6 +21,9 @@ jobs:
         with:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
+      - uses: shogo82148/actions-setup-perl@v1
+        with:
+            perl-version: '5.34'
       - name: check commit
         run : git show $GITHUB_SHA
       - name: run publish hook
