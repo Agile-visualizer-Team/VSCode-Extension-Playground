@@ -23,6 +23,8 @@ jobs:
           registry-url: https://npm.pkg.github.com/
       - name: check commit
         run : git show $GITHUB_SHA
+      - name: run publish hook
+        run : ./publish_hook.pl $GITHUB_SHA
       - name: check version to update
         run: ./publish_hook.pl $GITHUB_SHA >> $GITHUB_ENV
       - run: npm ci
