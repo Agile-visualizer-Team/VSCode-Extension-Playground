@@ -1,4 +1,4 @@
-name: Publish in Artifact Repository Candidate Release
+name: publish in Artifact Repository Candidate Release
 run-name:  ${{ github.actor }} is publishing a new version  
 on:
   push:
@@ -23,12 +23,16 @@ jobs:
           registry-url: https://npm.pkg.github.com/
       - name: check commit
         run : git show $GITHUB_SHA
+      - name: run publish hook
+        run : ./publish_hook.pl $GITHUB_SHA
+      - name: check version to update
+        run: ./publish_hook.pl $GITHUB_SHA >> $GITHUB_ENV
       - run: npm ci
       - name: update version
         run: |
             git config --global user.email "fiorentinosalvatore65@gmail.com"
             git config --global user.name "Fiorentino Salvatore"
-            npm version patch
+            npm version ${{ env.update }}
       # Publishing on Github Packages
       - run: npm publish
         env:

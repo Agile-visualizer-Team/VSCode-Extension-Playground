@@ -1,5 +1,5 @@
-run-name: Pull request in a monolithic way
-name: Create a pull request CI/CD mono
+run-name: pull request in a monolithic way
+name: create a pull request CI/CD mono
 on:
   push:
    branches :
@@ -21,7 +21,7 @@ jobs:
             perl-version: '5.34'
       - name: check commit
         run : git show $GITHUB_SHA
-      - name: run script
+      - name: run commit hook
         run : ./commit_hook.pl $GITHUB_SHA
       - name: setting enviroment variables
         run : ./commit_hook.pl $GITHUB_SHA >> $GITHUB_ENV
