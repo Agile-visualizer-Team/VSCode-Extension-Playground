@@ -1,11 +1,11 @@
 run-name: Pull request in a reusable way
 name: Create a pull request CI/CD reusable
 on:
-  # push:
-  #  branches :
-  #   - '*'
-  #   - '!master'
-  #   - '!main'
+  push:
+   branches :
+    - '*'
+    - '!master'
+    - '!main'
   workflow_dispatch:
 jobs:
 
@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
         status: ${{ steps.commit_hook.conclusion }}
-        testaa: "CIAO"
+        title:  ${{ steps.commit_hook.outputs.title }}
     steps:
       - name: check branch
         run: echo "${GITHUB_REF##*/}"
@@ -32,12 +32,17 @@ jobs:
       - id: commit_hook
         name: setting enviroment variables
         run : ./commit_hook.pl $GITHUB_SHA >> $GITHUB_ENV
-
+      - id: last_step
+        name: print output
+        run: |
+          echo "::set-output name=title::${{ env.title }}"
+          echo "::set-output name=body::${{ env.body }}"
+          echo "::set-output name=reviewer::${{ env.reviewer }}"
 
   # Testing
   tests:
     needs: check_commit
-    if:  ${{ needs.check_commit.outputs.status == 'success' }}
+    if:  ${{ success() }}
     uses: agile-visualizer-team/visualizer-asp/.github/workflows/tests.yml@master
 
 
@@ -50,7 +55,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: echo " ${{ needs.check_commit.outputs.status == 'success' }} "
+      - run: echo " ${{ needs.check_commit.outputs.title }} "
       # - if: ${{ env.pull_request_commit == 'true' }}
       #   run: | 
       #     run: npm ci
