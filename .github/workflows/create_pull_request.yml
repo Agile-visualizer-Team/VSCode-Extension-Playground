@@ -40,7 +40,7 @@ jobs:
   create_pull_request:
     needs: [tests, check_commit]
     runs-on: ubuntu-latest
-    if: needs.check_commit.outputs.status == 'success'
+    # if: needs.check_commit.outputs.status == 'success'
     steps:
       - run: ${{ needs.check_commit.outputs.status }}
       # - uses: actions/checkout@v3
