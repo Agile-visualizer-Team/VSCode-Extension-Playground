@@ -42,17 +42,18 @@ jobs:
     runs-on: ubuntu-latest
     if: needs.check_commit.outputs.status == 'success'
     steps:
-      - uses: actions/checkout@v3
-        with:
-            fetch-depth: 0
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - name: create pull_request
-        uses: devops-infra/action-pull-request@v0.5.3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          target_branch: master
-          title: ${{ needs.check_commit.outputs.title }}
-          body: ${{ needs.check_commit.outputs.body }}
-          reviewer: ${{ needs.check_commit.outputs.reviewer }}
+      - run: ${{ needs.check_commit.outputs.status }}
+      # - uses: actions/checkout@v3
+      #   with:
+      #       fetch-depth: 0
+      # - uses: actions/setup-node@v3
+      #   with:
+      #     node-version: 16
+      # - name: create pull_request
+      #   uses: devops-infra/action-pull-request@v0.5.3
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     target_branch: master
+      #     title: ${{ needs.check_commit.outputs.title }}
+      #     body: ${{ needs.check_commit.outputs.body }}
+      #     reviewer: ${{ needs.check_commit.outputs.reviewer }}
