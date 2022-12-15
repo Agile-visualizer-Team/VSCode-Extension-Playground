@@ -1,5 +1,5 @@
-run-name: Pull request in a monolithic way
-name: Create a pull request CI/CD mono
+run-name: pull request in a monolithic way
+name: create a pull request CI/CD mono
 on:
   push:
    branches :
