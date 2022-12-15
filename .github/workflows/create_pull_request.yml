@@ -15,7 +15,9 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
         status: ${{ steps.commit_hook.conclusion }}
-        title:  ${{ steps.last_step.outputs.title }}
+        title:  ${{ steps.commit_hook.outputs.title }}
+        body:  ${{ steps.commit_hook.outputs.body }}
+        reviewer:  ${{ steps.commit_hook.outputs.reviewer }}
     steps:
       - name: check branch
         run: echo "${GITHUB_REF##*/}"
@@ -31,17 +33,17 @@ jobs:
         run : ./commit_hook.pl $GITHUB_SHA
       - id: commit_hook
         name: setting enviroment variables
-        run : ./commit_hook.pl $GITHUB_SHA >> $GITHUB_ENV
+        run : ./commit_hook.pl $GITHUB_SHA >> $GITHUB_OUTPUT
       # - id: last_step2
       #   name: print output
       #   run: |
       #     # echo "::set-output name=title::${{ env.title }}"
       #     # echo "::set-output name=body::${{ env.body }}"
       #     # echo "::set-output name=reviewer::${{ env.reviewer }}"
-      - run: 
-          echo "${{ env.title }}"
-      - id: last_step
-        run: echo "title=${{ env.title }}" >> $GITHUB_OUTPUT
+      # - run: 
+      #     echo "${{ env.title }}"
+      # - id: last_step
+      #   run: echo "title=${{ env.title }}" >> $GITHUB_OUTPUT
 
   # Testing
   tests:
@@ -59,7 +61,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: echo " ${{ needs.check_commit.outputs.title }} "
+      - run: |
+          echo " ${{ needs.check_commit.outputs.title }} "
+          echo " ${{ needs.check_commit.outputs.body }} "
+          echo " ${{ needs.check_commit.outputs.reviewer }} "
       # - if: ${{ env.pull_request_commit == 'true' }}
       #   run: | 
       #     run: npm ci
