@@ -70,5 +70,5 @@ if($output_git_log =~ /$regex/gm){
 
 }else{
     print("pull_request_commit=false\n");
-    exit;
+    die "not a pull_request commit!\n";
 }

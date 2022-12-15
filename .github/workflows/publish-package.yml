@@ -10,7 +10,7 @@ jobs:
 
   build:
     # Testing
-    uses: Agile-visualizer-Team/VsCode-Extension-Playground/.github/workflows/tests.yml@master
+    uses: agile-visualizer-team/visualizer-asp/.github/workflows/tests.yml@master
 
   publish-gpr:
     needs: build

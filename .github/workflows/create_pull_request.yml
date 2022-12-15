@@ -8,20 +8,16 @@ on:
   #   - '!main'
   workflow_dispatch:
 jobs:
-  cancel:
-    name: 'Cancel workflow'
+
+  # Checking commit
+  check_commit:
+    continue-on-error: true
     runs-on: ubuntu-latest
+    outputs:
+        status: ${{ steps.commit_hook.conclusion }}
+        testaa: "CIAO"
     steps:
-      - uses: styfle/cancel-workflow-action@0.10.0
-        with:
-          workflow_id: ${{ github.worflow.id }}
-          access_token: ${{ github.token }}
-    
-  create_pull_request:
-    needs: cancel
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check branch
+      - name: check branch
         run: echo "${GITHUB_REF##*/}"
       - uses: actions/checkout@v3
         with:
@@ -33,12 +29,28 @@ jobs:
         run : git show $GITHUB_SHA
       - name: run script
         run : ./commit_hook.pl $GITHUB_SHA
-      - name: setting enviroment variables
+      - id: commit_hook
+        name: setting enviroment variables
         run : ./commit_hook.pl $GITHUB_SHA >> $GITHUB_ENV
-      - if: ${{ env.pull_request_commit == 'true' }}
-        uses: actions/setup-node@v3
+
+
+  # Testing
+  tests:
+    needs: check_commit
+    if:  ${{ needs.check_commit.outputs.status == 'success' }}
+    uses: agile-visualizer-team/visualizer-asp/.github/workflows/tests.yml@master
+
+
+  # Creating a pull request
+  create_pull_request:
+    needs: tests
+    runs-on: ubuntu-latest
+    if: ${{ success() }}
+    steps:
+      - uses: actions/setup-node@v3
         with:
           node-version: 16
+      - run: echo " ${{ jobs.check_commit.testaa }} "
       # - if: ${{ env.pull_request_commit == 'true' }}
       #   run: | 
       #     run: npm ci
