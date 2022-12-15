@@ -43,14 +43,14 @@ jobs:
 
   # Creating a pull request
   create_pull_request:
-    needs: tests
+    needs: [tests, check_commit]
     runs-on: ubuntu-latest
     if: ${{ success() }}
     steps:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: echo " ${{ jobs.check_commit.testaa }} "
+      - run: echo " ${{ needs.check_commit.outputs.status == 'success' }} "
       # - if: ${{ env.pull_request_commit == 'true' }}
       #   run: | 
       #     run: npm ci
