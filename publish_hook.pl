@@ -1,6 +1,7 @@
 #! /usr/bin/perl
 
 # Author: Fiorentino Salvatore
+# In the commit of pull request just insert: update_package_[ major | minor | patch ]
 
 $regex = 'Author:\s+(?<author_username>\w+)\s+.+\nDate:\s+(?<day>\w+)\s(?<mounth>\w+)\s(?<day_number>\w+)\s(?<hour>\d{2}):(?<minute>\d{2}):(?<second>\d{2})\s(?<year>\d{4}).+\n+(?<message>(.|\n)+?)\ndiff';
 $regex_inner_message_update_version = 'update_package_((?<major>major)|(?<minor>minor)|(?<patch>patch))';

@@ -9,11 +9,13 @@ on:
   workflow_dispatch:
 jobs:
   cancel:
-    # Cancel
-    uses: Agile-visualizer-Team/visualizer-asp/.github/workflows/cancel_workflow.yml@develop_test
-    secrets:  inherit
-    with:
-      worflow_id: ${{ github.workflow.id }}
+    name: 'Cancel workflow'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: styfle/cancel-workflow-action@0.10.0
+        with:
+          workflow_id: ${{ github.worflow.id }}
+          access_token: ${{ github.token }}
     
   create_pull_request:
     needs: cancel
@@ -41,12 +43,12 @@ jobs:
       #   run: | 
       #     run: npm ci
       #     run: npm test
-      - if: ${{ env.pull_request_commit == 'true' }}
-        name: create pull_request
-        uses: devops-infra/action-pull-request@v0.5.3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          target_branch: master
-          title: ${{ env.title }}
-          body: ${{ env.body }}
-          reviewer: ${{ env.reviewer }}
+      # - if: ${{ env.pull_request_commit == 'true' }}
+      #   name: create pull_request
+      #   uses: devops-infra/action-pull-request@v0.5.3
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     target_branch: master
+      #     title: ${{ env.title }}
+      #     body: ${{ env.body }}
+      #     reviewer: ${{ env.reviewer }}
