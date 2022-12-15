@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
         status: ${{ steps.commit_hook.outputs.conclusion }}
+        status1: AAAA
         title:  ${{ steps.commit_hook.outputs.title }}
         body:  ${{ steps.commit_hook.outputs.body }}
         reviewer:  ${{ steps.commit_hook.outputs.reviewer }}
@@ -42,7 +43,9 @@ jobs:
     runs-on: ubuntu-latest
     # if: needs.check_commit.outputs.status == 'success'
     steps:
-      - run: ${{ needs.check_commit.outputs.status }}
+      - run: |
+          echo ${{ needs.check_commit.outputs.status }}
+          echo ${{ needs.check_commit.outputs.status1 }}
       # - uses: actions/checkout@v3
       #   with:
       #       fetch-depth: 0
