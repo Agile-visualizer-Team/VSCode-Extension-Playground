@@ -15,7 +15,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
         status: ${{ steps.commit_hook.outcome }}
-        status1: AAAAss
         title:  ${{ steps.commit_hook.outputs.title }}
         body:  ${{ steps.commit_hook.outputs.body }}
         reviewer:  ${{ steps.commit_hook.outputs.reviewer }}
@@ -39,24 +38,21 @@ jobs:
 
   # Creating a pull request
   create_pull_request:
-    needs: [check_commit]
+    needs: [tests, check_commit]
     runs-on: ubuntu-latest
     if: needs.check_commit.outputs.status == 'success'
     steps:
-      - run: |
-          echo ${{ needs.check_commit.outputs.status }}
-          echo ${{ needs.check_commit.outputs.title }}
-      # - uses: actions/checkout@v3
-      #   with:
-      #       fetch-depth: 0
-      # - uses: actions/setup-node@v3
-      #   with:
-      #     node-version: 16
-      # - name: create pull_request
-      #   uses: devops-infra/action-pull-request@v0.5.3
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     target_branch: master
-      #     title: ${{ needs.check_commit.outputs.title }}
-      #     body: ${{ needs.check_commit.outputs.body }}
-      #     reviewer: ${{ needs.check_commit.outputs.reviewer }}
+      - uses: actions/checkout@v3
+        with:
+            fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: create pull_request
+        uses: devops-infra/action-pull-request@v0.5.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          target_branch: master
+          title: ${{ needs.check_commit.outputs.title }}
+          body: ${{ needs.check_commit.outputs.body }}
+          reviewer: ${{ needs.check_commit.outputs.reviewer }}
