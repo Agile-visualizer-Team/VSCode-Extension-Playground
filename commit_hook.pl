@@ -57,8 +57,8 @@ if($output_git_log =~ /$regex/gm){
             }
         }
     }elsif(!($message =~ /$regex_default_pull_request/gm)){
-        print("pull_request_commit=false\n");
-        exit;
+        # print("pull_request_commit=false\n");
+        die "not a pull_request commit!\n";
     }
 
     print("title=$title\n");
