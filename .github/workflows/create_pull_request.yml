@@ -45,7 +45,7 @@ jobs:
     steps:
       - run: |
           echo ${{ needs.check_commit.outputs.status }}
-          echo ${{ needs.check_commit.outputs.status1 }}
+          echo ${{ needs.check_commit.outputs.title }}
       # - uses: actions/checkout@v3
       #   with:
       #       fetch-depth: 0
