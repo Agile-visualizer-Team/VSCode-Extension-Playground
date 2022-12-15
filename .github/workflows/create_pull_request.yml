@@ -38,7 +38,7 @@ jobs:
 
   # Creating a pull request
   create_pull_request:
-    needs: [tests, check_commit]
+    needs: [check_commit]
     runs-on: ubuntu-latest
     # if: needs.check_commit.outputs.status == 'success'
     steps:
