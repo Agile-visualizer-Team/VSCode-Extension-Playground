@@ -14,7 +14,6 @@ jobs:
     continue-on-error: true
     runs-on: ubuntu-latest
     outputs:
-        status: ${{ steps.commit_hook.conclusion }}
         title:  ${{ steps.commit_hook.outputs.title }}
         body:  ${{ steps.commit_hook.outputs.body }}
         reviewer:  ${{ steps.commit_hook.outputs.reviewer }}
@@ -42,6 +41,9 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ success() }}
     steps:
+      - uses: actions/checkout@v3
+        with:
+            fetch-depth: 0
       - uses: actions/setup-node@v3
         with:
           node-version: 16
