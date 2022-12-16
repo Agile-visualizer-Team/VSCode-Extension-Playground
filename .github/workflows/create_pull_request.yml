@@ -14,7 +14,7 @@ jobs:
     continue-on-error: true
     runs-on: ubuntu-latest
     outputs:
-        status: ${{ steps.commit_hook.outcome }}
+        status: ${{ steps.commit_hook.outputs.status }}
         title:  ${{ steps.commit_hook.outputs.title }}
         body:  ${{ steps.commit_hook.outputs.body }}
         reviewer:  ${{ steps.commit_hook.outputs.reviewer }}
