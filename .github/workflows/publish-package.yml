@@ -42,8 +42,13 @@ jobs:
         env:
             NPM_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       # Update version on remote
+      # - name: update version on repo
+      #   uses: actions-go/push@master
+      #   with:
+      #     commit-message: '[Auto] updated version package'
+      #     remote: origin
       - name: update version on repo
-        uses: actions-go/push@master
+        uses: ad-m/github-push-action@master
         with:
-          commit-message: '[Auto] updated version package'
-          remote: origin
+          force: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
