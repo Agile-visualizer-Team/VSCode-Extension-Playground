@@ -40,9 +40,8 @@ jobs:
       - uses: antaljanosbenjamin/single-commit-publish@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          branch: test-example-published-files
-          source-dir: test
-          files-and-dirs: 'a.txt b.txt some_dir "file with space.txt" "directory with space"'
+          branch: master  
+          files-and-dirs: 'package.json'
       # - name: auto update remote
       #   run: |
       #     git add .
