@@ -37,19 +37,12 @@ jobs:
             git config --global user.email "fiorentinosalvatore65@gmail.com"
             git config --global user.name "Fiorentino Salvatore"
             npm version ${{ env.update }}
-      - name: build
-        uses: github-actions-x/hugo@master
-      - name: push
-        uses: dciborow/commit@0.0.2
+      - uses: antaljanosbenjamin/single-commit-publish@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          push-branch: 'master'
-          commit-message: 'publish new version'
-          force-add: 'true'
-          force-push: 'true'
-          files: package.json
-          name: commiter name
-          email: fiorentinosalvatore65@gmail.com 
+          branch: test-example-published-files
+          source-dir: test
+          files-and-dirs: 'a.txt b.txt some_dir "file with space.txt" "directory with space"'
       # - name: auto update remote
       #   run: |
       #     git add .
