@@ -47,7 +47,7 @@ jobs:
       #   with:
       #     commit-message: '[Auto] updated version package'
       #     remote: origin
-      - name: update remote
+      - name: auto update remote
         run: |
           git add .
           git commit -m "[AUTO] update"
