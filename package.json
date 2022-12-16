@@ -2,7 +2,7 @@
     "name": "@agile-visualizer-team/visualizer-asp",
     "displayName": "ASP Visualizer",
     "description": "",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "engines": {
         "vscode": "^1.73.0"
     },
