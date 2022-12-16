@@ -2,6 +2,10 @@
 
 This extension allows you to visualize answer sets of ASP programs in VS Code.
 
+### HOW TO
+how to publish -> npm publish
+how to upgrade version -> npm version [major | minor | patch]
+
 ## Requirements
 
 - VS Code
@@ -84,3 +88,4 @@ from the root directory of the **module**
 check the `package.json` file for the test scripts
 
 ### TODO
+

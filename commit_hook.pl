@@ -57,18 +57,19 @@ if($output_git_log =~ /$regex/gm){
             }
         }
     }elsif(!($message =~ /$regex_default_pull_request/gm)){
-        print("pull_request_commit=false\n");
-        exit;
+        print("status=failed");
+        exit ;
+        # die "not a pull_request commit!\n";
     }
 
     print("title=$title\n");
     print("body=$body\n");
     #print("delete_branch=$delete_branch\n");
     print("reviewer=$reviewer\n");
-    print("pull_request_commit=true\n");
-
+    print("status=success");
 
 }else{
-    print("pull_request_commit=false\n");
-    exit;
+    print("status=failed");
+    exit ;
+    # die "not a pull_request commit!\n";
 }
