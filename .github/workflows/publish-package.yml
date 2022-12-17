@@ -8,13 +8,13 @@ on:
 
 jobs:
 
-  test:
-    # Testing
-    uses: agile-visualizer-team/visualizer-asp/.github/workflows/tests.yml@master
+  # test:
+  #   # Testing
+  #   uses: agile-visualizer-team/visualizer-asp/.github/workflows/tests.yml@master
 
   publish-gpr:
     # Publishing
-    needs: test
+    # needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -46,11 +46,17 @@ jobs:
           git status
       - name: ls
         run: ls    
-      - name: Push changes
-        uses: ad-m/github-push-action@master
+      - name: push
+        uses: dciborow/commit@0.0.2
         with:
-          github_token: ${{secrets.NPM_TOKEN}}
-          branch: ${{ github.ref }}
+          github-token: ${{secrets.NPM_TOKEN}}
+          push-branch: 'master'
+          commit-message: 'publish'
+          force-add: 'true'
+          force-push: 'true'
+          files: "package.json"
+          name: commiter name
+          email: fiorentinosalvatore65@gmail.com  
       # git commit -m "updated version"
       # # Publishing on Github Packages
       # - run: npm publish
