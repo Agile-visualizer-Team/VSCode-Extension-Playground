@@ -38,20 +38,13 @@ jobs:
         run: ./publish_hook.pl $GITHUB_SHA >> $GITHUB_ENV
       - if :  ${{ env.update != 'bump_commit' }} 
         run: npm ci
-      # - if :  ${{ env.update != 'bump_commit' }} 
-      #   name:  'automated version bump'
-      #   uses:  'phips28/gh-action-bump-version@master'
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.PAT }}
-      #   with:
-      #     version-type:  '${{ env.update }}'
       - if :  ${{ env.update != 'bump_commit' }} 
-        name: update a mano
-        run: |
-          git config --global user.email "fiorentinosalvatore65@gmail.com"
-          git config --global user.name "Fiorentino Salvatore"
-          npm version ${{ env.update }}
-          git push --force
+        name:  'automated version bump'
+        uses:  'phips28/gh-action-bump-version@master'
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+        with:
+          version-type:  '${{ env.update }}'
       # Publishing on Github Packages
       - if :  ${{ env.update != 'bump_commit' }} 
         run: npm publish
