@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-exports.execute = exports.DLVWrapper = void 0;
+exports.run_solver = exports.DLVWrapper = void 0;
 var child_process_1 = require("child_process");
 var fs_1 = require("fs");
 var DLVWrapper = /** @class */ (function () {
@@ -76,20 +76,19 @@ var DLVWrapper = /** @class */ (function () {
             this.write_parsed_as_to_file(argv.output, final_output);
         }
         else {
-            console.log(JSON.stringify(final_output));
-            //return JSON.stringify(final_output);
+            return JSON.stringify(final_output);
         }
     };
     return DLVWrapper;
 }());
 exports.DLVWrapper = DLVWrapper;
-function execute(_dlv_path, _asp_file, _output, _as_number) {
+function run_solver(_dlv_path, _asp_file, _output, _as_number) {
     var argv = {
         dlv_path: _dlv_path,
         asp_file: _asp_file,
         output: _output,
         as_number: _as_number
     };
-    new DLVWrapper().execute(argv);
+    return new DLVWrapper().execute(argv);
 }
-exports.execute = execute;
+exports.run_solver = run_solver;
