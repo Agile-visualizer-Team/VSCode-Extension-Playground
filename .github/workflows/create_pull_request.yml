@@ -51,6 +51,8 @@ jobs:
       - name: update last version
         run: |
           echo ${{ env.version }}
+          git config --global user.email "fiorentinosalvaote65@gmail.com"
+          git config --global user.name "Fiorentino Salvatore"
           npm version ${{ env.version }}
           git commit -m "A"
       - uses: actions/setup-node@v3
