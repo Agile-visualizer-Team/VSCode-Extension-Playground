@@ -5,7 +5,7 @@
 
 $regex = 'Author:\s+(?<author_username>\w+)\s+.+\nDate:\s+(?<day>\w+)\s(?<mounth>\w+)\s(?<day_number>\w+)\s(?<hour>\d{2}):(?<minute>\d{2}):(?<second>\d{2})\s(?<year>\d{4}).+\n+(?<message>(.|\n)+?)\ndiff';
 $regex_inner_message_update_version = 'update_package_((?<major>major)|(?<minor>minor)|(?<patch>patch))';
-$regex_bump_commit = '' ;
+$regex_bump_commit = 'ci: version bump to \d+.\d+.\d+' ;
 
 $sha = shift ;
 $output_git_log = `git show $sha` ;
@@ -33,7 +33,7 @@ if($output_git_log =~ /$regex/gm){
         }
 
     }elsif( $message =~ /$regex_bump_commit/gm ){
-        print("update=bump_commit\n")
+        print("update=bump_commit\n") ;
         exit ;
     }else{
         # Default
