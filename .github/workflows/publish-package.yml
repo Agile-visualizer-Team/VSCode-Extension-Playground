@@ -6,6 +6,9 @@ on:
       - master
   workflow_dispatch:
 
+env:
+  GH_TOKEN: ${{secrets.NPM_TOKEN}}
+
 jobs:
 
   # test:
@@ -17,9 +20,21 @@ jobs:
     # needs: test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: 🔍 GH_TOKEN
+        if: env.GH_TOKEN == ''
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: echo "GH_TOKEN=${GITHUB_TOKEN}" >> $GITHUB_ENV
+      - name: 🤘 checkout
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
+          ref: master
+          token: ${{ env.GH_TOKEN }}
+      - name: ⚙ changelog
+        uses: faberNovel/github-changelog-generator-action@master
+        with:
+          options: --token ${{ secrets.GITHUB_TOKEN }} --o changelog.md
       - name: check branch
         run: echo "echo ${GITHUB_REF##*/}"
       - name: check commit
@@ -39,12 +54,19 @@ jobs:
             git config --global user.email "fiorentinosalvatore65@gmail.com"
             git config --global user.name "instafiore"
             npm version ${{ env.update }}
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{secrets.NPM_TOKEN}}
-          branch: ${{ github.ref }}
-          atomic: true
+      - name: 🚀 changelog
+        run: |
+          git config --local user.name github-actions
+          git config --local user.email github-actions@github.com
+          git add changelog.md
+          git commit -m "🖉 Update changelog with ${GITHUB_REF#refs/*/}"
+          git push
+      # - name: Push changes
+      #   uses: ad-m/github-push-action@master
+      #   with:
+      #     github_token: ${{secrets.NPM_TOKEN}}
+      #     branch: ${{ github.ref }}
+      #     atomic: true
       # git commit -m "updated version"
       # # Publishing on Github Packages
       # - run: npm publish
