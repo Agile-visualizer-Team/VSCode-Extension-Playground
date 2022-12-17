@@ -36,7 +36,7 @@ jobs:
           git checkout "${GITHUB_REF:11}"
           git add .
           git commit -am "Automated report"
-          git push
+          git push --force
       # - name: 🤘 checkout
       #   uses: actions/checkout@v3
       #   with:
