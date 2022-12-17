@@ -1,8 +1,7 @@
 name: workflows-tests
 run-name: ${{ github.actor }} is testing
 on: 
-    pull_request_target:
-        types: [assigned, opened, synchronize, reopened]
+    pull_request:
     workflow_dispatch:
     workflow_call:
   
