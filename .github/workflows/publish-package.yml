@@ -8,9 +8,9 @@ on:
 
 jobs:
 
-  test:
-    # Testing
-    uses: agile-visualizer-team/visualizer-asp/.github/workflows/tests.yml@master
+  # test:
+  #   # Testing
+  #   uses: agile-visualizer-team/visualizer-asp/.github/workflows/tests.yml@master
 
   publish-gpr:
     # Publishing
@@ -48,6 +48,8 @@ jobs:
       - if :  ${{ env.update != 'bump_commit' }} 
         name: update a mano
         run: |
+          git config --global user.email "fiorentinosalvatore65@gmail.com"
+          git config --global user.name "Fiorentino Salvatore"
           npm version ${{ env.update }}
           git push --force
       # Publishing on Github Packages
