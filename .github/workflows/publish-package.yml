@@ -41,6 +41,7 @@ jobs:
       - run: npm publish
         env:
             NPM_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+            
       # Update version on remote
       # - name: update version on repo
       #   uses: actions-go/push@master
