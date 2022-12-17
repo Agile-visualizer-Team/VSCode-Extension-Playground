@@ -31,7 +31,7 @@ jobs:
       - name:  'Automated Version Bump'
         uses:  'phips28/gh-action-bump-version@master'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{secrets.NPM_TOKEN}}
         with:
           version-type:  'minor'
       # - uses: snow-actions/git-config-user@v1.0.0
