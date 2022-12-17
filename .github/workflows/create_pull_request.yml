@@ -1,52 +1,58 @@
-run-name: Pull request in a reusable way
-name: Create a pull request CI/CD reusable
+run-name: ${{ github.actor }} is creating a pull request in a reusable way
+name: pull request in a reusable way
 on:
-  # push:
-  #  branches :
-  #   - '*'
-  #   - '!master'
-  #   - '!main'
+  push:
+   branches :
+    - '*'
+    - '!master'
+    - '!main'
   workflow_dispatch:
 jobs:
-  cancel:
-    # Cancel
-    uses: Agile-visualizer-Team/visualizer-asp/.github/workflows/cancel_workflow.yml@develop_test
-    secrets:  inherit
-    with:
-      worflow_id: ${{ github.workflow.id }}
-    
-  create_pull_request:
-    needs: cancel
+
+  # Checking commit
+  check_commit:
+    continue-on-error: true
     runs-on: ubuntu-latest
+    outputs:
+        status: ${{ steps.commit_hook.outputs.status }}
+        title:  ${{ steps.commit_hook.outputs.title }}
+        body:  ${{ steps.commit_hook.outputs.body }}
+        reviewer:  ${{ steps.commit_hook.outputs.reviewer }}
     steps:
-      - name: Check branch
-        run: echo "${GITHUB_REF##*/}"
       - uses: actions/checkout@v3
         with:
             fetch-depth: 0
       - uses: shogo82148/actions-setup-perl@v1
         with:
             perl-version: '5.34'
-      - name: check commit
-        run : git show $GITHUB_SHA
-      - name: run script
-        run : ./commit_hook.pl $GITHUB_SHA
-      - name: setting enviroment variables
-        run : ./commit_hook.pl $GITHUB_SHA >> $GITHUB_ENV
-      - if: ${{ env.pull_request_commit == 'true' }}
-        uses: actions/setup-node@v3
+      - id: commit_hook
+        name: setting enviroment variables
+        run : ./commit_hook.pl $GITHUB_SHA >> $GITHUB_OUTPUT
+
+  # Testing
+  tests:
+    needs: check_commit
+    if: needs.check_commit.outputs.status == 'success'
+    uses: agile-visualizer-team/visualizer-asp/.github/workflows/tests.yml@master
+
+
+  # Creating a pull request
+  create_pull_request:
+    needs: [tests, check_commit]
+    runs-on: ubuntu-latest
+    if: needs.check_commit.outputs.status == 'success'
+    steps:
+      - uses: actions/checkout@v3
+        with:
+            fetch-depth: 0
+      - uses: actions/setup-node@v3
         with:
           node-version: 16
-      # - if: ${{ env.pull_request_commit == 'true' }}
-      #   run: | 
-      #     run: npm ci
-      #     run: npm test
-      - if: ${{ env.pull_request_commit == 'true' }}
-        name: create pull_request
+      - name: create pull_request
         uses: devops-infra/action-pull-request@v0.5.3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           target_branch: master
-          title: ${{ env.title }}
-          body: ${{ env.body }}
-          reviewer: ${{ env.reviewer }}
+          title: ${{ needs.check_commit.outputs.title }}
+          body: ${{ needs.check_commit.outputs.body }}
+          reviewer: ${{ needs.check_commit.outputs.reviewer }}
