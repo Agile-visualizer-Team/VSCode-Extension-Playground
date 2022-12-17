@@ -1,11 +1,12 @@
 {
+    "template" : "table",
     "cell" : ["cell", "cell2"],
     "maxNumOfAnswerSetToConvert" : 4,
     "table_field_mapping": {
-        "0":"row2",
-        "1": "column2",
+        "0":"row to map",
+        "1": "column",
 
-        "2":"Value2"
+        "2":"Value"
     },
     "style": {
         "header_color": "#b41b22",

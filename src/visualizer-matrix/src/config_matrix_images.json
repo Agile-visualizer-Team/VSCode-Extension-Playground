@@ -1,0 +1,26 @@
+{
+    "template" : "matrix",
+    "cell" : ["cell", "cell2"],
+    "maxNumOfAnswerSetToConvert" : 4,
+    "useImages": true,
+
+    "images_binding":{
+        "black" : "wall.png",
+        "white" : "floor.png",
+        "man" : "hero.png"
+    },
+
+    "colors_binding":{
+        "black": "#000000",
+        "white": "#FFFFFF",
+        "man": "#F011B2"
+    },
+
+    "style": {
+        "header_color": "#b41b22",
+        "header_font_size": 20,
+        "header_font_family": "Arial",
+        "header_font_weight": "bold",
+        "dark_mode": true
+      }
+}
