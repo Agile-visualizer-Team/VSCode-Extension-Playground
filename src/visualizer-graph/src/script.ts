@@ -127,7 +127,8 @@ class GraphScript {
         });
     }
 }
-export function renderGraph(template: any, answerSets: any[], outputDirPath: string){
+export function renderGraph(template: any, jsonAnswerset: string, outputDirPath: string){
+    const answerSets = JSON.parse(jsonAnswerset);
     return GraphScript.runRendering(template, answerSets, outputDirPath);
 }
 
