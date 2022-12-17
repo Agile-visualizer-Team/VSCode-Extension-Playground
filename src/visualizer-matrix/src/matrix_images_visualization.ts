@@ -1,21 +1,22 @@
-import { type } from 'os';
 import * as yargs from 'yargs';
 
-const readline = require( 'readline');
+const readline = require('readline');
 
 
-export class MatrixCreator {
+export class MatrixImagesCreator {
 
-    answer_sets = require('./answers_sets.json');
-    
-    
-    config_file = require('./config_matrix.json');
+    answer_sets = require('./answers_sets_matrix_images.json');
+
+
+    config_file = require('./config_matrix_images.json');
     style = this.get_config_style();
     base_styling = this.get_base_styling();
     fs = require('fs');
     table = require('table');
     node_html_to_image = require('node-html-to-image');
     undefined_error_string: string = 'this data cannot be undefined';
+    images_directory_path: string = '';
+    almost_one_image_printed: boolean = false;
 
 
 
@@ -59,7 +60,7 @@ export class MatrixCreator {
      * This function returns the maximum number of answer sets to convert.
      * @returns The maxNumOfAnswerSetToConvert property of the config_file object.
      */
-    maxNumOfAnswerSetToConvert():number{
+    maxNumOfAnswerSetToConvert(): number {
         return this.config_file.maxNumOfAnswerSetToConvert;
     }
 
@@ -93,7 +94,7 @@ export class MatrixCreator {
      */
     create_image_from_html(index: number, html_to_convert_in_image: string) {
         this.node_html_to_image({
-            output: './answer_set_matrix_' + index + '.png',
+            output: './answer_set_matrix_with_images_' + index + '.png',
             html: html_to_convert_in_image,
         })
             .then(() => {
@@ -123,7 +124,7 @@ export class MatrixCreator {
             for (var i = 0; i < matrix.length; i++) {
                 matrix[i] = new Array(Math.max.apply(null, columns_list) + 1);
                 for (var j = 0; j < Math.max.apply(null, columns_list) + 1; j++) {
-                    matrix[i][j] = "Not defined";
+                    matrix[i][j] = "undefined";
                 }
             }
         }
@@ -171,7 +172,7 @@ export class MatrixCreator {
             font-family: `+ this.style.header_font_family + `;
         }
         strong{
-            color: `+ this.base_styling.html_text_color +`;
+            color: `+ this.base_styling.html_text_color + `;
             font-size: `+ this.style.header_font_size + `px;
         }
         body {
@@ -189,8 +190,10 @@ export class MatrixCreator {
             height: -webkit-fill-available;
         }
         td {
-            padding: 12px 15px;
+            padding: 0;
         }
+        
+        
         thead{
             background-color: ${this.style.header_color};
             color: #ffffff;
@@ -202,8 +205,15 @@ export class MatrixCreator {
             display: table-caption;
         }
         tbody tr {
-            border-bottom: ${this.base_styling.table_bottom_border};
             background-color: ${this.base_styling.table_background_color};
+        }
+        tbody{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap:0;
+            margin: 1em;
         }
         table {
             border-collapse: collapse;
@@ -260,11 +270,19 @@ export class MatrixCreator {
         if (atoms_splitted_matrix.length === 0) return false;
         if (matrix === undefined) return false;
 
+        const self = this;
         atoms_splitted_matrix.forEach(function (atom) {
             if (atom.length == 3) {
                 let row: number = Number(atom[0]);
                 let column: number = Number(atom[1]);
-                matrix[row][column] = atom[2];
+                if (self.config_file.useImages) {
+                    if (self.config_file.images_binding[atom[2].toString()] != undefined)
+                        matrix[row][column] = self.config_file.images_binding[atom[2].toString()];
+                }
+                else {
+                    if (self.config_file.colors_binding[atom[2]] != undefined)
+                        matrix[row][column] = self.config_file.colors_binding[atom[2]];
+                }
             }
 
         });
@@ -329,39 +347,60 @@ export class MatrixCreator {
         if (cell_name == undefined || cell_name == '') return '';
 
 
-        let html_table: string = `<table><thead><tr class="titolo"><th>Answer set</th><th>Mapped value: ` + cell_name + `</th></tr></thead><tbody><tr><td></td>`;
+        let html_table: string = `<table><thead><tr class="titolo"><th>Visualization</th></tr></thead><tbody>`;
 
-        for (var k: number = 0; k < matrix[0].length; k++) {
-            html_table += "<td>" + k + "</td>";
-        }
-        html_table += '</tr>';
+        
+        html_table += '';
         for (var i: number = 0; i < matrix.length; i++) {
             html_table += "<tr>"
-            html_table += "<td>" + i + "</td>";
             for (var j = 0; j < matrix[i].length; j++) {
-                //html_table+="<td>"+j+ "</td>";
-                html_table += "<td>" + matrix[i][j] + "</td>";
+                if (matrix[i][j] != 'undefined') {
+                    this.almost_one_image_printed = true;
+                    if (this.config_file.useImages) {
+                        if (this.fs.existsSync(this.images_directory_path + matrix[i][j])) {
+                            const image = this.fs.readFileSync('src/matrix_images/' + matrix[i][j]);
+                            const base64Image: any = new (Buffer as any).from(image).toString('base64');
+                            const dataURI = 'data:image/jpeg;base64,' + base64Image
+                            
+                            html_table += `<td><img src="` + dataURI + `" style='height: 60px; width: 60px; object-fit: fill;'></img></td>`;
+                        }
+                    }
+                    else {
+                        html_table += `<td><div style='height: 60px; width: 60px; background-color:${matrix[i][j]}; border: 1px solid #307182'></img></td>`;
+                    }
+                }
             }
             html_table += "</tr>"
         }
 
         html_table += '</tbody></table>'
-
+        if (!this.almost_one_image_printed)
+            html_table += '<strong>There aren not atoms with values you mapped as images</strong>'
 
         return html_table;
     }
 
-   
-   /**
-    * The function takes the answer sets from the ASP solver and creates a matrix from the atoms in the
-    * answer set
-    * @param {any} answer_sets - the answer sets of the ASP program
-    * @returns the number of answer sets to convert to images.
-    */
-    async run_script(answer_sets:any) {
+    create_base64_image(file_name: string): string {
+        const image = this.fs.readFileSync('src/matrix_images/' + file_name);
+        const base64Image: any = new (Buffer as any).from(image).toString('base64');
+        const dataURI = 'data:image/jpeg;base64,' + base64Image
+        return dataURI
+    }
 
-        
-        
+    almost_one_printed():boolean{
+        return this.almost_one_image_printed;
+    }
+
+    /**
+     * The function takes the answer sets from the ASP solver and creates a matrix from the atoms in the
+     * answer set
+     * @param {any} answer_sets - the answer sets of the ASP program
+     * @returns the number of answer sets to convert to images.
+     */
+    async run_script(answer_sets: any) {
+
+
+
         let mapping_list: string[] = this.config_file.cell;
         let max_num_of_as_to_convert: number = this.maxNumOfAnswerSetToConvert();
 
@@ -380,18 +419,18 @@ export class MatrixCreator {
 
     }
 
-   /**
-    * It reads the command line arguments and runs the script accordingly
-    */
-    read_commands_and_run(){
-        
-       
-       
-            /* A command line interface for the program. It is using the yargs library to parse the
-            command line arguments. */
-            yargs.command('fromfile',
-                'generate the matrix images from files', (yargs) => {
-                    return yargs
+    /**
+     * It reads the command line arguments and runs the script accordingly
+     */
+    read_commands_and_run() {
+
+
+
+        /* A command line interface for the program. It is using the yargs library to parse the
+        command line arguments. */
+        yargs.command('fromfile',
+            'generate the matrix images from files', (yargs) => {
+                return yargs
                     .option('template', {
                         describe: 'the input json template file path',
                         type: 'string',
@@ -402,37 +441,51 @@ export class MatrixCreator {
                         type: 'string',
                         required: true
                     })
-                       
-                }, (argv) => {
-                    console.log('matrix images generating from file json...');
-                    let config_file:JSON = JSON.parse(this.fs.readFileSync(argv.template));
-                    let answer_set_json:JSON = JSON.parse(this.fs.readFileSync(argv.as));
-                    this.setup_and_run_script(config_file, answer_set_json, '');
-                })
-            .command('fromstr',
-                'generate the matrix images from json string inputs', (yargs) => {
-                    return yargs
-                    .option('template', {
-                        describe: 'the input json template file path',
+                    .option('imgDir', {
+                        describe: 'the input images directory path',
                         type: 'string',
                         required: true
                     })
-                    
+
+            }, (argv) => {
+                console.log('matrix images generating from file json...');
+                let answer_set_json:JSON = JSON.parse(this.fs.readFileSync(argv.as));
+                let config_file:JSON = JSON.parse(this.fs.readFileSync(argv.template));
+                let images_directory = argv.imgDir
+
+
+                this.setup_and_run_script(config_file, images_directory, answer_set_json, '');
+
+
+            })
+            .command('fromstr',
+                'generate the matrix images from json string inputs', (yargs) => {
+                    return yargs
+                        .option('template', {
+                            describe: 'the input json template file path',
+                            type: 'string',
+                            required: true
+                        })
+                        .option('imgDir', {
+                            describe: 'the input images directory path',
+                            type: 'string',
+                            required: true
+                        })
+
                 }, (argv) => {
                     /* Reading the input from the command line and then parsing it to JSON. */
                     const rl = readline.createInterface({
                         input: process.stdin,
                         output: process.stdout,
                         terminal: false
-                      });  
-        
-                    rl.question("Insert you as: ",(answer_set_to_parse: string) =>{
-                        
-                        let config_file:JSON = JSON.parse(this.fs.readFileSync(argv.template));
+                    });
 
+                    rl.question("Insert you as: ", (answer_set_to_parse: string) => {
+                        let config_file:JSON = JSON.parse(this.fs.readFileSync(argv.template));
+                        let images_directory = argv.imgDir
                         const answer_set_json: JSON = JSON.parse(answer_set_to_parse);
 
-                        this.setup_and_run_script(config_file, answer_set_json, '');
+                        this.setup_and_run_script(config_file, images_directory, answer_set_json, '');
 
                         rl.close()
                     });
@@ -441,14 +494,33 @@ export class MatrixCreator {
             .parseSync();
     }
 
-    setup_and_run_script(config_file: JSON,  answer_set:JSON, output_directory:string) {
+    setup_and_run_script(config_file: JSON, images_directory:string, answer_set:JSON, output_directory:string) {
         this.config_file = config_file
-        this.run_script(answer_set);
+        this.images_directory_path = images_directory
+
+        if (this.fs.existsSync(this.images_directory_path)) {
+            this.run_script(answer_set);
+        } else {
+            console.log('The image directory does not exists, please check the path')
+        }
     }
 }
+ 
 
 if(require.main === module){
-    let script = new MatrixCreator();
+    let script = new MatrixImagesCreator();
     script.read_commands_and_run();
 }
 
+
+
+
+
+
+/*
+td img{
+            background-image: url(${this.create_base64_image('floor.png')});
+            background-size: contain;
+        }
+        backup code
+*/
