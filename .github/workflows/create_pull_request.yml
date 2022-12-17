@@ -29,9 +29,14 @@ jobs:
         name: setting enviroment variables
         run : ./commit_hook.pl $GITHUB_SHA >> $GITHUB_OUTPUT
 
+  test:
+    # Testing
+    needs: check_commit 
+    uses: agile-visualizer-team/visualizer-asp/.github/workflows/tests.yml@master
+
   # Creating a pull request
   create_pull_request:
-    needs: [check_commit]
+    needs: [test, check_commit]
     runs-on: ubuntu-latest
     if: needs.check_commit.outputs.status == 'success'
     steps:
@@ -57,7 +62,7 @@ jobs:
       - name: create pull_request
         uses: devops-infra/action-pull-request@v0.5.3
         with:
-          github_token: ${{ secrets.PAT }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           target_branch: master
           title: ${{ needs.check_commit.outputs.title }}
           body: ${{ needs.check_commit.outputs.body }}
