@@ -8,4 +8,5 @@ src/wrapper-dlv/.nyc_output
 src/visualizer-matrix/.nyc_output
 src/visualizer-matrix/coverage
 src/visualizer-matrix/.vscode
+src/visualizer-matrix/node_modules
 **/package-lock.json
