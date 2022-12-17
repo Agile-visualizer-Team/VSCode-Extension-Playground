@@ -40,7 +40,7 @@ jobs:
       - name: 🤘 checkout
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          ref: master
           token: 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
       # - uses: snow-actions/git-config-user@v1.0.0
       #   with:
