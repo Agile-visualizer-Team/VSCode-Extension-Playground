@@ -33,7 +33,7 @@ jobs:
             perl-version: '5.34'
       - name: check version to update
         run: ./publish_hook.pl $GITHUB_SHA >> $GITHUB_ENV
-      - run: npm ci
+      # - run: npm ci
       - name: update version
         run: |
             git config --global user.email "fiorentinosalvatore65@gmail.com"
