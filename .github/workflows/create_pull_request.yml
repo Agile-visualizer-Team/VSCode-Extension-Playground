@@ -35,6 +35,13 @@ jobs:
     runs-on: ubuntu-latest
     if: needs.check_commit.outputs.status == 'success'
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:  
+          repository: Agile-visualizer-Team/visualizer-asp.git
+          token: ${{ secrets.PAT }}
+          ref: master
+      - run: cat package.json
       - uses: actions/checkout@v3
         with:
             fetch-depth: 0
