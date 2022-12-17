@@ -34,6 +34,7 @@ jobs:
           git config --global user.email 'your-username@users.noreply.github.com'
           git remote set-url origin https://x-access-token:${{ secrets.NPM_TOKEN }}@github.com/$GITHUB_REPOSITORY
           git checkout "${GITHUB_REF:11}"
+          git add .
           git commit -am "Automated report"
           git push
       # - name: 🤘 checkout
