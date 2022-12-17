@@ -17,6 +17,8 @@ jobs:
     # needs: test
     runs-on: ubuntu-latest
     steps:
+      - name: check commit
+        run : git show $GITHUB_SHA
       - name: Checkout repository
         uses: actions/checkout@v2
         with:  
@@ -25,8 +27,6 @@ jobs:
           ref: master
       - name: check branch
         run: echo "echo ${GITHUB_REF##*/}"
-      - name: check commit
-        run : git show $GITHUB_SHA
       - uses: actions/setup-node@v3
         with:
           node-version: 16
