@@ -25,11 +25,22 @@ jobs:
       #   env: 
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       #   run: echo "GH_TOKEN=${GITHUB_TOKEN}" >> $GITHUB_ENV
+      
       - name: 🤘 checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          token:  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
+      - uses: snow-actions/git-config-user@v1.0.0
+        with:
+          name: instafiore
+          email: fiorentinosalvatore65@gmail.com
+      - run: npm version patch
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{secrets.NPM_TOKEN}}
+          branch: master
+          atomic: true
       # - name: ⚙ changelog
       #   uses: faberNovel/github-changelog-generator-action@master
       #   with:
