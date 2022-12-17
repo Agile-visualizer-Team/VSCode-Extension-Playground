@@ -1,5 +1,5 @@
 {
-    "template" : "matrix",
+    "template" : "matrix_images",
     "cell" : ["cell", "cell2"],
     "maxNumOfAnswerSetToConvert" : 4,
     "useImages": true,
