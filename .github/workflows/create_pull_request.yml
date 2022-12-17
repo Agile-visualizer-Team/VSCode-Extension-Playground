@@ -35,23 +35,23 @@ jobs:
     runs-on: ubuntu-latest
     if: needs.check_commit.outputs.status == 'success'
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        with:  
-          repository: Agile-visualizer-Team/visualizer-asp.git
-          token: ${{ secrets.PAT }}
-          ref: master
-      - name: take current version print
-        run: node print_version.js 
-      - name: take current version 
-        run: node print_version.js >> $GITHUB_ENV
+      # - name: Checkout repository
+      #   uses: actions/checkout@v2
+      #   with:  
+      #     repository: Agile-visualizer-Team/visualizer-asp.git
+      #     token: ${{ secrets.PAT }}
+      #     ref: master
+      # - name: take current version print
+      #   run: node print_version.js 
+      # - name: take current version 
+      #   run: node print_version.js >> $GITHUB_ENV
       - uses: actions/checkout@v3
         with:
             fetch-depth: 0
-      - name: update last version
-        run: |
-          echo ${{ env.version }}
-          npm version ${{ env.version }}
+      # - name: update last version
+      #   run: |
+      #     echo ${{ env.version }}
+      #     npm version ${{ env.version }}
       - uses: actions/setup-node@v3
         with:
           node-version: 16
