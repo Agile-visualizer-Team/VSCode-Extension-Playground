@@ -17,8 +17,6 @@ jobs:
     # needs: test
     runs-on: ubuntu-latest
     steps:
-      - name: check commit
-        run : git show $GITHUB_SHA
       - name: Checkout repository
         uses: actions/checkout@v2
         with:  
@@ -27,6 +25,8 @@ jobs:
           ref: master
       - name: check branch
         run: echo "echo ${GITHUB_REF##*/}"
+      - name: check commit
+        run : git show $GITHUB_SHA
       - uses: actions/setup-node@v3
         with:
           node-version: 16
@@ -36,14 +36,17 @@ jobs:
             perl-version: '5.34'
       - name: check version to update
         run: ./publish_hook.pl $GITHUB_SHA >> $GITHUB_ENV
-      - run: npm ci
-      - name:  'automated version bump'
+      - if :  ${{ env.update != 'bump_commit' }} 
+        run: npm ci
+      - if :  ${{ env.update != 'bump_commit' }} 
+        name:  'automated version bump'
         uses:  'phips28/gh-action-bump-version@master'
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
         with:
           version-type:  '${{ env.update }}'
       # Publishing on Github Packages
-      - run: npm publish
+      - if :  ${{ env.update != 'bump_commit' }} 
+        run: npm publish
         env:
             NPM_AUTH_TOKEN: ${{secrets.PAT}}
