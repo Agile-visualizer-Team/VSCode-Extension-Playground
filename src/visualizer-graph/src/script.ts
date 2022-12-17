@@ -127,6 +127,10 @@ class GraphScript {
         });
     }
 }
+export function renderGraph(template: any, answerSets: any[], outputDirPath: string){
+    return GraphScript.runRendering(template, answerSets, outputDirPath);
+}
+
 
 if (require.main === module) {
     new GraphScript();
