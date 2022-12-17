@@ -41,10 +41,15 @@ jobs:
           repository: Agile-visualizer-Team/visualizer-asp.git
           token: ${{ secrets.PAT }}
           ref: master
-      - run: cat package.json
+      - name: take current version 
+        run: node print_version.js >> $GITHUB_ENV
       - uses: actions/checkout@v3
         with:
             fetch-depth: 0
+      - name: update last version
+        run: |
+          echo ${{ env.version }}
+          npm version ${{ env.version }}
       - uses: actions/setup-node@v3
         with:
           node-version: 16
