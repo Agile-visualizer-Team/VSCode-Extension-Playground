@@ -47,16 +47,11 @@ jobs:
       - name: ls
         run: ls    
       - name: push
-        uses: dciborow/commit@0.0.1
+        uses: antaljanosbenjamin/single-commit-publish@master
         with:
           github-token: ${{secrets.NPM_TOKEN}}
-          push-branch: 'master'
-          commit-message: 'publish'
-          force-add: 'true'
-          force-push: 'true'
-          files: "package.json"
-          name: commiter name
-          email: fiorentinosalvatore65@gmail.com  
+          branch: master
+          files-and-dirs: 'package.json'
       # git commit -m "updated version"
       # # Publishing on Github Packages
       # - run: npm publish
