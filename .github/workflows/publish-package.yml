@@ -25,13 +25,16 @@ jobs:
       #   env: 
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       #   run: echo "GH_TOKEN=${GITHUB_TOKEN}" >> $GITHUB_ENV
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:  
+          token: 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
       # - name: Create report file
       #   run: date +%s > report.txt
       - name:  'Automated Version Bump'
         uses:  'phips28/gh-action-bump-version@master'
         env:
-          GITHUB_TOKEN: ${{secrets.NPM_TOKEN}}
+          GITHUB_TOKEN: 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
         with:
           version-type:  'minor'
       # - uses: snow-actions/git-config-user@v1.0.0
