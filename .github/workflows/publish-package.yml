@@ -41,15 +41,19 @@ jobs:
       - run: npm publish
         env:
             NPM_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-            
+      # - uses: antaljanosbenjamin/single-commit-publish@master
+      #   with:
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     branch: master  
+      #     files-and-dirs: 'package.json'
+      # - name: auto update remote
+      #   run: |
+      #     git add .
+      #     git commit -m "[AUTO] update"
+      #     git push --force
       # Update version on remote
       # - name: update version on repo
       #   uses: actions-go/push@master
       #   with:
       #     commit-message: '[Auto] updated version package'
       #     remote: origin
-      - name: update version on repo
-        uses: ad-m/github-push-action@master
-        with:
-          force: true
-          github_token: ${{ secrets.GITHUB_TOKEN }}

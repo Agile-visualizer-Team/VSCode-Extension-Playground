@@ -1,5 +1,5 @@
-run-name: pull request in a reusable way
-name: create a pull request CI/CD reusable
+run-name: ${{ github.actor }} is creating a pull request in a reusable way
+name: pull request in a reusable way
 on:
   push:
    branches :
