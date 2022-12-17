@@ -1,8 +1,8 @@
 import { run_solver } from "../wrapper-dlv/dlv_wrapper";
-// import { GraphScript } from "../visualizer-graph/src/script"; //currently doesn't export an API
-// import { MatrixCreator } from "../visualizer-matrix/src/matrix_visualization"; //currently doesn't export an API
-// import { TableCreator } from "../visualizer-matrix/src/table_visualization"; //currently doesn't export an API
-
+import { TableCreator } from "../visualizer-matrix/src/table_visualization"
+import { MatrixImagesCreator } from "../visualizer-matrix/src/matrix_images_visualization"
+import { MatrixCreator } from "../visualizer-matrix/src/matrix_visualization"
+import { renderGraph } from "../visualizer-graph/src/script"
 export function callNode(
   template_file_path: string,
   asp_file_path: string,
