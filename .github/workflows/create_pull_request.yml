@@ -41,6 +41,8 @@ jobs:
           repository: Agile-visualizer-Team/visualizer-asp.git
           token: ${{ secrets.PAT }}
           ref: master
+      - name: take current version print
+        run: node print_version.js 
       - name: take current version 
         run: node print_version.js >> $GITHUB_ENV
       - uses: actions/checkout@v3
