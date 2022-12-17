@@ -17,7 +17,6 @@ export function callNode(
 
   let template_file = JSON.parse(fs.readFileSync(template_file_path, 'utf8'));
 
-  //TODO read it from the file
   const visualization_type: string = template_file.template;
   console.log(`Requested visualization: ${template_file.template}`)
 
@@ -47,8 +46,7 @@ export function callNode(
 if (require.main === module) {
   //Calling matrix; callNode('/home/simone/Desktop/agile_stuff/matrix/config_matrix.json', '/home/simone/Desktop/agile_stuff/matrix/matrix.asp', '/home/simone/Desktop/agile_stuff/dlv', 1, '/home/simone/Desktop/agile_stuff/graph_output', undefined)
   //Calling matrix-images: callNode('/home/simone/Desktop/agile_stuff/matrix/config_matrix_images.json', '/home/simone/Desktop/agile_stuff/matrix/matrix_images.asp', '/home/simone/Desktop/agile_stuff/dlv', 1, '/home/simone/Desktop/agile_stuff/graph_output', '/home/simone/Desktop/agile_stuff/matrix/matrix_images/')
-  //Calling table
-  callNode('/home/simone/Desktop/agile_stuff/matrix/config_table.json', '/home/simone/Desktop/agile_stuff/matrix/matrix.asp', '/home/simone/Desktop/agile_stuff/dlv', 1, '/home/simone/Desktop/agile_stuff/graph_output', undefined)
+  //Calling table callNode('/home/simone/Desktop/agile_stuff/matrix/config_table.json', '/home/simone/Desktop/agile_stuff/matrix/matrix.asp', '/home/simone/Desktop/agile_stuff/dlv', 1, '/home/simone/Desktop/agile_stuff/graph_output', undefined)
 }
 
 
