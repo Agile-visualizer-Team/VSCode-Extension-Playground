@@ -50,9 +50,15 @@
   },
   "scripts": {
     "test": "nyc mocha -r ts-node/register './src/tests/**/*.test.ts'",
-    "start-matrix-visualization-from-file": "npx tsc ./src/matrix_visualization.ts && node ./src/matrix_visualization.js fromfile --template ./config.json --as ./answers_sets.json ",
-    "start-matrix-visualization-from-input": "npx tsc ./src/matrix_visualization.ts && node ./src/matrix_visualization.js fromstr --template ./config.json",
-    "start-table-visualization-from-file": "npx tsc ./src/table_visualization.ts && node ./src/table_visualization.js fromfile --template ./config.json --as ./answers_sets.json",
-    "start-table-visualization-from-input": "npx tsc ./src/table_visualization.ts && node ./src/table_visualization.js fromstr --template ./config.json"
+    "test_matrix_images": "nyc mocha -r ts-node/register './src/tests/**/matrix_images_visualization.test.ts'",
+    "test_matrix": "nyc mocha -r ts-node/register './src/tests/**/matrix_visualization.test.ts'",
+    "test_table": "nyc mocha -r ts-node/register './src/tests/**/table_visualization.test.ts'",
+    "test-acceptance": "mocha -r ts-node/register './src/test_acceptance/**/*.test.ts'",
+    "start-matrix-visualization-from-file": "npx tsc ./src/matrix_visualization.ts && node ./src/matrix_visualization.js fromfile --template ./src/config_matrix.json --as ./src/answers_sets.json ",
+    "start-matrix-visualization-from-input": "npx tsc ./src/matrix_visualization.ts && node ./src/matrix_visualization.js fromstr --template ./src/config_matrix.json",
+    "start-table-visualization-from-file": "npx tsc ./src/table_visualization.ts && node ./src/table_visualization.js fromfile --template ./src/config_table.json --as ./src/answers_sets.json",
+    "start-table-visualization-from-input": "npx tsc ./src/table_visualization.ts && node ./src/table_visualization.js fromstr --template ./src/config_table.json",
+    "start-matrix_images-visualization-from-file": "npx tsc ./src/matrix_images_visualization.ts && node ./src/matrix_images_visualization.js fromfile --template ./src/config_matrix_images.json --as ./src/answers_sets_matrix_images.json --imgDir src/matrix_images/",
+    "start-matrix_images-visualization-from-input": "npx tsc ./src/matrix_images_visualization.ts && node ./src/matrix_images_visualization.js fromstr --template ./src/config_matrix_images.json --imgDir src/matrix_images/"
   }
 }

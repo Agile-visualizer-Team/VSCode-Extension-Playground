@@ -20,7 +20,7 @@ const answer_sets:JSON = JSON.parse(`[
         "cost" : "1@2"
     }
 ]`);
-describe("TableCreator", () => {
+describe("[table] TableCreator", () => {
 
 
     beforeEach(() => {
@@ -116,7 +116,7 @@ describe("TableCreator", () => {
 });
 
 
-describe("retrieve_answer_set_as_tuple_array method tests", () => {
+describe("[table] retrieve_answer_set_as_tuple_array method tests", () => {
     beforeEach(() => {
         table_creator = new TableCreator();
     });
@@ -142,7 +142,7 @@ describe("retrieve_answer_set_as_tuple_array method tests", () => {
 
 });
 
-describe("create_html_table_for_mapped_atom method tests", () => {
+describe("[table] create_html_table_for_mapped_atom method tests", () => {
     beforeEach(() => {
         table_creator = new TableCreator();
     });
@@ -212,7 +212,7 @@ describe("create_html_table_for_mapped_atom method tests", () => {
 });
 
 
-describe("create_table_html method tests", () => {
+describe("[table] create_table_html method tests", () => {
     beforeEach(() => {
         table_creator = new TableCreator();
     });
@@ -258,7 +258,7 @@ describe("create_table_html method tests", () => {
         let atoms_splitted_array:string[][]=[['1','2', 'ciao'],['2','2', 'ciao2']]
 
         let obtained_table_html:string = table_creator.create_table_html(atoms_splitted_array, mapped_atom);
-        let expected_table_html:string = '<table><thead><tr class="titolo"><th>Answer set</th><th>Mapped value: cell</th></tr></thead><tbody><tr><td class=fieldStyle>row2</td><td class=fieldStyle>column2</td><td class=fieldStyle>Value2</td></tr><tr><td>1</td><td>2</td><td>ciao</td></tr><tr><td>2</td><td>2</td><td>ciao2</td></tr></tbody></table>';
+        let expected_table_html:string = '<table><thead><tr class="titolo"><th>Answer set</th><th>Mapped value: cell</th></tr></thead><tbody><tr><td class=fieldStyle>row to map</td><td class=fieldStyle>column</td><td class=fieldStyle>Value</td></tr><tr><td>1</td><td>2</td><td>ciao</td></tr><tr><td>2</td><td>2</td><td>ciao2</td></tr></tbody></table>';
 
         expect(obtained_table_html).to.eql(expected_table_html);
        
@@ -267,7 +267,7 @@ describe("create_table_html method tests", () => {
 });
 
 
-describe("create_table_html method tests", () => {
+describe("[table] create_table_html method tests", () => {
     beforeEach(() => {
         table_creator = new TableCreator();
     });
