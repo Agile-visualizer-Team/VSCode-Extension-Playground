@@ -20,47 +20,47 @@ jobs:
     # needs: test
     runs-on: ubuntu-latest
     steps:
-      - name: 🔍 GH_TOKEN
-        if: env.GH_TOKEN == ''
-        env: 
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: echo "GH_TOKEN=${GITHUB_TOKEN}" >> $GITHUB_ENV
+      # - name: 🔍 GH_TOKEN
+      #   if: env.GH_TOKEN == ''
+      #   env: 
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: echo "GH_TOKEN=${GITHUB_TOKEN}" >> $GITHUB_ENV
       - name: 🤘 checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
           ref: master
-          token: ${{ env.GH_TOKEN }}
-      - name: ⚙ changelog
-        uses: faberNovel/github-changelog-generator-action@master
-        with:
-          options: --token ${{ secrets.GITHUB_TOKEN }} --o changelog.md
-      - name: check branch
-        run: echo "echo ${GITHUB_REF##*/}"
-      - name: check commit
-        run : git show $GITHUB_SHA
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          registry-url: https://npm.pkg.github.com/
-      - uses: shogo82148/actions-setup-perl@v1
-        with:
-            perl-version: '5.34'
-      - name: check version to update
-        run: ./publish_hook.pl $GITHUB_SHA >> $GITHUB_ENV
-      # - run: npm ci
-      - name: update version
-        run: |
-            git config --global user.email "fiorentinosalvatore65@gmail.com"
-            git config --global user.name "instafiore"
-            npm version ${{ env.update }}
-      - name: 🚀 changelog
-        run: |
-          git config --local user.name github-actions
-          git config --local user.email github-actions@github.com
-          git add changelog.md
-          git commit -m "🖉 Update changelog with ${GITHUB_REF#refs/*/}"
-          git push
+          token:  ${{secrets.NPM_TOKEN}}
+      # - name: ⚙ changelog
+      #   uses: faberNovel/github-changelog-generator-action@master
+      #   with:
+      #     options: --token ${{ secrets.GITHUB_TOKEN }} --o changelog.md
+      # - name: check branch
+      #   run: echo "echo ${GITHUB_REF##*/}"
+      # - name: check commit
+      #   run : git show $GITHUB_SHA
+      # - uses: actions/setup-node@v3
+      #   with:
+      #     node-version: 16
+      #     registry-url: https://npm.pkg.github.com/
+      # - uses: shogo82148/actions-setup-perl@v1
+      #   with:
+      #       perl-version: '5.34'
+      # - name: check version to update
+      #   run: ./publish_hook.pl $GITHUB_SHA >> $GITHUB_ENV
+      # # - run: npm ci
+      # - name: update version
+      #   run: |
+      #       git config --global user.email "fiorentinosalvatore65@gmail.com"
+      #       git config --global user.name "instafiore"
+      #       npm version ${{ env.update }}
+      # - name: 🚀 changelog
+      #   run: |
+      #     git config --local user.name github-actions
+      #     git config --local user.email github-actions@github.com
+      #     git add changelog.md
+      #     git commit -m "🖉 Update changelog with ${GITHUB_REF#refs/*/}"
+      #     git push
       # - name: Push changes
       #   uses: ad-m/github-push-action@master
       #   with:
