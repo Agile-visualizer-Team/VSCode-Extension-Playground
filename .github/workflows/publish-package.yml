@@ -46,16 +46,16 @@ jobs:
           git status
       - name: ls
         run: ls    
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{secrets.NPM_TOKEN}}
+          branch: ${{ github.ref }}
       # git commit -m "updated version"
       # # Publishing on Github Packages
       # - run: npm publish
       #   env:
       #       NPM_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-      # - name: Push changes
-      #   uses: ad-m/github-push-action@master
-      #   with:
-      #     github_token: ${{secrets.NPM_TOKEN}}
-      #     branch: ${{ github.ref }}
       # # - uses: antaljanosbenjamin/single-commit-publish@master
       #   with:
       #     github-token: ${{ secrets.GITHUB_TOKEN }}
