@@ -1,1 +1,1 @@
- "test": "nyc mocha -r ts-node/register tests/test_*.ts",
+ "test": "nyc mocha -r ts-node/register tests/test_*.ts"
