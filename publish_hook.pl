@@ -37,5 +37,5 @@ if($output_git_log =~ /$regex/gm){
     }
 
 }else{
-    
+    print("update=patch\n")
 }
