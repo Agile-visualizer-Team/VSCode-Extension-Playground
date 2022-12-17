@@ -28,13 +28,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
         with:  
-          token: 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
+          repository: Agile-visualizer-Team/visualizer-asp.git
+          token: ${{secrets.PAT}}
       # - name: Create report file
       #   run: date +%s > report.txt
       - name:  'Automated Version Bump'
         uses:  'phips28/gh-action-bump-version@master'
         env:
-          GITHUB_TOKEN: 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
+          GITHUB_TOKEN: ${{secrets.PAT}}
         with:
           version-type:  'minor'
       # - uses: snow-actions/git-config-user@v1.0.0
