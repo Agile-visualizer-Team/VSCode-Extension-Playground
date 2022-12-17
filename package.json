@@ -2,7 +2,7 @@
     "name": "@agile-visualizer-team/visualizer-asp",
     "displayName": "ASP Visualizer",
     "description": "",
-    "version": "0.1.7",
+    "version": "0.2.4",
     "engines": {
         "vscode": "^1.73.0"
     },
@@ -54,20 +54,21 @@
         "lint": "eslint src --ext ts"
     },
     "devDependencies": {
-        "webpack": "^5.74.0",
-        "typescript": "^4.8.4",
-        "ts-loader": "^9.4.1",
-        "table": "^6.8.1",
-        "node-html-to-image": "^3.2.4",
-        "mocha": "^10.1.0",
-        "glob": "^8.0.3",
-        "eslint": "^8.26.0",
-        "@vscode/test-electron": "^2.2.0",
-        "@typescript-eslint/parser": "^5.42.0",
-        "@typescript-eslint/eslint-plugin": "^5.42.0",
-        "@types/vscode": "^1.73.0",
-        "@types/node": "16.x",
+        "@types/glob": "^8.0.0",
         "@types/mocha": "^10.0.0",
-        "@types/glob": "^8.0.0"
+        "@types/node": "16.x",
+        "@types/vscode": "^1.73.0",
+        "@types/yargs": "^17.0.17",
+        "@typescript-eslint/eslint-plugin": "^5.42.0",
+        "@typescript-eslint/parser": "^5.42.0",
+        "@vscode/test-electron": "^2.2.0",
+        "eslint": "^8.26.0",
+        "glob": "^8.0.3",
+        "mocha": "^10.1.0",
+        "node-html-to-image": "^3.2.4",
+        "table": "^6.8.1",
+        "ts-loader": "^9.4.1",
+        "typescript": "^4.8.4",
+        "webpack": "^5.74.0"
     }
 }

@@ -6,8 +6,8 @@ const readline = require( 'readline');
 
 export class TableCreator{
 
-    answer_sets = require('./answers_sets_test.json');
-    config_file = require('./config_test.json');
+    answer_sets = require('./answers_sets.json');
+    config_file = require('./config_table.json');
     fs = require('fs');
     table = require('table');
     node_html_to_image = require('node-html-to-image');
@@ -147,7 +147,7 @@ export class TableCreator{
         flex-direction: column;
         margin: 1em;
         padding-top: 1em;
-        height: -webkit-fill-available;
+        height: auto;
     }
     td {
         padding: 12px 15px;
@@ -325,9 +325,9 @@ export class TableCreator{
                     
                        
                 }, (argv) => {
-                    this.answer_sets = require(argv.as);
-                    this.config_file = require(argv.template);
-                    this.run_script(this.answer_sets);
+                    let config_file:JSON = JSON.parse(this.fs.readFileSync(argv.template));
+                    let answer_set_json:JSON = JSON.parse(this.fs.readFileSync(argv.as));
+                    this.setup_and_run_script(config_file, answer_set_json, '');
 
                 })
             .command('fromstr',
@@ -344,11 +344,13 @@ export class TableCreator{
                         output: process.stdout,
                         terminal: false
                       });  
-                    rl.question("Insert you as: ",(jsonStringToParse: string) =>{
+                    rl.question("Insert you as: ",(answer_set_to_parse: string) =>{
                         
-                        const jsonStr:JSON = JSON.parse(jsonStringToParse);
-                        this.config_file = require(argv.template);
-                        this.run_script(jsonStr);
+                        let config_file:JSON = JSON.parse(this.fs.readFileSync(argv.template));
+
+                        const answer_set_json: JSON = JSON.parse(answer_set_to_parse);
+
+                        this.setup_and_run_script(config_file, answer_set_json, '');
 
                         rl.close()
                     });
@@ -358,15 +360,19 @@ export class TableCreator{
             .parseSync();
     }
 
- 
-
-
+    setup_and_run_script(config_file: JSON,  answer_set:JSON, output_directory:string) {
+        this.config_file = config_file
+        this.run_script(answer_set);
+    }
 
 }
 
 /* Creating a new instance of the TableCreator class and then calling the read_commands_and_run()
 method on it. */
-let script = new TableCreator();
-script.read_commands_and_run();
+
+if(require.main === module){
+    let script = new TableCreator();
+    script.read_commands_and_run();
+}
 
 

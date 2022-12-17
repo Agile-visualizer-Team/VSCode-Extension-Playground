@@ -81,18 +81,17 @@ export class DLVWrapper {
     if (argv.output) {
       this.write_parsed_as_to_file(argv.output, final_output);
     } else {
-      console.log(JSON.stringify(final_output));
-      //return JSON.stringify(final_output);
+      return JSON.stringify(final_output);
     }
   }
 }
 
-export function execute(_dlv_path: string, _asp_file: string, _output: string, _as_number: number){
+export function run_solver(_dlv_path: string, _asp_file: string, _output: string, _as_number: number){
   let argv = {
     dlv_path: _dlv_path,
     asp_file: _asp_file,
     output: _output,
     as_number: _as_number
   }
-  new DLVWrapper().execute(argv);
+  return new DLVWrapper().execute(argv);
 }

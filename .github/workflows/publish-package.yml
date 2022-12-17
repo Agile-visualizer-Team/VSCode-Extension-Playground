@@ -14,10 +14,15 @@ jobs:
 
   publish-gpr:
     # Publishing
-    needs: test
+    # needs: test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:  
+          repository: Agile-visualizer-Team/visualizer-asp.git
+          token: ${{ secrets.PAT }}
+          ref: master
       - name: check branch
         run: echo "echo ${GITHUB_REF##*/}"
       - name: check commit
@@ -31,30 +36,17 @@ jobs:
             perl-version: '5.34'
       - name: check version to update
         run: ./publish_hook.pl $GITHUB_SHA >> $GITHUB_ENV
-      - run: npm ci
-      - name: update version
-        run: |
-            git config --global user.email "fiorentinosalvatore65@gmail.com"
-            git config --global user.name "Fiorentino Salvatore"
-            npm version ${{ env.update }}
-            
-      # Publishing on Github Packages
-      - run: npm publish
+      - if :  ${{ env.update != 'bump_commit' }} 
+        run: npm ci
+      - if :  ${{ env.update != 'bump_commit' }} 
+        name:  'automated version bump'
+        uses:  'phips28/gh-action-bump-version@master'
         env:
-            NPM_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-      # - uses: antaljanosbenjamin/single-commit-publish@master
-      #   with:
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
-      #     branch: master  
-      #     files-and-dirs: 'package.json'
-      # - name: auto update remote
-      #   run: |
-      #     git add .
-      #     git commit -m "[AUTO] update"
-      #     git push --force
-      # Update version on remote
-      # - name: update version on repo
-      #   uses: actions-go/push@master
-      #   with:
-      #     commit-message: '[Auto] updated version package'
-      #     remote: origin
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+        with:
+          version-type:  '${{ env.update }}'
+      # Publishing on Github Packages
+      - if :  ${{ env.update != 'bump_commit' }} 
+        run: npm publish
+        env:
+            NPM_AUTH_TOKEN: ${{secrets.PAT}}
