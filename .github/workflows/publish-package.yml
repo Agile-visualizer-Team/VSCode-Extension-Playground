@@ -49,7 +49,7 @@ jobs:
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-          github_token: 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
+          github_token: ${{secrets.NPM_TOKEN}}
           branch: ${{ github.ref }}
       # git commit -m "updated version"
       # # Publishing on Github Packages
