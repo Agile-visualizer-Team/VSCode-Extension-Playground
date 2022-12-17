@@ -47,7 +47,7 @@ jobs:
       - name: ls
         run: ls    
       - name: push
-        uses: dciborow/commit@0.0.2
+        uses: dciborow/commit@0.0.1
         with:
           github-token: ${{secrets.NPM_TOKEN}}
           push-branch: 'master'
