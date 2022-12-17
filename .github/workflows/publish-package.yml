@@ -25,23 +25,15 @@ jobs:
       #   env: 
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       #   run: echo "GH_TOKEN=${GITHUB_TOKEN}" >> $GITHUB_ENV
-      # - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
       # - name: Create report file
       #   run: date +%s > report.txt
-      # - name: Commit report
-      #   run: |
-      #     git config --global user.name 'Your Name'
-      #     git config --global user.email 'your-username@users.noreply.github.com'
-      #     git remote set-url origin https://x-access-token:${{ secrets.NPM_TOKEN }}@github.com/$GITHUB_REPOSITORY
-      #     git checkout "${GITHUB_REF:11}"
-      #     git add .
-      #     git commit -am "Automated report"
-      #     git push --force
-      - name: 🤘 checkout
-        uses: actions/checkout@v3
+      - name:  'Automated Version Bump'
+        uses:  'phips28/gh-action-bump-version@master'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          ref: master
-          token: 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
+          version-type:  'minor'
       # - uses: snow-actions/git-config-user@v1.0.0
       #   with:
       #     name: instafiore
