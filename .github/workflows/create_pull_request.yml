@@ -29,16 +29,16 @@ jobs:
         name: setting enviroment variables
         run : ./commit_hook.pl $GITHUB_SHA >> $GITHUB_OUTPUT
 
-  # Testing
-  test:
-    needs: check_commit
-    if: needs.check_commit.outputs.status == 'success'
-    uses: agile-visualizer-team/visualizer-asp/.github/workflows/tests.yml@master
+  # # Testing
+  # test:
+  #   needs: check_commit
+  #   if: needs.check_commit.outputs.status == 'success'
+  #   uses: agile-visualizer-team/visualizer-asp/.github/workflows/tests.yml@master
 
 
   # Creating a pull request
   create_pull_request:
-    needs: [test, check_commit]
+    needs: [check_commit]
     runs-on: ubuntu-latest
     if: needs.check_commit.outputs.status == 'success'
     steps:
