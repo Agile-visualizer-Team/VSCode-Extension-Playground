@@ -31,20 +31,24 @@ export function callNode(
       break;
 
     case "table":
-      break
+      new TableCreator().setup_and_run_script(template_file, JSON.parse(solver_result), out_dir)
+      break;
 
     case "matrix_images":
       new MatrixImagesCreator().setup_and_run_script(template_file, image_directory,JSON.parse(solver_result),out_dir)
       break;
+
     default:
       console.error(`Template unkown: ${template_file.template}`)
+      break;
   }
 }
 
 if (require.main === module) {
   //Calling matrix; callNode('/home/simone/Desktop/agile_stuff/matrix/config_matrix.json', '/home/simone/Desktop/agile_stuff/matrix/matrix.asp', '/home/simone/Desktop/agile_stuff/dlv', 1, '/home/simone/Desktop/agile_stuff/graph_output', undefined)
-  //Calling matrix-images:
-  callNode('/home/simone/Desktop/agile_stuff/matrix/config_matrix_images.json', '/home/simone/Desktop/agile_stuff/matrix/matrix_images.asp', '/home/simone/Desktop/agile_stuff/dlv', 1, '/home/simone/Desktop/agile_stuff/graph_output', '/home/simone/Desktop/agile_stuff/matrix/matrix_images/')
+  //Calling matrix-images: callNode('/home/simone/Desktop/agile_stuff/matrix/config_matrix_images.json', '/home/simone/Desktop/agile_stuff/matrix/matrix_images.asp', '/home/simone/Desktop/agile_stuff/dlv', 1, '/home/simone/Desktop/agile_stuff/graph_output', '/home/simone/Desktop/agile_stuff/matrix/matrix_images/')
+  //Calling table
+  callNode('/home/simone/Desktop/agile_stuff/matrix/config_table.json', '/home/simone/Desktop/agile_stuff/matrix/matrix.asp', '/home/simone/Desktop/agile_stuff/dlv', 1, '/home/simone/Desktop/agile_stuff/graph_output', undefined)
 }
 
 
