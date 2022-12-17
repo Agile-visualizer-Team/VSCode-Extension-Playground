@@ -6,99 +6,44 @@ on:
       - master
   workflow_dispatch:
 
-env:
-  GH_TOKEN: ${{secrets.NPM_TOKEN}}
-
 jobs:
 
-  # test:
-  #   # Testing
-  #   uses: agile-visualizer-team/visualizer-asp/.github/workflows/tests.yml@master
+  test:
+    # Testing
+    uses: agile-visualizer-team/visualizer-asp/.github/workflows/tests.yml@master
 
   publish-gpr:
     # Publishing
-    # needs: test
+    needs: test
     runs-on: ubuntu-latest
     steps:
-      # - name: 🔍 GH_TOKEN
-      #   if: env.GH_TOKEN == ''
-      #   env: 
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   run: echo "GH_TOKEN=${GITHUB_TOKEN}" >> $GITHUB_ENV
       - name: Checkout repository
         uses: actions/checkout@v2
         with:  
           repository: Agile-visualizer-Team/visualizer-asp.git
           token: ${{ secrets.PAT }}
           ref: master
-      # - name: Create report file
-      #   run: date +%s > report.txt
-      - name:  'Automated Version Bump'
+      - name: check branch
+        run: echo "echo ${GITHUB_REF##*/}"
+      - name: check commit
+        run : git show $GITHUB_SHA
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://npm.pkg.github.com/
+      - uses: shogo82148/actions-setup-perl@v1
+        with:
+            perl-version: '5.34'
+      - name: check version to update
+        run: ./publish_hook.pl $GITHUB_SHA >> $GITHUB_ENV
+      - run: npm ci
+      - name:  'automated version bump'
         uses:  'phips28/gh-action-bump-version@master'
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
         with:
-          version-type:  'minor'
-      # - uses: snow-actions/git-config-user@v1.0.0
-      #   with:
-      #     name: instafiore
-      #     email: fiorentinosalvatore65@gmail.com
-      # - run: npm version patch
-      # - name: Push changes
-      #   uses: ad-m/github-push-action@master
-      #   with:
-      #     github_token: ${{secrets.NPM_TOKEN}}
-      #     branch: master
-      #     atomic: true
-      # - name: ⚙ changelog
-      #   uses: faberNovel/github-changelog-generator-action@master
-      #   with:
-      #     options: --token ${{ secrets.GITHUB_TOKEN }} --o changelog.md
-      # - name: check branch
-      #   run: echo "echo ${GITHUB_REF##*/}"
-      # - name: check commit
-      #   run : git show $GITHUB_SHA
-      # - uses: actions/setup-node@v3
-      #   with:
-      #     node-version: 16
-      #     registry-url: https://npm.pkg.github.com/
-      # - uses: shogo82148/actions-setup-perl@v1
-      #   with:
-      #       perl-version: '5.34'
-      # - name: check version to update
-      #   run: ./publish_hook.pl $GITHUB_SHA >> $GITHUB_ENV
-      # # - run: npm ci
-      # - name: update version
-      #   run: |
-      #       git config --global user.email "fiorentinosalvatore65@gmail.com"
-      #       git config --global user.name "instafiore"
-      #       npm version ${{ env.update }}
-      # - name: 🚀 changelog
-      #   run: |
-      #     git config --local user.name github-actions
-      #     git config --local user.email github-actions@github.com
-      #     git add changelog.md
-      #     git commit -m "🖉 Update changelog with ${GITHUB_REF#refs/*/}"
-      #     git push
-      # - name: Push changes
-      #   uses: ad-m/github-push-action@master
-      #   with:
-      #     github_token: ${{secrets.NPM_TOKEN}}
-      #     branch: ${{ github.ref }}
-      #     atomic: true
-      # git commit -m "updated version"
-      # # Publishing on Github Packages
-      # - run: npm publish
-      #   env:
-      #       NPM_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-      # # - uses: antaljanosbenjamin/single-commit-publish@master
-      #   with:
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
-      #     branch: master  
-      #     files-and-dirs: 'package.json'
-      # - name: auto update remote
-      #   run: |
-      #     git add .
-      #     git commit -m "[AUTO] update"
-      #     git push --force
-      # Update version on remote
+          version-type:  '${{ env.update }}'
+      # Publishing on Github Packages
+      - run: npm publish
+        env:
+            NPM_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
