@@ -41,6 +41,7 @@ jobs:
             npm version ${{ env.update }}
       - name: Commit files
         run: |
+          TEST > test
           git add .
           git status
           git commit -a -m "updated version"
