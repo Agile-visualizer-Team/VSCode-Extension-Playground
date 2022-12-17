@@ -28,7 +28,8 @@ jobs:
       - uses: actions/checkout@v3
         with:
           repository: Agile-visualizer-Team/visualizer-asp.git
-          token: ${{ secrets.NPM_TOKEN }}
+          ref: master 
+          token: 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
       # - name: 🤘 checkout
       #   uses: actions/checkout@v3
       #   with:
