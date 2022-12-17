@@ -283,7 +283,7 @@ var MatrixImagesCreator = /** @class */ (function () {
                     this.almost_one_image_printed = true;
                     if (this.config_file.useImages) {
                         if (this.fs.existsSync(this.images_directory_path + matrix[i][j])) {
-                            var image = this.fs.readFileSync('src/matrix_images/' + matrix[i][j]);
+                            var image = this.fs.readFileSync(this.images_directory_path + matrix[i][j]);
                             var base64Image = new Buffer.from(image).toString('base64');
                             var dataURI = 'data:image/jpeg;base64,' + base64Image;
                             html_table += "<td><img src=\"" + dataURI + "\" style='height: 60px; width: 60px; object-fit: fill;'></img></td>";
@@ -302,7 +302,7 @@ var MatrixImagesCreator = /** @class */ (function () {
         return html_table;
     };
     MatrixImagesCreator.prototype.create_base64_image = function (file_name) {
-        var image = this.fs.readFileSync('src/matrix_images/' + file_name);
+        var image = this.fs.readFileSync(this.images_directory_path + file_name);
         var base64Image = new Buffer.from(image).toString('base64');
         var dataURI = 'data:image/jpeg;base64,' + base64Image;
         return dataURI;

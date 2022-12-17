@@ -358,7 +358,7 @@ export class MatrixImagesCreator {
                     this.almost_one_image_printed = true;
                     if (this.config_file.useImages) {
                         if (this.fs.existsSync(this.images_directory_path + matrix[i][j])) {
-                            const image = this.fs.readFileSync('src/matrix_images/' + matrix[i][j]);
+                            const image = this.fs.readFileSync(this.images_directory_path + matrix[i][j]);
                             const base64Image: any = new (Buffer as any).from(image).toString('base64');
                             const dataURI = 'data:image/jpeg;base64,' + base64Image
                             
@@ -381,7 +381,7 @@ export class MatrixImagesCreator {
     }
 
     create_base64_image(file_name: string): string {
-        const image = this.fs.readFileSync('src/matrix_images/' + file_name);
+        const image = this.fs.readFileSync(this.images_directory_path+ file_name);
         const base64Image: any = new (Buffer as any).from(image).toString('base64');
         const dataURI = 'data:image/jpeg;base64,' + base64Image
         return dataURI
