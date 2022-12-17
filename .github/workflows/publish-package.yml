@@ -37,6 +37,7 @@ jobs:
             git config --global user.email "fiorentinosalvatore65@gmail.com"
             git config --global user.name "Fiorentino Salvatore"
             npm version ${{ env.update }}
+            
       # Publishing on Github Packages
       - run: npm publish
         env:
