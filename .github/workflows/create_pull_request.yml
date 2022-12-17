@@ -52,6 +52,7 @@ jobs:
         run: |
           echo ${{ env.version }}
           npm version ${{ env.version }}
+          git commit -m "A"
       - uses: actions/setup-node@v3
         with:
           node-version: 16
