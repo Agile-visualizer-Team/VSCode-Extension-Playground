@@ -44,17 +44,19 @@ jobs:
           echo "AA" > test
           git add .
           git status
-          git commit -a -m "updated version"
-      # Publishing on Github Packages
-      - run: npm publish
-        env:
-            NPM_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{secrets.NPM_TOKEN}}
-          branch: ${{ github.ref }}
-      # - uses: antaljanosbenjamin/single-commit-publish@master
+      - name: ls
+        run: ls    
+      # git commit -m "updated version"
+      # # Publishing on Github Packages
+      # - run: npm publish
+      #   env:
+      #       NPM_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+      # - name: Push changes
+      #   uses: ad-m/github-push-action@master
+      #   with:
+      #     github_token: ${{secrets.NPM_TOKEN}}
+      #     branch: ${{ github.ref }}
+      # # - uses: antaljanosbenjamin/single-commit-publish@master
       #   with:
       #     github-token: ${{ secrets.GITHUB_TOKEN }}
       #     branch: master  
