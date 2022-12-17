@@ -26,11 +26,8 @@ jobs:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       #   run: echo "GH_TOKEN=${GITHUB_TOKEN}" >> $GITHUB_ENV
       - uses: actions/checkout@v3
-        with:
-          repository: Agile-visualizer-Team/visualizer-asp.git
-          ref: master 
-          token: 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
-          username: instafiore
+      - run: npm version patch
+      - run: git push --force
       # - name: 🤘 checkout
       #   uses: actions/checkout@v3
       #   with:
