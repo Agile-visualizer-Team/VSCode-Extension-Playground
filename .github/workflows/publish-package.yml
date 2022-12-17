@@ -26,11 +26,16 @@ jobs:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       #   run: echo "GH_TOKEN=${GITHUB_TOKEN}" >> $GITHUB_ENV
       - uses: actions/checkout@v3
-      - run: |
-            git config --global user.email "fiorentinosalvatore65@gmail.com"
-            git config --global user.name "Fiorentino Salvatore"
-            npm version patch
-      - run: git push --force
+      - name: Create report file
+        run: date +%s > report.txt
+      - name: Commit report
+        run: |
+          git config --global user.name 'Your Name'
+          git config --global user.email 'your-username@users.noreply.github.com'
+          git remote set-url origin https://x-access-token:${{ secrets.NPM_TOKEN }}@github.com/$GITHUB_REPOSITORY
+          git checkout "${GITHUB_REF:11}"
+          git commit -am "Automated report"
+          git push
       # - name: 🤘 checkout
       #   uses: actions/checkout@v3
       #   with:
