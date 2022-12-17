@@ -5,4 +5,7 @@ node_modules/
 .vscode
 .vscodeignore
 src/wrapper-dlv/.nyc_output
+src/visualizer-matrix/.nyc_output
+src/visualizer-matrix/coverage
+src/visualizer-matrix/.vscode
 **/package-lock.json
