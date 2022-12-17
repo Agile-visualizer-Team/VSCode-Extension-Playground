@@ -43,6 +43,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.PAT }}
         with:
           version-type:  '${{ env.update }}'
+      - run: cat package.json
       # Publishing on Github Packages
       - run: npm publish
         env:
