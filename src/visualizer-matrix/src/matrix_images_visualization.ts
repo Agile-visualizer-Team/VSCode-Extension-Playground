@@ -101,6 +101,9 @@ export class MatrixImagesCreator {
                 return true;
             });
 
+         
+              
+
         return false;
     }
 
@@ -188,6 +191,7 @@ export class MatrixImagesCreator {
             margin: 1em;
             padding-top: 1em;
             height: -webkit-fill-available;
+            height: auto;
         }
         td {
             padding: 0;

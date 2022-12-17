@@ -187,6 +187,7 @@ export class MatrixCreator {
             margin: 1em;
             padding-top: 1em;
             height: -webkit-fill-available;
+            height: auto;
         }
         td {
             padding: 12px 15px;
