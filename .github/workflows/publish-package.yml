@@ -39,18 +39,12 @@ jobs:
             git config --global user.email "fiorentinosalvatore65@gmail.com"
             git config --global user.name "instafiore"
             npm version ${{ env.update }}
-      - name: Commit files
-        run: |
-          echo "AA" > test
-          git add .
-          git status
-      - name: ls
-        run: ls    
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{secrets.NPM_TOKEN}}
           branch: ${{ github.ref }}
+          atomic: true
       # git commit -m "updated version"
       # # Publishing on Github Packages
       # - run: npm publish
