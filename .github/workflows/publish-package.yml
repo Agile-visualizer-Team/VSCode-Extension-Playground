@@ -29,8 +29,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          ref: master
-          token:  ${{secrets.NPM_TOKEN}}
+          token:  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
       # - name: ⚙ changelog
       #   uses: faberNovel/github-changelog-generator-action@master
       #   with:
