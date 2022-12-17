@@ -8,13 +8,13 @@ on:
 
 jobs:
 
-  # test:
-  #   # Testing
-  #   uses: agile-visualizer-team/visualizer-asp/.github/workflows/tests.yml@master
+  test:
+    # Testing
+    uses: agile-visualizer-team/visualizer-asp/.github/workflows/tests.yml@master
 
   publish-gpr:
     # Publishing
-    # needs: test
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
