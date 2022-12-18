@@ -53,9 +53,10 @@ jobs:
             fetch-depth: 0
       - name: update last version
         run: |
-          git config --global user.email "fiorentinosalvaote65@gmail.com"
+          git config --global user.email "fiorentinosalvatore65@gmail.com"
           git config --global user.name "Fiorentino Salvatore"
           npm version ${{ env.version }}
+        continue-on-error: true
       - uses: actions/setup-node@v3
         with:
           node-version: 16
