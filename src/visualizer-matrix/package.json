@@ -1,6 +1,6 @@
 {
   "name": "@Agile-visualizer-Team/agile_visualizer_matrix_visualizaton",
-  "version": "1.0.1",
+  "version": "0.2.14",
   "type": "commonjs",
   "module": "script.mjs",
   "dependencies": {
