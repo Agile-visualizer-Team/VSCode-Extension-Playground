@@ -1,8 +1,7 @@
 name: workflows-tests
 run-name: ${{ github.actor }} is testing
 on: 
-    pull_request_target:
-        types: [assigned, opened, synchronize, reopened]
+    pull_request:
     workflow_dispatch:
     workflow_call:
   
@@ -20,3 +19,13 @@ jobs:
             cd src/wrapper-dlv
             npm i 
             npm run test
+      - name: visualizer-matrix unit tests
+        run: |
+            cd src/visualizer-matrix
+            npm i 
+            npm run test
+      # - name: visualizer-graph unit tests
+      #   run: |
+      #       cd src/visualizer-graph
+      #       npm i 
+      #       npm run test

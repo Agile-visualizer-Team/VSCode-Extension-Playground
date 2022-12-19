@@ -29,22 +29,34 @@ jobs:
         name: setting enviroment variables
         run : ./commit_hook.pl $GITHUB_SHA >> $GITHUB_OUTPUT
 
-  # Testing
-  tests:
-    needs: check_commit
+  test:
+    # Testing
+    needs: check_commit 
     if: needs.check_commit.outputs.status == 'success'
     uses: agile-visualizer-team/visualizer-asp/.github/workflows/tests.yml@master
 
-
   # Creating a pull request
   create_pull_request:
-    needs: [tests, check_commit]
+    needs: [test, check_commit]
     runs-on: ubuntu-latest
-    if: needs.check_commit.outputs.status == 'success'
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:  
+          repository: Agile-visualizer-Team/visualizer-asp.git
+          token: ${{ secrets.PAT }}
+          ref: master
+      - name: take current version 
+        run: node print_version.js >> $GITHUB_ENV
       - uses: actions/checkout@v3
         with:
             fetch-depth: 0
+      - name: update last version
+        run: |
+          git config --global user.email "fiorentinosalvatore65@gmail.com"
+          git config --global user.name "Fiorentino Salvatore"
+          npm version ${{ env.version }}
+        continue-on-error: true
       - uses: actions/setup-node@v3
         with:
           node-version: 16
