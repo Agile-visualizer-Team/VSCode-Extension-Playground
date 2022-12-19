@@ -44,8 +44,7 @@ export class DLVWrapper {
       function (err) {
         if (err) {
           console.log("An error occured while writing JSON Object to File.");
-        }
-        else{
+        } else {
           console.log("JSON file has been saved.");
         }
       }
@@ -86,12 +85,17 @@ export class DLVWrapper {
   }
 }
 
-export function run_solver(_dlv_path: string, _asp_file: string, _output: string, _as_number: number){
+export function run_solver(
+  _dlv_path: string,
+  _asp_file: string,
+  _output: string,
+  _as_number: number
+) {
   let argv = {
     dlv_path: _dlv_path,
     asp_file: _asp_file,
     output: _output,
-    as_number: _as_number
-  }
+    as_number: _as_number,
+  };
   return new DLVWrapper().execute(argv);
 }

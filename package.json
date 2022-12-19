@@ -12,8 +12,7 @@
     "activationEvents": [
         "onCommand:asp-vis.helloWorld",
         "onCommand:asp-vis.time.current",
-        "onCommand:asp-vis.wrapper",
-        "onCommand:asp-vis.cmd"
+        "onCommand:asp-vis.wrapper"
     ],
     "main": "./dist/main.js",
     "contributes": {
@@ -29,10 +28,6 @@
             {
                 "command": "asp-vis.wrapper",
                 "title": "Wrapper"
-            },
-            {
-                "command": "asp-vis.cmd",
-                "title": "Render Matrix"
             }
         ]
     },
