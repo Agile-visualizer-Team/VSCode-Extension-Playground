@@ -41,21 +41,22 @@ jobs:
     # Publishing
     needs: [test, check_commit]
     runs-on: ubuntu-latest
-    if: needs.check_commit.outputs.status == 'success'
+    # if: needs.check_commit.outputs.status == 'success'
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        with:  
-          repository: Agile-visualizer-Team/visualizer-asp.git
-          token: ${{ secrets.PAT }}
-          ref: master
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          registry-url: https://npm.pkg.github.com/
-      - uses: shogo82148/actions-setup-perl@v1
-        with:
-            perl-version: '5.34'
+      - run: echo ${{ needs.check_commit.outputs.status }}
+      # - name: Checkout repository
+      #   uses: actions/checkout@v2
+      #   with:  
+      #     repository: Agile-visualizer-Team/visualizer-asp.git
+      #     token: ${{ secrets.PAT }}
+      #     ref: master
+      # - uses: actions/setup-node@v3
+      #   with:
+      #     node-version: 16
+      #     registry-url: https://npm.pkg.github.com/
+      # - uses: shogo82148/actions-setup-perl@v1
+      #   with:
+      #       perl-version: '5.34'
       # - run: npm ci
       # - name:  'automated version bump'
       #   uses:  'phips28/gh-action-bump-version@master'
