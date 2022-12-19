@@ -106,7 +106,6 @@ export class MatrixImagesCreator {
             return false;
         }
        return false;
-
     }
 
 
