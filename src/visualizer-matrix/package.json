@@ -1,6 +1,6 @@
 {
   "name": "@Agile-visualizer-Team/agile_visualizer_matrix_visualizaton",
-  "version": "1.0.1",
+  "version": "0.2.14",
   "type": "commonjs",
   "module": "script.mjs",
   "dependencies": {
@@ -49,7 +49,7 @@
     "report-dir": "coverage"
   },
   "scripts": {
-    "test": "nyc mocha -r ts-node/register './src/tests/**/*.test.ts'",
+    "test": "mocha -r ts-node/register './src/tests/**/*.test.ts'",
     "test_matrix_images": "nyc mocha -r ts-node/register './src/tests/**/matrix_images_visualization.test.ts'",
     "test_matrix": "nyc mocha -r ts-node/register './src/tests/**/matrix_visualization.test.ts'",
     "test_table": "nyc mocha -r ts-node/register './src/tests/**/table_visualization.test.ts'",

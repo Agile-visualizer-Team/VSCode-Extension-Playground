@@ -467,7 +467,6 @@ describe('[matrix] init_matrix_rows_and_columns method tests', () => { // the te
     });
 
 
-    `<table><thead><tr><th>Answer set:</th><th>Mapped value:cell</th></tr></thead><tbody><tr><td></td><td>0</td><td>1</td></tr><tr><td>0</td><td>ciao</td><td>peppe</td></tr></tbody></table>`
 
 
 });
@@ -542,6 +541,8 @@ describe('[matrix] create_matrix_from_atoms_list method tests', () => { // the t
 
     const mock_matrix_creator = sinon.mock(matrix_creator);
     mock_matrix_creator.expects('create_html_table_for_mapped_atom').exactly(2);
+    sinon.stub(matrix_creator, 'create_image_from_html').returns(true);
+
     matrix_creator.create_matrix_from_atoms_list(as, mapping_list, 0);
     mock_matrix_creator.verify();
     

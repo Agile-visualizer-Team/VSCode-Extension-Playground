@@ -101,6 +101,10 @@ export class TableCreator{
             .then(() => {
                 return true;
             });
+        }catch(e){
+            return false;
+        }
+        
 
         return false;
     }
@@ -152,6 +156,7 @@ export class TableCreator{
         margin: 1em;
         padding-top: 1em;
         height: auto;
+       
     }
     td {
         padding: 12px 15px;
@@ -169,6 +174,7 @@ export class TableCreator{
     tbody tr {
         border-bottom: ${this.base_styling.table_bottom_border};
         background-color: ${this.base_styling.table_background_color};
+        text-align:center;
     }
     table {
         border-collapse: collapse;
