@@ -29,6 +29,7 @@ How to use pipeline:
   The default action is ' update_package_patch ' 
 
   That's all. Ciao e buona giornata
+  Slowly Slowly
 
 ## Requirements
 
