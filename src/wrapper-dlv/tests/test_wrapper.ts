@@ -1,7 +1,7 @@
 import { assert, expect } from 'chai';
 import 'mocha';
 import { DLVWrapper } from '../dlv_wrapper'
-import { execute } from '../dlv_wrapper'
+import { run_solver } from '../dlv_wrapper'
 var child_process = require('child_process')
 var fs = require('fs')
 var sinon = require('sinon')
