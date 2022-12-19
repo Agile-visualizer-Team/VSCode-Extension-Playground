@@ -25,20 +25,22 @@ if($output_git_log =~ /$regex/gm){
     if($message =~ /$regex_inner_message_update_version/gm){
         
         if($+{major}){
-            print("update=major\n")
+            print("version=major\n")
         }elsif($+{minor}){
-            print("update=minor\n")
+            print("version=minor\n")
         }else{
-            print("update=patch\n")
+            print("version=patch\n")
         }
 
     }elsif( $message =~ /$regex_bump_commit/gm ){
-        print("update=bump_commit\n") ;
+        print("status=failed\n") ;
         exit ;
     }else{
         # Default
-        print("update=patch\n")
+        print("version=patch\n")
     }
+    
+    print("status=success\n") ;
 
 }else{
     die "Message doesn't match regex message\n";
