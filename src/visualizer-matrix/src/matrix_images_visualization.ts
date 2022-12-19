@@ -93,15 +93,21 @@ export class MatrixImagesCreator {
      * @returns A boolean value.
      */
     create_image_from_html(index: number, html_to_convert_in_image: string) {
-        this.node_html_to_image({
+        try{
+            this.node_html_to_image({
             output: './answer_set_matrix_with_images_' + index + '.png',
             html: html_to_convert_in_image,
         })
-            .then(() => {
-                return true;
-            });
+        .then(() => {
+            return true;
+        });
+        }
+        catch(e){
+            return false;
+        }
+       return false;
 
-        return false;
+        
     }
 
 
