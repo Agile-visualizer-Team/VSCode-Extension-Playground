@@ -1,16 +1,14 @@
 import {Graph} from "./models";
 import {GraphRendererTheme, VSCODE_THEME} from "./renderer-themes";
-import {GraphRendererLayout} from "./renderer-layout";
 
 declare function require(name: string): any;
 const cytosnap = require('cytosnap');
-cytosnap.use(['cytoscape-dagre']);
+cytosnap.use(['cytoscape-dagre', 'cytoscape-avsdf']);
 
 export class GraphRenderer {
     public width: number = 800;
     public height: number = 600;
     public theme: GraphRendererTheme = VSCODE_THEME;
-    public layout: GraphRendererLayout = GraphRendererLayout.Dagre;
     public outputType = 'base64';
 
     private generateCytoscapeElements(graph: Graph): object[] {
@@ -18,9 +16,9 @@ export class GraphRenderer {
 
         graph.nodes.forEach(n => {
             let shape, width, height;
-            if (n.name.length > 1) {
+            if (n.label.length > 1) {
                 shape = "round-rectangle";
-                width = n.name.length * this.theme.node.roundRectangle.widthMultiplier;
+                width = n.label.length * this.theme.node.roundRectangle.widthMultiplier;
                 height = this.theme.node.roundRectangle.heightMultiplier;
             } else {
                 shape = "ellipse";
@@ -30,8 +28,8 @@ export class GraphRenderer {
 
             elements.push({
                 data: {
-                    id: n.name,
-                    label: n.name,
+                    id: n.label,
+                    label: n.label,
                     shape: shape,
                     width: width,
                     height: height,
@@ -45,14 +43,14 @@ export class GraphRenderer {
         graph.edges.forEach(e => {
             elements.push({
                 data: {
-                    id: e.from + '-' + e.destination,
+                    id: e.from + '-' + e.to,
                     source: e.from,
-                    target: e.destination,
+                    target: e.to,
                     weight: e.weight,
                     color: e.color
                         ? this.convertColorWithThemePalette(e.color)
                         : this.theme.edge.lineColor,
-                    arrowShape: graph.oriented ? 'triangle' : 'none'
+                    arrowShape: e.oriented ? 'triangle' : 'none'
                 }
             });
         });
@@ -67,12 +65,20 @@ export class GraphRenderer {
         return colorName;
     }
 
-    private generateCytoscapeLayout(): object {
-        if (this.layout == GraphRendererLayout.Dagre) {
+    public generateCytoscapeLayout(graph: Graph): object {
+        if (graph.layout == "dagre") {
             return {
                 name: 'dagre',
-                edgeSep: 50,
+                edgeSep: 70,
                 rankDir: 'TB',
+                padding: 5
+            };
+        }
+        if (graph.layout == "avsdf") {
+            return {
+                name: 'avsdf',
+                nodeSeparation: 100,
+                padding: 5
             };
         }
         throw new Error("Unsupported layout type");
@@ -134,7 +140,6 @@ export class GraphRenderer {
             args: ['--disable-gpu', '--no-sandbox', '--disable-dev-shm-usage'] // ubuntu fix
         });
 
-        const layout = that.generateCytoscapeLayout();
         const style = that.generateCytoscapeStyle();
 
         snap.start().then(() => {
@@ -147,7 +152,7 @@ export class GraphRenderer {
 
                 const renderingPromise = snap.shot({
                     elements: that.generateCytoscapeElements(graph),
-                    layout: layout,
+                    layout: that.generateCytoscapeLayout(graph),
                     style: style,
                     resolvesTo: this.outputType,
                     format: 'png',

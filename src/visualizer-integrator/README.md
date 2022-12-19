@@ -27,34 +27,69 @@
         node(X, red) | node(X, yellow) | node(X, green) :- starting(X).
         :- node(X,C),node(Y,C), edge(X,Y,_),X!=Y.
 ## Template file example
-        {
-            "template": "graph",
-            "nodes": {
+    {
+        "template": "graph",
+        "layout": "dagre",
+        "nodes": [
+            {
                 "atom": {
-                    "name": "node",
-                    "variables": ["label", "color"]
+                    "name": "inNode",
+                    "variables": ["label"]
                 },
                 "style": {
                     "color": {
-                        "root": "yellow",
-                        "leaves": "fuchsia",
-                        "nonRoot": "blue"
+                        "all": {
+                            "if": [
+                                {"variable": "label", "matches": "a", "then": "green"},
+                                {"variable": "label", "matches": "d", "then": "blue"},
+                                {"variable": "label", "matches": "h", "then": "fuchsia"}
+                            ],
+                            "else": "orange"
+                        }
                     }
                 }
             },
-            "edges": {
+            {
                 "atom": {
-                    "name": "edge",
-                    "variables": ["from", "to", "color"]
+                    "name": "outNode",
+                    "variables": ["label"]
                 },
                 "style": {
                     "color": {
-                        "branch": "green",
-                        "path": "yellow"
+                        "all": "grey"
+                    }
+                }
+            }
+        ],
+        "edges": [
+            {
+                "atom": {
+                    "name": "inEdge",
+                    "variables": ["from", "to", "weight"]
+                },
+                "style": {
+                    "color": {
+                        "if": [
+                            {"variable": "weight", "gte": 6, "then": "red"},
+                            {"variable": "weight", "gte": 4, "then": "orange"},
+                            {"variable": "weight", "gte": 2, "then": "yellow"}
+                        ],
+                        "else": "green"
                     },
+                    "oriented": true
+                }
+            },
+            {
+                "atom": {
+                    "name": "outEdge",
+                    "variables": ["from", "to", "weight"]
+                },
+                "style": {
+                    "color": "grey",
                     "oriented": false
                 }
             }
-        }
+        ]
+    }
 # Matrix/Table visualizer
 TODO
