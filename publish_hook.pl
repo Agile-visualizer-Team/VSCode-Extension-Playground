@@ -3,14 +3,15 @@
 # Author: Fiorentino Salvatore
 # In the commit of pull request just insert: update_package_[ major | minor | patch ]
 
-$regex = 'Author:\s+(?<author_username>\w+)\s+.+\nDate:\s+(?<day>\w+)\s(?<mounth>\w+)\s(?<day_number>\w+)\s(?<hour>\d{2}):(?<minute>\d{2}):(?<second>\d{2})\s(?<year>\d{4}).+\n+(?<message>(.|\n)+?)\ndiff';
+$regex1 = 'Author:\s+(?<author_username>\w+)\s+.+\nDate:\s+(?<day>\w+)\s(?<mounth>\w+)\s(?<day_number>\w+)\s(?<hour>\d{2}):(?<minute>\d{2}):(?<second>\d{2})\s(?<year>\d{4}).+\n+(?<message>(.|\n)+?)\ndiff';
+$regex2 = 'Author:\s+(?<author_username>\w+)\s+.+\nDate:\s+(?<day>\w+)\s(?<mounth>\w+)\s(?<day_number>\w+)\s(?<hour>\d{2}):(?<minute>\d{2}):(?<second>\d{2})\s(?<year>\d{4}).+\n+(?<message>(.|\n)+?)';
 $regex_inner_message_update_version = 'update_package_((?<major>major)|(?<minor>minor)|(?<patch>patch))';
 $regex_bump_commit = 'ci: version bump to \d+.\d+.\d+' ;
 
 $sha = shift ;
 $output_git_log = `git show $sha` ;
 
-if($output_git_log =~ /$regex/gm){
+if($output_git_log =~ /$regex1/gm or $output_git_log =~ /$regex2/gm){
 
     $author_username = $+{author_username};
     $day = $+{day};
