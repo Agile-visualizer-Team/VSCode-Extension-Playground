@@ -90,13 +90,18 @@ export class TableCreator{
      * @returns false.
      */
     create_image_from_html(index: number, html_to_convert_in_image: string) {
-        this.node_html_to_image({
+        try{
+            this.node_html_to_image({
             output: './answer_set_table_' + index + '.png',
             html: html_to_convert_in_image,
         })
             .then(() => {
                 return true;
             });
+        }catch(e){
+            return false;
+        }
+        
 
         return false;
     }
@@ -148,6 +153,10 @@ export class TableCreator{
         margin: 1em;
         padding-top: 1em;
         height: auto;
+<<<<<<< HEAD
+=======
+       
+>>>>>>> master
     }
     td {
         padding: 12px 15px;

@@ -604,6 +604,7 @@ describe('[matrix images creator] create_matrix_from_atoms_list method tests', (
 
     const mock_matrix_images_creator = sinon.mock(matrix_images_creator);
     mock_matrix_images_creator.expects('create_html_table_for_mapped_atom').exactly(2);
+    sinon.stub(matrix_images_creator, 'create_image_from_html').returns(true);
     matrix_images_creator.create_matrix_from_atoms_list(as, mapping_list, 0);
     mock_matrix_images_creator.verify();
     
@@ -646,6 +647,8 @@ describe('[matrix images creator] run_script method tests', () => { // the tests
 
         sinon.stub(matrix_images_creator, 'maxNumOfAnswerSetToConvert').returns(2);
         const mock_matrix_images_creator = sinon.mock(matrix_images_creator);
+        sinon.stub(matrix_images_creator, 'create_image_from_html').returns(true);
+
         mock_matrix_images_creator.expects('create_matrix_from_atoms_list').exactly(2);
         matrix_images_creator.run_script(answer_sets);
         mock_matrix_images_creator.verify();
