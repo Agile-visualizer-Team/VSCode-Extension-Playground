@@ -2,7 +2,6 @@ import path = require("path");
 import process = require("process");
 import * as vscode from "vscode";
 import { callNode } from "../visualizer-integrator/visualizer";
-import MatrixCreator from "./matrix_module";
 
 export function activate(context: vscode.ExtensionContext) {
   console.log('Congratulations, "ASP Visualizer" is now active!');
@@ -73,14 +72,8 @@ export function activate(context: vscode.ExtensionContext) {
       });
   });
 
-  let matrix = vscode.commands.registerCommand("asp-vis.cmd", () =>
-    //save an image to Downloads folder
-    new MatrixCreator().run_script()
-  );
-
   context.subscriptions.push(disposable);
   context.subscriptions.push(time);
-  context.subscriptions.push(matrix);
   context.subscriptions.push(wrapper);
 }
 
