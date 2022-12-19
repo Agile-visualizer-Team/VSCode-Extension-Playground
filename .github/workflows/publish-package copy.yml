@@ -8,40 +8,14 @@ on:
 
 jobs:
 
-  # Checking commit
-  check_commit:
-    continue-on-error: true
-    runs-on: ubuntu-latest
-    outputs:
-        version: ${{ steps.commit_hook.outputs.version }}
-        status: ${{ steps.commit_hook.outputs.status }}
-    steps:
-      - uses: actions/checkout@v3
-        with:
-            fetch-depth: 0
-      - uses: shogo82148/actions-setup-perl@v1
-        with:
-            perl-version: '5.34'
-      - name: check branch
-        run: echo "echo ${GITHUB_REF##*/}"
-      - name: check commit
-        run : git show $GITHUB_SHA
-      - name: run version to update
-        run: ./publish_hook.pl $GITHUB_SHA
-      - name: check version to update
-        run: ./publish_hook.pl $GITHUB_SHA >> $GITHUB_OUTPUT
-
   test:
     # Testing
-    needs: check_commit
-    if: needs.check_commit.outputs.status == 'success'
     uses: agile-visualizer-team/visualizer-asp/.github/workflows/tests.yml@master
 
   publish-gpr:
     # Publishing
-    needs: [test, check_commit]
+    needs: test
     runs-on: ubuntu-latest
-    if: needs.check_commit.outputs.status == 'success'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -49,6 +23,10 @@ jobs:
           repository: Agile-visualizer-Team/visualizer-asp.git
           token: ${{ secrets.PAT }}
           ref: master
+      - name: check branch
+        run: echo "echo ${GITHUB_REF##*/}"
+      - name: check commit
+        run : git show $GITHUB_SHA
       - uses: actions/setup-node@v3
         with:
           node-version: 16
@@ -56,6 +34,8 @@ jobs:
       - uses: shogo82148/actions-setup-perl@v1
         with:
             perl-version: '5.34'
+      - name: check version to update
+        run: ./publish_hook.pl $GITHUB_SHA >> $GITHUB_ENV
       - if :  ${{ env.update != 'bump_commit' }} 
         run: npm ci
       - if :  ${{ env.update != 'bump_commit' }} 
@@ -66,7 +46,7 @@ jobs:
         with:
           version-type:  '${{ env.update }}'
       # Publishing on Github Packages
-      # - if :  ${{ env.update != 'bump_commit' }} 
-      #   run: npm publish
-      #   env:
-      #       NPM_AUTH_TOKEN: ${{secrets.PAT}}
+      - if :  ${{ env.update != 'bump_commit' }} 
+        run: npm publish
+        env:
+            NPM_AUTH_TOKEN: ${{secrets.PAT}}
