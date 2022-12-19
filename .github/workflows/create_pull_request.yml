@@ -32,13 +32,13 @@ jobs:
   test:
     # Testing
     needs: check_commit 
+    if: needs.check_commit.outputs.status == 'success'
     uses: agile-visualizer-team/visualizer-asp/.github/workflows/tests.yml@master
 
   # Creating a pull request
   create_pull_request:
     needs: [test, check_commit]
     runs-on: ubuntu-latest
-    if: needs.check_commit.outputs.status == 'success'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
