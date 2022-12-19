@@ -193,6 +193,10 @@ export class MatrixCreator {
             flex-direction: column;
             margin: 1em;
             padding-top: 1em;
+<<<<<<< HEAD
+=======
+            height: -webkit-fill-available;
+>>>>>>> master
             height: auto;
         }
         td {

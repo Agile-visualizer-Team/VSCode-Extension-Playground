@@ -153,6 +153,10 @@ export class TableCreator{
         margin: 1em;
         padding-top: 1em;
         height: auto;
+<<<<<<< HEAD
+=======
+       
+>>>>>>> master
     }
     td {
         padding: 12px 15px;

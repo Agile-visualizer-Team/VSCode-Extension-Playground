@@ -281,7 +281,11 @@ describe("[table] create_table_html method tests", () => {
 
         let table_html: string ='table';
         let obtained_table_html:string = table_creator.create_html_to_convert_in_image(table_html).replace(/\s/g, "");
+<<<<<<< HEAD
         let expected_table_html:string = `<html><head><style>html{background-color:#101010;color:#e1e1e1;font-family:Arial;}strong{color:#e1e1e1;font-size:20px;}body{background-color:#101010;color:#e1e1e1;margin:1em;display:flex;justify-content:space-evenly;align-items:center;gap:20px;padding:1em;flex-direction:column;margin:1em;padding-top:1em;height:auto;}td{padding:12px15px;}thead{background-color:#b41b22;color:#ffffff;width:100%;font-size:20;font-family:Arial;font-weight:bold;text-align:center;display:table-caption;}tbodytr{border-bottom:1pxsolid#e1e1e1;background-color:#252525;}table{border-collapse:collapse;margin:1em;width:100%;font-size:0.9em;font-family:sans-serif;min-width:400px;box-shadow:0px10px15px-5pxrgba(200,200,200,0.10);color:#e1e1e1;}.fieldStyle{background-color:#b41b22;color:#ffffff;font-size:20;font-family:Arial;font-weight:bold;font-style:italic;text-align:center;}.titolo{display:flex;justify-content:space-around;align-items:center;}</style></head><body>table</body></html>`;
+=======
+        let expected_table_html:string = `<html><head><style>html{background-color:#101010;color:#e1e1e1;font-family:Arial;}strong{color:#e1e1e1;font-size:20px;}body{background-color:#101010;color:#e1e1e1;margin:1em;display:flex;justify-content:space-evenly;align-items:center;gap:20px;padding:1em;flex-direction:column;margin:1em;padding-top:1em;height:auto;}td{padding:12px15px;}thead{background-color:#b41b22;color:#ffffff;width:100%;font-size:20;font-family:Arial;font-weight:bold;text-align:center;display:table-caption;}tbodytr{border-bottom:1pxsolid#e1e1e1;background-color:#252525;}table{border-collapse:collapse;margin:1em;width:100%;font-size:0.9em;font-family:sans-serif;min-width:400px;box-shadow:0px10px15px-5pxrgba(200,200,200,0.10);color:#e1e1e1;}.fieldStyle{background-color:#b41b22;color:#ffffff;font-size:20;font-family:Arial;font-weight:bold;font-style:italic;text-align:center;}.titolo{display:flex;justify-content:space-around;align-items:center;}</style></head><body>`+table_html+`</body></html>`;
+>>>>>>> master
 
         expect(obtained_table_html).to.eql(expected_table_html);
     });
