@@ -39,7 +39,7 @@ jobs:
 
   publish-gpr:
     # Publishing
-    needs: [test, check_commit]
+    needs: [check_commit]
     runs-on: ubuntu-latest
     # if: needs.check_commit.outputs.status == 'success'
     steps:
