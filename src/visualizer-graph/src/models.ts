@@ -8,7 +8,7 @@ export interface Graph {
 export interface GraphVariables {
     [key: string]: any;
 }
-//CA220NE
+//CA220NEE
 export interface GraphNode {
     label: string;
     color?: string | null;
