@@ -7,93 +7,38 @@
 
 ## How to render from file input
 
-    node build/script.js fromfile --template ./input/demo-template.json --as ./input/demo-as.json --output ./output
+    node build/script.js fromfile --template ./input/demo-1-template.json --as ./input/demo-1-as.json --output ./output
 
 ## How to render from string input
 
-    node build/script.js fromstr --template ./input/demo-template.json --output ./output
+    node build/script.js fromstr --template ./input/demo-1-template.json --output ./output
 
 Then type an example answer set as json string:
 
-    [{"as":["node(a,red)","node(b,green)","edge(a,b,3,blue)"]}]
+    [{"as":["inNode(a)","outNode(b)","inNode(c)","inEdge(a,c,3)","outEdge(a,b,10)"]}]
 
-## Demo
+## Demos
 
-In order to generate a demo graph rendering, run `npm start`. The following json files will be used as input:
-
-**Template:** (`input/demo-template.json`)
-
-    {
-        "template": "graph",
-        "nodes": {
-            "atom": {
-                "name": "node",
-                "variables": ["label", "color"]
-            },
-            "style": {
-                "color": {
-                    "root": "yellow",
-                    "leaves": "fuchsia",
-                    "nonRoot": "blue"
-                }
-            }
-        },
-        "edges": {
-            "atom": {
-                "name": "edge",
-                "variables": ["from", "to", "weight", "color"]
-            },
-            "style": {
-                "color": {
-                    "branch": "green",
-                    "path": "yellow"
-                },
-                "oriented": true
-            }
-        }
-    }
-
-**Answer sets:** (`input/demo-answer-set.json`)
-
-    [
-        {
-            "as" : [
-                "node(a,green)",
-                "node(b,blue)",
-                "node(c,grey)",
-                "node(d,blue)",
-                "node(e,grey)",
-                "node(f,grey)",
-                "node(g,fuchsia)",
-                "edge(a,b,2,green)",
-                "edge(a,c,10,grey)",
-                "edge(b,d,6,green)",
-                "edge(b,e,7,grey)",
-                "edge(b,f,5,grey)",
-                "edge(c,d,4,grey)",
-                "edge(d,g,3,green)"
-            ],
-            "cost" : "1@2"
-        },
-        {
-            "as" : [
-                "node(a,green)",
-                "node(b,green)",
-                "node(g,green)",
-                "edge(a,b,1,blue)",
-                "edge(b,g,2,blue)",
-                "edge(a,g,10,grey)"
-            ],
-            "cost" : "1@2"
-        }
-    ]
+| Command | Description |
+|-----------------------|-------------------------|
+| `npm run demo:1` | Example of a path coloring problem where the colors of nodes and edges are calculated with custom template conditions |
+| `npm run demo:2` | Example of a path coloring problem where the colors of nodes are set directly into the template |
+| `npm run demo:3` | Example of a 3 colorability problem where the color of each node is taken from the answer set |
 
 After the script execution is completed check the `output` folder, you should get a graph-*.png image for each input answer set.
 
-The first answer set will generate an image like this:
 
-![demo as 1](demo-graph-1.png "Demo graph from answer set 1")
+## Template
 
-while the second one will be:
+### IF condition operators
 
-![demo as 2](demo-graph-2.png "Demo graph from answer set 2")
+| IF Condition operator | Description and example |
+|-----------------------|-------------------------|
+| `matches: foo` | True if the fact variable is exactly `foo` (case sensitive equal comparator) |
+| `imatches: foo` | True if the fact variable is `FOO` or `foo` (case insensitive equal comparator) |
+| `contains: bar` | True if the fact variable contains `bar`, example: `foobar` (case sensitive) |
+| `icontains: bar` | True if the fact variable contains `bar` or `BAR`, example: `fooBAR` (case insensitive) |
+| `lt: 25` | True if the fact variable is less than `25`, example: `24` |
+| `lte: 25` | True if the fact variable is less than `25` or equal to `25`, example: `25` or `24` |
+| `gt: 50` | True if the fact variable is greater than `50`, example: `51` |
+| `gte: 50` | True if the fact variable is greater than `50` or equal to `50`, example: `51` or `52` |
