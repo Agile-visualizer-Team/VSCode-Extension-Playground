@@ -96,7 +96,7 @@ export default class MatrixCreator {
   create_image_from_html(index: number, html_to_convert_in_image: string) {
     this.node_html_to_image({
       output: path.join(
-        "D:",
+        "D",
         "AlexFazio64",
         "Downloads",
         "answer_set_matrix_" + index.toString() + ".png"

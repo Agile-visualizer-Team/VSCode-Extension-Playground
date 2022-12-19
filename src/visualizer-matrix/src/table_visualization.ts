@@ -1,8 +1,6 @@
 import * as yargs from 'yargs';
 const readline = require( 'readline');
-
-
-
+const path = require('path');
 
 export class TableCreator{
 
@@ -91,8 +89,14 @@ export class TableCreator{
      */
     create_image_from_html(index: number, html_to_convert_in_image: string) {
         this.node_html_to_image({
-            output: './answer_set_table_' + index + '.png',
-            html: html_to_convert_in_image,
+            output: path.resolve(
+                "D:\\",
+                "AlexFazio64",
+                "Downloads",
+                "answer_set_table_" + index + ".png"
+              ),
+              html: html_to_convert_in_image,
+              puppeteerArgs: { executablePath: process.env.CHROME_PATH },
         })
             .then(() => {
                 return true;

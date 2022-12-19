@@ -1,8 +1,8 @@
 import path = require("path");
+import process = require("process");
 import * as vscode from "vscode";
-import MatrixCreator from "./matrix_module";
 import { callNode } from "../visualizer-integrator/visualizer";
-process = require("process");
+import MatrixCreator from "./matrix_module";
 
 export function activate(context: vscode.ExtensionContext) {
   console.log('Congratulations, "ASP Visualizer" is now active!');
@@ -36,27 +36,41 @@ export function activate(context: vscode.ExtensionContext) {
   });
 
   let wrapper = vscode.commands.registerCommand("asp-vis.wrapper", () => {
-    let solver_path: string;
-    let program: string;
-    let as_number: number = 1;
-    let out_template: string;
-    let out_dir: string;
+    const base = path.join(__dirname, "..", "src", "sample-files");
+    
+    let sol_num: number = 1;
+    let template: string = "";
+    let program: string = "";
+    let solver: string = path.join(base, "dlv2_win.exe");
+    let out_dir: string = path.join(__dirname, "..", "out");
+    let img_dir: string = path.join(base, "images");
 
-    const base_path = path.join(
-      "D:",
-      "AlexFazio64",
-      "Dev",
-      "js",
-      "VSCode-Extension-Playground",
-      "src",
-      "sample-files"
-    );
-
-    solver_path = path.join(base_path, "dlv2_win.exe");
-    program = path.join(base_path, "3col.asp");
-    out_dir = base_path;
-
-    callNode("", program, solver_path, as_number, out_dir);
+    // show an input field from vscode and check the input
+    vscode.window
+      .showInputBox({
+        prompt: "Enter the tyep of visualization you want to see",
+        placeHolder: "matrix, table, images",
+      })
+      .then((value) => {
+        switch (value) {
+          case "matrix":
+            template = path.join(base, "matrix.json");
+            program = path.join(base, "matrix.asp");
+            break;
+          case "table":
+            template = path.join(base, "table.json");
+            program = path.join(base, "matrix.asp");
+            break;
+          case "images":
+            template = path.join(base, "images.json");
+            program = path.join(base, "images.asp");
+            break;
+          default:
+            console.log("no available visualization for this kind :(");
+            return;
+        }
+        callNode(template, program, solver, sol_num, out_dir, img_dir);
+      });
   });
 
   let matrix = vscode.commands.registerCommand("asp-vis.cmd", () =>
