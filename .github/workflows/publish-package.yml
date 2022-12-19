@@ -28,7 +28,8 @@ jobs:
         run : git show $GITHUB_SHA
       - name: run version to update
         run: ./publish_hook.pl $GITHUB_SHA
-      - name: check version to update
+      - id: commit_hook
+        name: check version to update
         run: ./publish_hook.pl $GITHUB_SHA >> $GITHUB_OUTPUT
 
   test:
@@ -41,7 +42,6 @@ jobs:
     # Publishing
     needs: [check_commit]
     runs-on: ubuntu-latest
-    # if: needs.check_commit.outputs.status == 'success'
     steps:
       - run: echo ${{ needs.check_commit.outputs.status }}
       # - name: Checkout repository
