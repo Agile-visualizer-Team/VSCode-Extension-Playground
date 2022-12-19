@@ -24,8 +24,8 @@ jobs:
             cd src/visualizer-matrix
             npm i 
             npm run test
-      # - name: visualizer-graph unit tests
-      #   run: |
-      #       cd src/visualizer-graph
-      #       npm i 
-      #       npm run test
+      - name: visualizer-graph unit tests
+        run: |
+            cd src/visualizer-graph
+            npm i 
+            npm run test
