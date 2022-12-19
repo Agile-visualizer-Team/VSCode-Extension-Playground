@@ -155,82 +155,126 @@ import Ajv from "ajv";
     'yellowgreen',
 ];
 
-const NEW_TEMPLATE_SCHEMA = {
+const VARIABLE_NAME_REGEX = "^[A-Za-z][A-Za-z0-9\_]{0,19}$";
+const EXPRESSION_REGEX = "^[A-Za-z0-9\_]{0,20}$";
+
+const COLOR_SCHEMA = {
+    $id: "COLOR_SCHEMA",
+    oneOf: [
+        {enum: TEMPLATE_COLORS_LIST},
+        {
+            type: "object",
+            properties: {
+                if: {
+                    type: "array",
+                    items: {
+                        type: "object",
+                        properties: {
+                            variable: {type: "string", pattern: VARIABLE_NAME_REGEX},
+                            matches: {type: "string", pattern: EXPRESSION_REGEX},
+                            imatches: {type: "string", pattern: EXPRESSION_REGEX},
+                            contains: {type: "string", pattern: EXPRESSION_REGEX},
+                            icontains: {type: "string", pattern: EXPRESSION_REGEX},
+                            gte: {oneOf: [{type: "string", pattern: EXPRESSION_REGEX}, {type: "number"}]},
+                            lte: {oneOf: [{type: "string", pattern: EXPRESSION_REGEX}, {type: "number"}]},
+                            gt: {oneOf: [{type: "string", pattern: EXPRESSION_REGEX}, {type: "number"}]},
+                            lt: {oneOf: [{type: "string", pattern: EXPRESSION_REGEX}, {type: "number"}]},
+                            then: {enum: TEMPLATE_COLORS_LIST}
+                        }, required: ["variable", "then"]
+                    }
+                },
+                else: { enum: TEMPLATE_COLORS_LIST}
+            },
+            required: ["if", "else"]
+        }
+    ]
+};
+
+const NODE_SCHEMA = {
+    type: "object",
+    properties: {
+        atom: {
+            type: "object",
+            properties: {
+                name: {type: "string", default: "node", pattern: VARIABLE_NAME_REGEX},
+                variables: {
+                    type: "array",
+                    default: ["label"],
+                    uniqueItems: true,
+                    items: {type: "string"},
+                    minItems: 1
+                }
+            }
+        },
+        style: {
+            type: "object",
+            properties: {
+                color: {
+                    type: "object",
+                    properties: {
+                        all:{ $ref: "COLOR_SCHEMA", default: "green"},
+                        root: { $ref: "COLOR_SCHEMA"},
+                        leaf: { $ref: "COLOR_SCHEMA"},
+                        nonRoot: { $ref: "COLOR_SCHEMA"}
+                    }
+                }
+            }
+        }
+    },
+    required: ["atom"]
+};
+
+const EDGE_SCHEMA = {
+    type: "object",
+    properties: {
+        atom: {
+            type: "object",
+            properties: {
+                name: {type: "string", default: "edge", pattern: VARIABLE_NAME_REGEX},
+                variables: {
+                    type: "array",
+                    default: ["from", "to"],
+                    uniqueItems: true,
+                    items: {type: "string"},
+                    minItems: 2
+                }
+            }
+        },
+        style: {
+            type: "object",
+            properties: {
+                color: { $ref: "COLOR_SCHEMA"},
+                oriented: {type: "boolean", default: true}
+            },
+            default: {
+                oriented: true
+            }
+        }
+    },
+    required: ["atom"]
+};
+
+const TEMPLATE_SCHEMA = {
     type: "object",
     properties: {
         template: {type: "string"},
+        layout: {enum: ['dagre', 'avsdf'], default: 'dagre'},
         nodes: {
-            type: "object",
-            properties: {
-                atom: {
-                    type: "object",
-                    properties: {
-                        name: {type: "string", default: "node", pattern: "^[A-Za-z][A-Za-z0-9\_]*"},
-                        variables: {
-                            type: "array",
-                            default: ["label"],
-                            uniqueItems: true,
-                            items: {type: "string"},
-                            minItems: 1
-                        }
-                    }
-                },
-                style: {
-                    type: "object",
-                    properties: {
-                        color: {
-                            type: "object",
-                            properties: {
-                                root: {type: "string", default: "green", enum: TEMPLATE_COLORS_LIST,pattern: "^[A-Za-z]+"},
-                                leaves: {type: "string", default: "magenta", enum: TEMPLATE_COLORS_LIST, pattern: "^[A-Za-z]+"},
-                                nonRoot: {type: "string", default: "blue", enum: TEMPLATE_COLORS_LIST, pattern: "^[A-Za-z]+"}
-                            }
-                        }
-                    }
-                }
-            }, required: ["atom"]
+            type: "array",
+            items: NODE_SCHEMA
         },
         edges: {
-            type: "object",
-            properties: {
-                atom: {
-                    type: "object",
-                    properties: {
-                        name: {type: "string", default: "edge", pattern: "^[A-Za-z][A-Za-z0-9\_]*"},
-                        variables: {
-                            type: "array",
-                            default: ["from", "to"],
-                            uniqueItems: true,
-                            items: {type: "string"},
-                            minItems: 2
-                        }
-                    }
-                },
-                style: {
-                    type: "object",
-                    properties: {
-                        color: {
-                            type: "object",
-                            properties: {
-                                branch: {type: "string", default: "blue", enum: TEMPLATE_COLORS_LIST, pattern: "^[A-Za-z]+"},
-                                path: {type: "string", default: "yellow", enum: TEMPLATE_COLORS_LIST, pattern: "^[A-Za-z]+"}
-                            },
-                        },
-                        oriented: {type: "boolean", default: true}
-                    }
-                }
-            }, required: ["atom"]
+            type: "array",
+            items: EDGE_SCHEMA
         }
     },
     required: ["template", "nodes", "edges"]
 };
-
-
 
 const ANSWER_SETS_SCHEMA = {
     type: "array",
     items: {type: "object"}
 };
 
-export const validateTemplateSchema = new Ajv({useDefaults: true}).compile(NEW_TEMPLATE_SCHEMA);
+export const validateTemplateSchema = new Ajv({schemas:[COLOR_SCHEMA],useDefaults: true}).compile(TEMPLATE_SCHEMA);
 export const validateAnswerSetsSchema = new Ajv().compile(ANSWER_SETS_SCHEMA);

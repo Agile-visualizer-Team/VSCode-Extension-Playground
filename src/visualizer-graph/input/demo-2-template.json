@@ -1,0 +1,52 @@
+{
+    "template": "graph",
+    "layout": "dagre",
+    "nodes": [
+        {
+            "atom": {
+                "name": "inNode",
+                "variables": ["label"]
+            },
+            "style": {
+                "color": {
+                    "root": "green",
+                    "nonRoot": "blue",
+                    "leaf": "fuchsia"
+                }
+            }
+        },
+        {
+            "atom": {
+                "name": "outNode",
+                "variables": ["label"]
+            },
+            "style": {
+                "color": {
+                    "all": "grey"
+                }
+            }
+        }
+    ],
+    "edges": [
+        {
+            "atom": {
+                "name": "inEdge",
+                "variables": ["from", "to", "weight"]
+            },
+            "style": {
+                "color": "blue",
+                "oriented": true
+            }
+        },
+        {
+            "atom": {
+                "name": "outEdge",
+                "variables": ["from", "to", "weight"]
+            },
+            "style": {
+                "color": "grey",
+                "oriented": false
+            }
+        }
+    ]
+}
