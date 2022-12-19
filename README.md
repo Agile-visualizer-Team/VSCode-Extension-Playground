@@ -7,16 +7,16 @@ How to use pipeline:
 - Create a pull request
   - Create a branch from master
   - Make changes
-  - If you want to merge with master the last commit before push must be like this:
-    git commit -m"This is a commit pull_request{
-      title=title test:
-      body=body pull request:
-      reviewer=instafiore
-    }"
-    (All field are optional)
-    or:
-      git commit -m"This is a commit pull_request"
-    for a default pull_request
+  - If you want to merge with master the last commit before push must be like this:  
+    git commit -m"This is a commit pull_request{  
+      title=title test:  
+      body=body pull request:  
+      reviewer=instafiore  
+    }"  
+    (All field are optional)  
+    or:  
+      git commit -m"This is a commit pull_request"  
+    for a default pull_request  
     
     If you create a pull request manually you will have problem with publishing the new version on Github Packages.
     So: don't do this guys !!!
