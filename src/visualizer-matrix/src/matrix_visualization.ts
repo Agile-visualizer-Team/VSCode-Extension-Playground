@@ -15,6 +15,8 @@ export class MatrixCreator {
   table = require("table");
   node_html_to_image = require("node-html-to-image");
   undefined_error_string: string = "this data cannot be undefined";
+  output_dir: string = '';
+
 
   /**
    * It takes a list of atoms, a mapped_atom (the atom choosen by user to be mapped on the table), and a table_html string
@@ -110,8 +112,11 @@ export class MatrixCreator {
    * @returns A boolean value.
    */
   create_image_from_html(index: number, html_to_convert_in_image: string) {
+    if (!fs.existsSync(this.output_dir)){
+      fs.mkdirSync(this.output_dir , { recursive: true }); 
+    }
     this.node_html_to_image({
-      output:"answer_set_matrix_" + index + ".png",
+      output:this.output_dir+"answer_set_matrix_" + index + ".png",
       
       html: html_to_convert_in_image,
       puppeteerArgs: { executablePath: process.env.CHROME_PATH },
@@ -429,6 +434,7 @@ export class MatrixCreator {
     answer_set: JSON,
     output_directory: string
   ) {
+    this.output_dir=output_directory;
     this.config_file = config_file;
     this.run_script(answer_set);
   }
@@ -439,6 +445,8 @@ if (require.main === module) {
 
   let config_file: JSON = JSON.parse( fs.readFileSync('./src/config_matrix.json') );
   let answer_set_json: JSON = JSON.parse(fs.readFileSync('./src/answers_sets.json'));
+  let output = './src/output_files/'
 
-  script.setup_and_run_script(config_file, answer_set_json, '');
+
+  script.setup_and_run_script(config_file, answer_set_json, output);
 }

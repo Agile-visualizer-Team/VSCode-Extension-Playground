@@ -36,21 +36,19 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.MatrixImagesCreator = void 0;
+exports.MatrixCreator = void 0;
 var path = require("path");
-var readline = require("readline");
 var fs = require("fs");
-var MatrixImagesCreator = /** @class */ (function () {
-    function MatrixImagesCreator() {
-        this.answer_sets = require("./answers_sets_matrix_images.json");
-        this.config_file = require("./config_matrix_images.json");
+var readline = require("readline");
+var MatrixCreator = /** @class */ (function () {
+    function MatrixCreator() {
+        this.answer_sets = require("./answers_sets.json");
+        this.config_file = require("./config_matrix.json");
         this.style = this.get_config_style();
         this.base_styling = this.get_base_styling();
         this.table = require("table");
         this.node_html_to_image = require("node-html-to-image");
         this.undefined_error_string = "this data cannot be undefined";
-        this.images_directory_path = "";
-        this.almost_one_image_printed = false;
         this.output_dir = '';
     }
     /**
@@ -63,7 +61,7 @@ var MatrixImagesCreator = /** @class */ (function () {
      * @param {string} table_html - the html code of the table
      * @returns A string containing the HTML code for the table.
      */
-    MatrixImagesCreator.prototype.create_html_table_for_mapped_atom = function (atoms_list, mapped_atom, table_html) {
+    MatrixCreator.prototype.create_html_table_for_mapped_atom = function (atoms_list, mapped_atom, table_html) {
         var rows_list = new Array();
         var columns_list = new Array();
         var atoms_splitted_array = new Array();
@@ -91,7 +89,7 @@ var MatrixImagesCreator = /** @class */ (function () {
      * This function returns the maximum number of answer sets to convert.
      * @returns The maxNumOfAnswerSetToConvert property of the config_file object.
      */
-    MatrixImagesCreator.prototype.maxNumOfAnswerSetToConvert = function () {
+    MatrixCreator.prototype.maxNumOfAnswerSetToConvert = function () {
         return this.config_file.maxNumOfAnswerSetToConvert;
     };
     /**
@@ -101,7 +99,7 @@ var MatrixImagesCreator = /** @class */ (function () {
      * @param {string[]} mapping_list - the list of atoms that are mapped to the current atom
      * @param {number} index - the index of the matrix in the list of matrices
      */
-    MatrixImagesCreator.prototype.create_matrix_from_atoms_list = function (atoms_list, mapping_list, index) {
+    MatrixCreator.prototype.create_matrix_from_atoms_list = function (atoms_list, mapping_list, index) {
         var table_html = "";
         var self = this;
         mapping_list.forEach(function (mapped_atom) {
@@ -117,12 +115,12 @@ var MatrixImagesCreator = /** @class */ (function () {
      * @param {string} html_to_convert_in_image - the html string that you want to convert to an image
      * @returns A boolean value.
      */
-    MatrixImagesCreator.prototype.create_image_from_html = function (index, html_to_convert_in_image) {
+    MatrixCreator.prototype.create_image_from_html = function (index, html_to_convert_in_image) {
         if (!fs.existsSync(this.output_dir)) {
             fs.mkdirSync(this.output_dir, { recursive: true });
         }
         this.node_html_to_image({
-            output: this.output_dir + "answer_set_matrix_with_images" + index + ".png",
+            output: this.output_dir + "answer_set_matrix_" + index + ".png",
             html: html_to_convert_in_image,
             puppeteerArgs: { executablePath: process.env.CHROME_PATH }
         }).then(function () {
@@ -139,7 +137,7 @@ var MatrixImagesCreator = /** @class */ (function () {
      * @param {number[]} columns_list - A list of all the columns in the table.
      * @returns A matrix with the dimensions of the largest row and column in the input.
      */
-    MatrixImagesCreator.prototype.init_matrix_rows_and_columns = function (matrix, rows_list, columns_list) {
+    MatrixCreator.prototype.init_matrix_rows_and_columns = function (matrix, rows_list, columns_list) {
         if (rows_list == undefined)
             throw new Error(this.undefined_error_string + " rows_list");
         if (columns_list == undefined)
@@ -149,7 +147,7 @@ var MatrixImagesCreator = /** @class */ (function () {
             for (var i = 0; i < matrix.length; i++) {
                 matrix[i] = new Array(Math.max.apply(null, columns_list) + 1);
                 for (var j = 0; j < Math.max.apply(null, columns_list) + 1; j++) {
-                    matrix[i][j] = "undefined";
+                    matrix[i][j] = "Not defined";
                 }
             }
         }
@@ -159,7 +157,7 @@ var MatrixImagesCreator = /** @class */ (function () {
      * The function returns the value of the style property of the config_file object
      * @returns The style property of the config_file object.
      */
-    MatrixImagesCreator.prototype.get_config_style = function () {
+    MatrixCreator.prototype.get_config_style = function () {
         return this.config_file.style;
     };
     /**
@@ -168,7 +166,7 @@ var MatrixImagesCreator = /** @class */ (function () {
      * @returns An object with the properties html_background_color, html_text_color,
      * table_background_color, table_shadow_color, table_text_color, and table_bottom_border.
      */
-    MatrixImagesCreator.prototype.get_base_styling = function () {
+    MatrixCreator.prototype.get_base_styling = function () {
         return {
             html_background_color: this.style.dark_mode ? "#101010" : "#ebebeb",
             html_text_color: this.style.dark_mode ? "#e1e1e1" : "#000000",
@@ -186,7 +184,7 @@ var MatrixImagesCreator = /** @class */ (function () {
      * It returns a string containing the HTML code for the style of the table.
      * @returns a string.
      */
-    MatrixImagesCreator.prototype.get_html_style = function () {
+    MatrixCreator.prototype.get_html_style = function () {
         return ("\n        <style>\n        html{\n            background-color: " +
             this.base_styling.html_background_color +
             ";\n            color: " +
@@ -201,7 +199,7 @@ var MatrixImagesCreator = /** @class */ (function () {
             this.base_styling.html_background_color +
             ";\n            color: " +
             this.base_styling.html_text_color +
-            ";\n            margin: 1em;\n            display: flex;\n            justify-content: space-evenly;\n            align-items: center;\n            gap: 20px;\n            padding:1em;\n            flex-direction: column;\n            margin: 1em;\n            padding-top: 1em;\n            height: -webkit-fill-available;\n            height: auto;\n        }\n        td {\n            padding: 0;\n        }\n        \n        \n        thead{\n            background-color: ".concat(this.style.header_color, ";\n            color: #ffffff;\n            width: 100%;\n            font-size: ").concat(this.style.header_font_size, ";\n            font-family: ").concat(this.style.header_font_family, ";\n            font-weight: ").concat(this.style.header_font_weight, ";\n            text-align: center;\n            display: table-caption;\n        }\n        tbody tr {\n            background-color: ").concat(this.base_styling.table_background_color, ";\n        }\n        tbody{\n            display: flex;\n            flex-direction: column;\n            justify-content: center;\n            align-items: center;\n            gap:0;\n            margin: 1em;\n        }\n        table {\n            border-collapse: collapse;\n            margin: 1em;\n            width: 100%;\n            font-size: 0.9em;\n            font-family: sans-serif;\n            min-width: 400px;\n            box-shadow: 0px 10px 15px -5px ").concat(this.base_styling.table_shadow_color, ";\n            color: ").concat(this.base_styling.table_text_color, ";\n        }\n        \n\n        .titolo{\n            display: flex;\n            justify-content: space-around;\n            align-items: center;\n        }\n    </style>"));
+            ";\n            margin: 1em;\n            display: flex;\n            justify-content: space-evenly;\n            align-items: center;\n            gap: 20px;\n            padding:1em;\n            flex-direction: column;\n            margin: 1em;\n            padding-top: 1em;\n            height: -webkit-fill-available;\n            height: auto;\n        }\n        td {\n            padding: 12px 15px;\n        }\n        thead{\n            background-color: ".concat(this.style.header_color, ";\n            color: #ffffff;\n            width: 100%;\n            font-size: ").concat(this.style.header_font_size, ";\n            font-family: ").concat(this.style.header_font_family, ";\n            font-weight: ").concat(this.style.header_font_weight, ";\n            text-align: center;\n            display: table-caption;\n        }\n        tbody tr {\n            border-bottom: ").concat(this.base_styling.table_bottom_border, ";\n            background-color: ").concat(this.base_styling.table_background_color, ";\n        }\n        table {\n            border-collapse: collapse;\n            margin: 1em;\n            width: 100%;\n            font-size: 0.9em;\n            font-family: sans-serif;\n            min-width: 400px;\n            box-shadow: 0px 10px 15px -5px ").concat(this.base_styling.table_shadow_color, ";\n            color: ").concat(this.base_styling.table_text_color, ";\n        }\n        \n\n        .titolo{\n            display: flex;\n            justify-content: space-around;\n            align-items: center;\n        }\n    </style>"));
     };
     /**
      * It takes the HTML of the table a the entire HTML (with the style we choose) of the page which
@@ -210,7 +208,7 @@ var MatrixImagesCreator = /** @class */ (function () {
      * @param {number} index - The index of the table in the HTML file.
      * @returns the html that will be converted into an image.
      */
-    MatrixImagesCreator.prototype.create_html_to_convert_in_image = function (table_html) {
+    MatrixCreator.prototype.create_html_to_convert_in_image = function (table_html) {
         if (table_html === undefined)
             return "";
         var html = "<html>\n            <head>\n                ".concat(this.get_html_style(), "\n            </head>\n            <body>") +
@@ -228,29 +226,18 @@ var MatrixImagesCreator = /** @class */ (function () {
      * by the ',' character.
      * @param {string[][]} matrix - The matrix that will be filled with the values.
      */
-    MatrixImagesCreator.prototype.fill_matrix_with_values = function (atoms_splitted_matrix, matrix) {
+    MatrixCreator.prototype.fill_matrix_with_values = function (atoms_splitted_matrix, matrix) {
         if (atoms_splitted_matrix === undefined)
             return false;
         if (atoms_splitted_matrix.length === 0)
             return false;
         if (matrix === undefined)
             return false;
-        var self = this;
         atoms_splitted_matrix.forEach(function (atom) {
             if (atom.length == 3) {
                 var row = Number(atom[0]);
                 var column = Number(atom[1]);
-                if (self.config_file.useImages) {
-                    if (self.config_file.images_binding[atom[2].toString()] != undefined)
-                        matrix[row][column] =
-                            self.config_file.images_binding[atom[2].toString()];
-                    //   console.log(".---------------", self.config_file.images_binding, atom[2].toString());
-                    //   console.log(".---------------", matrix[row][column]);
-                }
-                else {
-                    if (self.config_file.colors_binding[atom[2]] != undefined)
-                        matrix[row][column] = self.config_file.colors_binding[atom[2]];
-                }
+                matrix[row][column] = atom[2];
             }
         });
         return true;
@@ -269,7 +256,7 @@ var MatrixImagesCreator = /** @class */ (function () {
      * matrix cell.
      * @param {string} cell_name - the name of the cell you want to retrieve
      */
-    MatrixImagesCreator.prototype.retrieve_matrix_cell_as_tuple = function (atoms_list, rows_list, columns_list, atoms_splitted_matrix, cell_name) {
+    MatrixCreator.prototype.retrieve_matrix_cell_as_tuple = function (atoms_list, rows_list, columns_list, atoms_splitted_matrix, cell_name) {
         /* Checking if the input is valid. */
         if (atoms_list == undefined)
             return false;
@@ -300,50 +287,29 @@ var MatrixImagesCreator = /** @class */ (function () {
      * @param {string} cell_name - The name of the cell you want to map.
      * @returns A string that contains the HTML code for a table.
      */
-    MatrixImagesCreator.prototype.create_table_html = function (matrix, cell_name) {
+    MatrixCreator.prototype.create_table_html = function (matrix, cell_name) {
         if (matrix == undefined || matrix.length == 0)
             return "";
         if (cell_name == undefined || cell_name == "")
             return "";
-        var html_table = "<table><thead><tr class=\"titolo\"><th>Visualization</th></tr></thead><tbody>";
-        html_table += "";
+        var html_table = "<table><thead><tr class=\"titolo\"><th>Answer set</th><th>Mapped value: " +
+            cell_name +
+            "</th></tr></thead><tbody><tr><td></td>";
+        for (var k = 0; k < matrix[0].length; k++) {
+            html_table += "<td>" + k + "</td>";
+        }
+        html_table += "</tr>";
         for (var i = 0; i < matrix.length; i++) {
             html_table += "<tr>";
+            html_table += "<td>" + i + "</td>";
             for (var j = 0; j < matrix[i].length; j++) {
-                if (matrix[i][j] != "undefined") {
-                    this.almost_one_image_printed = true;
-                    if (this.config_file.useImages) {
-                        if (fs.existsSync(this.images_directory_path + matrix[i][j])) {
-                            var image = fs.readFileSync(this.images_directory_path + matrix[i][j]);
-                            var base64Image = new Buffer.from(image).toString("base64");
-                            var dataURI = "data:image/jpeg;base64," + base64Image;
-                            html_table +=
-                                "<td><img src=\"" +
-                                    dataURI +
-                                    "\" style='height: 60px; width: 60px; object-fit: fill;'></img></td>";
-                        }
-                    }
-                    else {
-                        html_table += "<td><div style='height: 60px; width: 60px; background-color:".concat(matrix[i][j], "; border: 1px solid #307182'></img></td>");
-                    }
-                }
+                //html_table+="<td>"+j+ "</td>";
+                html_table += "<td>" + matrix[i][j] + "</td>";
             }
             html_table += "</tr>";
         }
         html_table += "</tbody></table>";
-        if (!this.almost_one_image_printed)
-            html_table +=
-                "<strong>There aren not atoms with values you mapped as images</strong>";
         return html_table;
-    };
-    MatrixImagesCreator.prototype.create_base64_image = function (file_name) {
-        var image = fs.readFileSync(this.images_directory_path + file_name);
-        var base64Image = new Buffer.from(image).toString("base64");
-        var dataURI = "data:image/jpeg;base64," + base64Image;
-        return dataURI;
-    };
-    MatrixImagesCreator.prototype.almost_one_printed = function () {
-        return this.almost_one_image_printed;
     };
     /**
      * The function takes the answer sets from the ASP solver and creates a matrix from the atoms in the
@@ -351,7 +317,7 @@ var MatrixImagesCreator = /** @class */ (function () {
      * @param {any} answer_sets - the answer sets of the ASP program
      * @returns the number of answer sets to convert to images.
      */
-    MatrixImagesCreator.prototype.run_script = function (answer_sets) {
+    MatrixCreator.prototype.run_script = function (answer_sets) {
         return __awaiter(this, void 0, void 0, function () {
             var mapping_list, max_num_of_as_to_convert, i, self;
             return __generator(this, function (_a) {
@@ -373,33 +339,18 @@ var MatrixImagesCreator = /** @class */ (function () {
             });
         });
     };
-    MatrixImagesCreator.prototype.setup_and_run_script = function (config_file, images_directory, answer_set, output_directory) {
-        this.config_file = config_file;
-        this.images_directory_path = images_directory;
+    MatrixCreator.prototype.setup_and_run_script = function (config_file, answer_set, output_directory) {
         this.output_dir = output_directory;
-        console.log(images_directory);
-        if (fs.existsSync(this.images_directory_path)) {
-            this.run_script(answer_set);
-        }
-        else {
-            console.log("The image directory does not exists, please check the path");
-        }
+        this.config_file = config_file;
+        this.run_script(answer_set);
     };
-    return MatrixImagesCreator;
+    return MatrixCreator;
 }());
-exports.MatrixImagesCreator = MatrixImagesCreator;
+exports.MatrixCreator = MatrixCreator;
 if (require.main === module) {
-    var script = new MatrixImagesCreator();
-    var config_file = JSON.parse(fs.readFileSync('./src/config_matrix_images.json'));
-    var answer_set_json = JSON.parse(fs.readFileSync('./src/answers_sets_matrix_images.json'));
-    var img_dir = './src/matrix_images/';
+    var script = new MatrixCreator();
+    var config_file = JSON.parse(fs.readFileSync('./src/config_matrix.json'));
+    var answer_set_json = JSON.parse(fs.readFileSync('./src/answers_sets.json'));
     var output = './src/output_files/';
-    script.setup_and_run_script(config_file, img_dir, answer_set_json, output);
+    script.setup_and_run_script(config_file, answer_set_json, output);
 }
-/*
-td img{
-            background-image: url(${this.create_base64_image('floor.png')});
-            background-size: contain;
-        }
-        backup code
-*/
