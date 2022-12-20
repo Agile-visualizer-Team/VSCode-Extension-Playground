@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Graph Rendering</title>
+
+    <!-- cytoscapejs -->
+    <script src="cytoscape.js"></script>
+
+    <!-- dagre -->
+    <script src="dagre.js"></script>
+    <script src="cytoscape-dagre.js"></script>
+
+    <!-- avsdf -->
+    <script src="layout-base.js"></script>
+    <script src="avsdf-base.js"></script>
+    <script src="cytoscape-avsdf.js"></script>
+
+    <style>
+        html body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #cy {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="cy"></div>
+<script>
+    // noinspection JSUnusedGlobalSymbols
+    function __runCytoscape(options) {
+        document.body.style.setProperty("background", options.background);
+
+        // noinspection TypeScriptUMDGlobal
+        const cy = cytoscape({
+            container: document.getElementById('cy'),
+            layout: options.layout,
+            style: options.style,
+            elements: options.elements
+        });
+
+        let layoutDone = cy.promiseOn('layoutstop');
+        cy.makeLayout(options.layout).run();
+        return layoutDone;
+    }
+</script>
+</body>
+</html>

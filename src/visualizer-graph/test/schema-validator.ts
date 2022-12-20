@@ -22,12 +22,10 @@ const RIGHT_SCHEMA = {
             oriented: true
         }
     }]
-}
+};
 
 const WRONG_SCHEMA = {
-
-}
-
+};
 
 describe("TEMPLATE SCHEMA VALIDATOR TEST", () => {
     it("should evaluate correctly the schema", () =>{
@@ -57,7 +55,7 @@ describe("TEMPLATE SCHEMA VALIDATOR TEST", () => {
                     oriented: true
                 }
             }]
-        }
+        };
         expect(validateTemplateSchema(not_unique_schema)).to.be.false;
     });
     it("should fail if the variable type doesn't match", ()=>{
@@ -73,7 +71,7 @@ describe("TEMPLATE SCHEMA VALIDATOR TEST", () => {
                     variables: ["from","from","weight","color"]
                 },
             }]
-        }
+        };
         expect(validateTemplateSchema(type_mismatch)).to.be.false;
     });
     it("should fail if the regex doesn't match", ()=>{
@@ -91,7 +89,7 @@ describe("TEMPLATE SCHEMA VALIDATOR TEST", () => {
                     variables: ["from","to","weight","color"]
                 },
             }]
-        }
+        };
         expect(validateTemplateSchema(regex_mismatch)).to.be.false;
     });
     it("should fail if there aren't the required keys ", ()=>{
@@ -101,7 +99,7 @@ describe("TEMPLATE SCHEMA VALIDATOR TEST", () => {
             }],
             edges: [{
             }]
-        }
+        };
         expect(validateTemplateSchema(required_mismatch)).to.be.false;
     });
     it("should fail if there are few arguments in array", ()=>{
@@ -119,7 +117,7 @@ describe("TEMPLATE SCHEMA VALIDATOR TEST", () => {
                     variables: []
                 },
             }]
-        }
+        };
         expect(validateTemplateSchema(arguments_mismatch)).to.be.false;
     });
     it("should fail if the user set an invalid color", ()=>{
@@ -143,7 +141,7 @@ describe("TEMPLATE SCHEMA VALIDATOR TEST", () => {
                     oriented: true
                 }
             }]
-        }
+        };
         expect(validateTemplateSchema(wrong_color_schema)).to.be.false;
     });
     it("should use default value if not provided", () =>{

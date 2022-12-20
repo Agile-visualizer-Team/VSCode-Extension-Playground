@@ -1,6 +1,5 @@
 import {createGraphEdge, createGraphNode, Graph, GraphEdge, GraphNode, GraphVariables} from "./models";
 import {validateAnswerSetsSchema, validateTemplateSchema} from "./schema-validators";
-import assert from "assert";
 import {ExpressionEvaluator} from "./expressions";
 
 export class GraphParser {
@@ -10,8 +9,7 @@ export class GraphParser {
     private readonly MANDATORY_EDGE_VARIABLE: string[] = ["from", "to"];
 
     constructor(template: any, answerSets: any[]) {
-        if (!validateTemplateSchema(template)) {
-            assert(validateTemplateSchema.errors);
+        if (!validateTemplateSchema(template) && validateTemplateSchema.errors) {
             const errorMessages = validateTemplateSchema.errors.map(e => {
                 const path = e.instancePath || "template";
                 return "Template is not valid: " + path + " " + e.message;
@@ -22,13 +20,12 @@ export class GraphParser {
 
         this.template.nodes.forEach((nodeTemplate: any) => {
             this.checkMandatoryVariables(nodeTemplate.atom.variables, this.MANDATORY_NODE_VARIABLE);
-        })
+        });
         this.template.edges.forEach((edgeTemplate: any) => {
             this.checkMandatoryVariables(edgeTemplate.atom.variables, this.MANDATORY_EDGE_VARIABLE);
-        })
+        });
 
-        if (!validateAnswerSetsSchema(answerSets)) {
-            assert(validateAnswerSetsSchema.errors);
+        if (!validateAnswerSetsSchema(answerSets) && validateAnswerSetsSchema.errors) {
             const error = validateAnswerSetsSchema.errors[0];
             const path = error.instancePath || "answer sets";
             throw Error("Answer sets are not valid: " + path + " " + error.message);
@@ -45,9 +42,10 @@ export class GraphParser {
     private checkMandatoryVariables(variables: string[], mandatoryVariables: string[]) {
         const check = mandatoryVariables.every(value => {
             return variables.includes(value);
-        })
-        if (!check)
-            throw Error(`Variables provided: \"${variables}\" must contain \"${mandatoryVariables}\"`)
+        });
+        if (!check) {
+            throw Error(`Variables provided: \"${variables}\" must contain \"${mandatoryVariables}\"`);
+        }
     }
 
     /**
@@ -121,11 +119,11 @@ export class GraphParser {
     private assignDefaultNodesColors(nodes: GraphNode[], edges: GraphEdge[]) {
         nodes.filter(n => !n.color && this.template.nodes[n.templateIndex].style.color).forEach(n => {
             const nodeTemplate = this.template.nodes[n.templateIndex];
-            if (!edges.find(e => e.to == n.label)) {
+            if (!edges.find(e => e.to === n.label)) {
                 // Root
                 n.color = this.parseColor(
                     nodeTemplate.style.color.root || nodeTemplate.style.color.all, n.variables);
-            } else if (!edges.find(e => e.from == n.label)) {
+            } else if (!edges.find(e => e.from === n.label)) {
                 // Leaf
                 n.color = this.parseColor(
                     nodeTemplate.style.color.leaf || nodeTemplate.style.color.all, n.variables);
@@ -155,10 +153,10 @@ export class GraphParser {
      */
     private checkEdgesConnections(edges: GraphEdge[], nodes: GraphNode[]) {
         edges.forEach((e: GraphEdge) => {
-            if (!nodes.find(n => n.label == e.from)) {
+            if (!nodes.find(n => n.label === e.from)) {
                 throw Error(`edge from <${e.from}> to <${e.to}> is invalid, from node <${e.from}> does not exist`);
             }
-            if (!nodes.find(n => n.label == e.to)) {
+            if (!nodes.find(n => n.label === e.to)) {
                 throw Error(`edge from <${e.from}> to <${e.to}> is invalid, to node <${e.to}> does not exist`);
             }
         });

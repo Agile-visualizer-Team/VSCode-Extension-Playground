@@ -21,14 +21,14 @@ export interface ExpressionCondition {
 const CONDITION_OPERATORS: {[key: string]: (condition: ExpressionCondition, variables: GraphVariables) => boolean} = {
 
     matches: (condition: ExpressionCondition, variables: GraphVariables) => {
-        return variables[condition.variable] == condition.matches;
+        return variables[condition.variable] === condition.matches;
     },
 
     imatches: (condition: ExpressionCondition, variables: GraphVariables) => {
         if (typeof condition.imatches !== 'string') {
             return false;
         }
-        return variables[condition.variable].toUpperCase() == condition.imatches.toUpperCase();
+        return variables[condition.variable].toUpperCase() === condition.imatches.toUpperCase();
     },
 
     contains: (condition: ExpressionCondition, variables: GraphVariables) => {

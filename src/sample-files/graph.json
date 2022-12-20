@@ -1,36 +1,30 @@
 {
     "template": "graph",
-    "nodes": {
-        "atom": {
-            "name": "node",
-            "variables": [
-                "label",
-                "color"
-            ]
-        },
-        "style": {
-            "color": {
-                "root": "yellow",
-                "leaves": "fuchsia",
-                "nonRoot": "blue"
+    "nodes": [
+        {
+            "atom": {
+                "name": "node",
+                "variables": ["label", "color"]
+            },
+            "style": {
+                "color": {
+                    "root": "yellow",
+                    "leaves": "fuchsia",
+                    "nonRoot": "blue"
+                }
             }
         }
-    },
-    "edges": {
-        "atom": {
-            "name": "edge",
-            "variables": [
-                "from",
-                "to",
-                "color"
-            ]
-        },
-        "style": {
-            "color": {
-                "branch": "green",
-                "path": "yellow"
+    ],
+    "edges": [
+        {
+            "atom": {
+                "name": "edge",
+                "variables": ["from", "to", "color"]
             },
-            "oriented": false
+            "style": {
+                "color": "yellow",
+                "oriented": false
+            }
         }
-    }
+    ]
 }

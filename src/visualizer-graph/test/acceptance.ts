@@ -268,36 +268,36 @@ describe("PARSER ACCEPTANCE TESTS", ()=>{
     ]
     };
     const GOOD_AS = [
-    {
-        "as": [
-            "node(a)",
-            "node(b)",
-            "node(c)",
-            "node(d)",
-            "node(e)",
-            "node(f)",
-            "node(g)",
-            "edge(a,b,10)",
-            "edge(a,c,5)",
-            "edge(b,d,6)",
-            "edge(b,e,7)",
-            "edge(b,f,5)",
-            "edge(c,d,4)",
-            "edge(d,g,3)"
-        ],
-        "cost": "1@2"
-    },
-    {
-        "as": [
-            "node(a)",
-            "node(b)",
-            "node(g)",
-            "edge(a,b,10)",
-            "edge(b,g,5)",
-            "edge(a,g,3)"
-        ],
-        "cost": "1@2"
-    }
+        {
+            "as": [
+                "node(a)",
+                "node(b)",
+                "node(c)",
+                "node(d)",
+                "node(e)",
+                "node(f)",
+                "node(g)",
+                "edge(a,b,10)",
+                "edge(a,c,5)",
+                "edge(b,d,6)",
+                "edge(b,e,7)",
+                "edge(b,f,5)",
+                "edge(c,d,4)",
+                "edge(d,g,3)"
+            ],
+            "cost": "1@2"
+        },
+        {
+            "as": [
+                "node(a)",
+                "node(b)",
+                "node(g)",
+                "edge(a,b,10)",
+                "edge(b,g,5)",
+                "edge(a,g,3)"
+            ],
+            "cost": "1@2"
+        }
     ];
     it("should generate a correct graph from a template", () =>{
         //GIVEN A parser, an answer set template and a syntax template
@@ -305,8 +305,8 @@ describe("PARSER ACCEPTANCE TESTS", ()=>{
         //WHEN I try to evaluate them
         const res = parser.parse();
         //THEN I expect to recive as first node 'a' with color 'yellow'
-        expect(res[0].nodes[0].label).to.be.equal("a")
-        expect(res[0].nodes[0].color).to.be.equal("yellow")
+        expect(res[0].nodes[0].label).to.be.equal("a");
+        expect(res[0].nodes[0].color).to.be.equal("yellow");
     });
     it("given the same input, it will always return the same output", () => {
         //GIVEN The same input to two different parser
@@ -379,7 +379,7 @@ describe("PARSER ACCEPTANCE TESTS", ()=>{
                     "color": "green"
                 }
             }]
-        }
+        };
         const AS = [
             {
                 "as": [
