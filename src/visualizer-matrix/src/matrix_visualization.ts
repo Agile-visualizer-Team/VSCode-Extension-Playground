@@ -1,6 +1,7 @@
 import { type } from "os";
 const path = require("path");
 import * as yargs from "yargs";
+const fs = require("fs");
 
 const readline = require("readline");
 
@@ -10,10 +11,12 @@ export class MatrixCreator {
   config_file = require("./config_matrix.json");
   style = this.get_config_style();
   base_styling = this.get_base_styling();
-  fs = require("fs");
+
   table = require("table");
   node_html_to_image = require("node-html-to-image");
   undefined_error_string: string = "this data cannot be undefined";
+  output_dir: string = '';
+
 
   /**
    * It takes a list of atoms, a mapped_atom (the atom choosen by user to be mapped on the table), and a table_html string
@@ -109,13 +112,12 @@ export class MatrixCreator {
    * @returns A boolean value.
    */
   create_image_from_html(index: number, html_to_convert_in_image: string) {
+    if (!fs.existsSync(this.output_dir)){
+      fs.mkdirSync(this.output_dir , { recursive: true }); 
+    }
     this.node_html_to_image({
-      output: path.resolve(
-        "D:\\",
-        "AlexFazio64",
-        "Downloads",
-        "answer_set_matrix_" + index + ".png"
-      ),
+      output:this.output_dir+"answer_set_matrix_" + index + ".png",
+      
       html: html_to_convert_in_image,
       puppeteerArgs: { executablePath: process.env.CHROME_PATH },
     }).then(() => {
@@ -289,7 +291,7 @@ export class MatrixCreator {
       `</body>
         </html>`;
     //Using this for debugging and testing
-    this.fs.writeFileSync("./preview_matrix.html", html);
+    fs.writeFileSync("./preview_matrix.html", html);
     return html;
   }
 
@@ -427,78 +429,12 @@ export class MatrixCreator {
     });
   }
 
-  /**
-   * It reads the command line arguments and runs the script accordingly
-   */
-  read_commands_and_run() {
-    /* A command line interface for the program. It is using the yargs library to parse the
-            command line arguments. */
-    yargs
-      .command(
-        "fromfile",
-        "generate the matrix images from files",
-        (yargs) => {
-          return yargs
-            .option("template", {
-              describe: "the input json template file path",
-              type: "string",
-              required: true,
-            })
-            .option("as", {
-              describe: "the input json answer sets file path",
-              type: "string",
-              required: true,
-            });
-        },
-        (argv) => {
-          console.log("matrix images generating from file json...");
-          let config_file: JSON = JSON.parse(
-            this.fs.readFileSync(argv.template)
-          );
-          let answer_set_json: JSON = JSON.parse(this.fs.readFileSync(argv.as));
-          this.setup_and_run_script(config_file, answer_set_json, "");
-        }
-      )
-      .command(
-        "fromstr",
-        "generate the matrix images from json string inputs",
-        (yargs) => {
-          return yargs.option("template", {
-            describe: "the input json template file path",
-            type: "string",
-            required: true,
-          });
-        },
-        (argv) => {
-          /* Reading the input from the command line and then parsing it to JSON. */
-          const rl = readline.createInterface({
-            input: process.stdin,
-            output: process.stdout,
-            terminal: false,
-          });
-
-          rl.question("Insert you as: ", (answer_set_to_parse: string) => {
-            let config_file: JSON = JSON.parse(
-              this.fs.readFileSync(argv.template)
-            );
-
-            const answer_set_json: JSON = JSON.parse(answer_set_to_parse);
-
-            this.setup_and_run_script(config_file, answer_set_json, "");
-
-            rl.close();
-          });
-        }
-      )
-      .version(false)
-      .parseSync();
-  }
-
   setup_and_run_script(
     config_file: JSON,
     answer_set: JSON,
     output_directory: string
   ) {
+    this.output_dir=output_directory;
     this.config_file = config_file;
     this.run_script(answer_set);
   }
@@ -506,5 +442,11 @@ export class MatrixCreator {
 
 if (require.main === module) {
   let script = new MatrixCreator();
-  script.read_commands_and_run();
+
+  let config_file: JSON = JSON.parse( fs.readFileSync('./src/config_matrix.json') );
+  let answer_set_json: JSON = JSON.parse(fs.readFileSync('./src/answers_sets.json'));
+  let output = './src/output_files/'
+
+
+  script.setup_and_run_script(config_file, answer_set_json, output);
 }
