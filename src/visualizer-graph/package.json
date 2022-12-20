@@ -1,6 +1,5 @@
 {
     "dependencies": {
-        "@types/cytoscape": "^3.19.9",
         "@types/sinon": "^10.0.13",
         "ajv": "^8.11.2",
         "puppeteer": "^19.4.1",
