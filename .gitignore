@@ -9,4 +9,6 @@ src/visualizer-matrix/.nyc_output
 src/visualizer-matrix/coverage
 src/visualizer-matrix/.vscode
 src/visualizer-matrix/node_modules
+src/visualizer-matrix/preview_*
+src/visualizer-matrix/src/*.js
 **/package-lock.json
