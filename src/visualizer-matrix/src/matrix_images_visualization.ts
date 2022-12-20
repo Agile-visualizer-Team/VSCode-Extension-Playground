@@ -1,6 +1,7 @@
 import * as yargs from "yargs";
 const path = require("path");
 const readline = require("readline");
+const fs = require("fs");
 
 export class MatrixImagesCreator {
   answer_sets = require("./answers_sets_matrix_images.json");
@@ -8,7 +9,7 @@ export class MatrixImagesCreator {
   config_file = require("./config_matrix_images.json");
   style = this.get_config_style();
   base_styling = this.get_base_styling();
-  fs = require("fs");
+  
   table = require("table");
   node_html_to_image = require("node-html-to-image");
   undefined_error_string: string = "this data cannot be undefined";
@@ -110,12 +111,8 @@ export class MatrixImagesCreator {
    */
   create_image_from_html(index: number, html_to_convert_in_image: string) {
     this.node_html_to_image({
-        output: path.resolve(
-            "D:\\",
-            "AlexFazio64",
-            "Downloads",
-            "answer_set_matrix_with_images" + index + ".png"
-          ),
+            output: "answer_set_matrix_with_images" + index + ".png"
+          ,
           html: html_to_convert_in_image,
           puppeteerArgs: { executablePath: process.env.CHROME_PATH },
     }).then(() => {
@@ -298,7 +295,7 @@ export class MatrixImagesCreator {
       `</body>
         </html>`;
     //Using this for debugging and testing
-    this.fs.writeFileSync("./preview_matrix.html", html);
+    fs.writeFileSync("./preview_matrix.html", html);
     return html;
   }
 
@@ -406,8 +403,8 @@ export class MatrixImagesCreator {
         if (matrix[i][j] != "undefined") {
           this.almost_one_image_printed = true;
           if (this.config_file.useImages) {
-            if (this.fs.existsSync(this.images_directory_path + matrix[i][j])) {
-              const image = this.fs.readFileSync(
+            if (fs.existsSync(this.images_directory_path + matrix[i][j])) {
+              const image = fs.readFileSync(
                 this.images_directory_path + matrix[i][j]
               );
               
@@ -439,7 +436,7 @@ export class MatrixImagesCreator {
   }
 
   create_base64_image(file_name: string): string {
-    const image = this.fs.readFileSync(this.images_directory_path + file_name);
+    const image = fs.readFileSync(this.images_directory_path + file_name);
     const base64Image: any = new (Buffer as any).from(image).toString("base64");
     const dataURI = "data:image/jpeg;base64," + base64Image;
     return dataURI;
@@ -475,96 +472,6 @@ export class MatrixImagesCreator {
     });
   }
 
-  /**
-   * It reads the command line arguments and runs the script accordingly
-   */
-  read_commands_and_run() {
-    /* A command line interface for the program. It is using the yargs library to parse the
-        command line arguments. */
-    yargs
-      .command(
-        "fromfile",
-        "generate the matrix images from files",
-        (yargs) => {
-          return yargs
-            .option("template", {
-              describe: "the input json template file path",
-              type: "string",
-              required: true,
-            })
-            .option("as", {
-              describe: "the input json answer sets file path",
-              type: "string",
-              required: true,
-            })
-            .option("imgDir", {
-              describe: "the input images directory path",
-              type: "string",
-              required: true,
-            });
-        },
-        (argv) => {
-          console.log("matrix images generating from file json...");
-          let answer_set_json: JSON = JSON.parse(this.fs.readFileSync(argv.as));
-          let config_file: JSON = JSON.parse(
-            this.fs.readFileSync(argv.template)
-          );
-          let images_directory = argv.imgDir;
-
-          this.setup_and_run_script(
-            config_file,
-            images_directory,
-            answer_set_json,
-            ""
-          );
-        }
-      )
-      .command(
-        "fromstr",
-        "generate the matrix images from json string inputs",
-        (yargs) => {
-          return yargs
-            .option("template", {
-              describe: "the input json template file path",
-              type: "string",
-              required: true,
-            })
-            .option("imgDir", {
-              describe: "the input images directory path",
-              type: "string",
-              required: true,
-            });
-        },
-        (argv) => {
-          /* Reading the input from the command line and then parsing it to JSON. */
-          const rl = readline.createInterface({
-            input: process.stdin,
-            output: process.stdout,
-            terminal: false,
-          });
-
-          rl.question("Insert you as: ", (answer_set_to_parse: string) => {
-            let config_file: JSON = JSON.parse(
-              this.fs.readFileSync(argv.template)
-            );
-            let images_directory = argv.imgDir;
-            const answer_set_json: JSON = JSON.parse(answer_set_to_parse);
-
-            this.setup_and_run_script(
-              config_file,
-              images_directory,
-              answer_set_json,
-              ""
-            );
-
-            rl.close();
-          });
-        }
-      )
-      .version(false)
-      .parseSync();
-  }
-
   setup_and_run_script(
     config_file: JSON,
     images_directory: string,
@@ -575,7 +482,7 @@ export class MatrixImagesCreator {
     this.images_directory_path = images_directory;
     console.log(images_directory);
 
-    if (this.fs.existsSync(this.images_directory_path)) {
+    if (fs.existsSync(this.images_directory_path)) {
       this.run_script(answer_set);
     } else {
       console.log("The image directory does not exists, please check the path");
@@ -585,8 +492,14 @@ export class MatrixImagesCreator {
 
 if (require.main === module) {
   let script = new MatrixImagesCreator();
-  script.read_commands_and_run();
+
+  let config_file: JSON = JSON.parse( fs.readFileSync('./src/config_matrix_images.json') );
+  let answer_set_json: JSON = JSON.parse(fs.readFileSync('./src/answers_sets_matrix_images.json'));
+  let img_dir='./src/matrix_images/'
+
+  script.setup_and_run_script(config_file,img_dir, answer_set_json, '');
 }
+
 
 /*
 td img{

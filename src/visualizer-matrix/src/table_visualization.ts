@@ -1,11 +1,12 @@
 import * as yargs from "yargs";
 const readline = require("readline");
 const path = require("path");
+const fs = require("fs");
+
 
 export class TableCreator {
   answer_sets = require("./answers_sets.json");
   config_file = require("./config_table.json");
-  fs = require("fs");
   table = require("table");
   node_html_to_image = require("node-html-to-image");
   undefined_error_string: string = "this data cannot be undefined";
@@ -101,12 +102,9 @@ export class TableCreator {
   create_image_from_html(index: number, html_to_convert_in_image: string) {
     try {
       this.node_html_to_image({
-        output: path.resolve(
-          "D:\\",
-          "AlexFazio64",
-          "Downloads",
-          "answer_set_table_" + index + ".png"
-        ),
+        output:
+          "answer_set_table_" + index + ".png",
+        
         html: html_to_convert_in_image,
         puppeteerArgs: { executablePath: process.env.CHROME_PATH },
       }).then(() => {
@@ -138,7 +136,7 @@ export class TableCreator {
       `</body>
         </html>`;
     //Using this for debugging and testing
-    this.fs.writeFileSync("./preview_table.html", html);
+    fs.writeFileSync("./preview_table.html", html);
     return html;
   }
   /**
@@ -350,68 +348,6 @@ export class TableCreator {
     return this.config_file.maxNumOfAnswerSetToConvert;
   }
 
-  /**
-   * It reads the command line arguments and runs the script accordingly
-   */
-  read_commands_and_run() {
-    yargs
-      .command(
-        "fromfile",
-        "generate the table images from files",
-        (yargs) => {
-          return yargs
-            .option("template", {
-              describe: "the input json template file path",
-              type: "string",
-              required: true,
-            })
-            .option("as", {
-              describe: "the input json answer sets file path",
-              type: "string",
-              required: true,
-            });
-        },
-        (argv) => {
-          let config_file: JSON = JSON.parse(
-            this.fs.readFileSync(argv.template)
-          );
-          let answer_set_json: JSON = JSON.parse(this.fs.readFileSync(argv.as));
-          this.setup_and_run_script(config_file, answer_set_json, "");
-        }
-      )
-      .command(
-        "fromstr",
-        "generate the table images from json string inputs",
-        (yargs) => {
-          return yargs.option("template", {
-            describe: "the input json template file path",
-            type: "string",
-            required: true,
-          });
-        },
-        (argv) => {
-          const rl = readline.createInterface({
-            input: process.stdin,
-            output: process.stdout,
-            terminal: false,
-          });
-          rl.question("Insert you as: ", (answer_set_to_parse: string) => {
-            let config_file: JSON = JSON.parse(
-              this.fs.readFileSync(argv.template)
-            );
-
-            const answer_set_json: JSON = JSON.parse(answer_set_to_parse);
-
-            this.setup_and_run_script(config_file, answer_set_json, "");
-
-            rl.close();
-          });
-        }
-      )
-      .version(false)
-      .parseSync();
-  }
-
   setup_and_run_script(
     config_file: JSON,
     answer_set: JSON,
@@ -427,5 +363,9 @@ method on it. */
 
 if (require.main === module) {
   let script = new TableCreator();
-  script.read_commands_and_run();
+
+  let config_file: JSON = JSON.parse( fs.readFileSync('./src/config_table.json') );
+  let answer_set_json: JSON = JSON.parse(fs.readFileSync('./src/answers_sets.json'));
+
+  script.setup_and_run_script(config_file, answer_set_json, '');
 }
