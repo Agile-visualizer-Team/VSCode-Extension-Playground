@@ -3,10 +3,7 @@
         "@types/cytoscape": "^3.19.9",
         "@types/sinon": "^10.0.13",
         "ajv": "^8.11.2",
-        "cytoscape": "^3.23.0",
-        "cytoscape-avsdf": "^1.0.0",
-        "cytoscape-dagre": "^2.5.0",
-        "cytosnap": "^3.1.0",
+        "puppeteer": "^19.4.1",
         "readline-sync": "^1.4.10",
         "yargs": "^17.6.2"
     },

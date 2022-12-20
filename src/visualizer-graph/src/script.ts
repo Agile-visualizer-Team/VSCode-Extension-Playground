@@ -1,10 +1,10 @@
-import path from "path";
-import yargs from "yargs";
-import fs from "fs";
+import * as path from "path";
+import * as yargs from "yargs";
+import * as fs from "fs";
 import {GraphRenderer} from "./renderer";
 import {VSCODE_THEME} from "./renderer-themes";
 import {GraphParser} from "./parser";
-import readline from 'readline';
+import * as readline from 'readline';
 
 class GraphScript {
     constructor(debugMode: boolean) {
@@ -52,7 +52,7 @@ class GraphScript {
                             describe: 'the output dir path',
                             type: 'string',
                             required: true
-                        })
+                        });
                 }, (argv) => {
                     console.log(`Using <<${argv.template}>> as template file...`);
                     console.log(`Using <<${argv.as}>> as answer set file...`);
@@ -76,25 +76,25 @@ class GraphScript {
                             describe: 'the output dir path',
                             type: 'string',
                             required: true
-                        })
+                        });
                 }, (argv) => {
                     const rl = readline.createInterface({
                         input: process.stdin,
                         output: process.stdout,
                         terminal: false
-                      });  
+                    });
                     rl.question("",(jsonStr) =>{
-                          console.log();
-                          console.log(`Using <<${argv.template}>> as template file...`);
-                          console.log(`Using answer set json from stdin (${jsonStr.length} chars)...`);
-                          console.log(`Using ${argv.output} as output directory...`);
-                          console.log();
-      
-                          const template = GraphScript.jsonFileToObject(path.join(FILE_PATHS_RELATIVE_TO, argv.template));
-                          const answerSets = GraphScript.jsonStringToObject(jsonStr);
-                          const outputDirPath = path.join(FILE_PATHS_RELATIVE_TO, argv.output);
-                          GraphScript.runRendering(template, answerSets, outputDirPath);
-                          rl.close()
+                        console.log();
+                        console.log(`Using <<${argv.template}>> as template file...`);
+                        console.log(`Using answer set json from stdin (${jsonStr.length} chars)...`);
+                        console.log(`Using ${argv.output} as output directory...`);
+                        console.log();
+
+                        const template = GraphScript.jsonFileToObject(path.join(FILE_PATHS_RELATIVE_TO, argv.template));
+                        const answerSets = GraphScript.jsonStringToObject(jsonStr);
+                        const outputDirPath = path.join(FILE_PATHS_RELATIVE_TO, argv.output);
+                        GraphScript.runRendering(template, answerSets, outputDirPath);
+                        rl.close();
                     });
                 })
             .version(false)
@@ -106,12 +106,11 @@ class GraphScript {
         renderer.width = 1280;
         renderer.height = 1280;
         renderer.theme = VSCODE_THEME;
-        renderer.outputType = 'base64';
 
         const parser = new GraphParser(template, answerSets);
         const graphs = parser.parse();
 
-        renderer.render(graphs, (index, graph) => {
+        renderer.render(graphs, (index) => {
             console.log(`Rendering graph ${index}...`);
         }, (index, graph, output) => {
             console.log(`Graph ${index} rendered successfully...`);

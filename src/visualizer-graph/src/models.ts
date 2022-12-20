@@ -8,7 +8,7 @@ export interface Graph {
 export interface GraphVariables {
     [key: string]: any;
 }
-//CA220NEE
+
 export interface GraphNode {
     label: string;
     color?: string | null;
@@ -31,11 +31,11 @@ export function createGraphNode(options?: Partial<GraphNode>): GraphNode {
         label: "node",
         variables: {},
         templateIndex: 0
-    }
+    };
     return {
         ...defaults,
         ...options,
-    }
+    };
 }
 
 export function createGraphEdge(options?: Partial<GraphEdge>): GraphEdge {
@@ -46,9 +46,9 @@ export function createGraphEdge(options?: Partial<GraphEdge>): GraphEdge {
         oriented: true,
         variables: {},
         templateIndex: 0
-    }
+    };
     return {
         ...defaults,
         ...options,
-    }
+    };
 }

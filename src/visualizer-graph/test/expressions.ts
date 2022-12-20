@@ -1,7 +1,6 @@
 import {expect} from "chai";
 import {Expression, ExpressionCondition, ExpressionEvaluator} from "../src/expressions";
 import {GraphVariables} from "../src/models";
-import * as sinon from "sinon";
 
 
 describe("EXPRESSIONS TEST", () => {

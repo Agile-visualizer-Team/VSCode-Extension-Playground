@@ -1,15 +1,11 @@
 import {Graph} from "./models";
 import {GraphRendererTheme, VSCODE_THEME} from "./renderer-themes";
-
-declare function require(name: string): any;
-const cytosnap = require('cytosnap');
-cytosnap.use(['cytoscape-dagre', 'cytoscape-avsdf']);
+import {CytoscapeSnapper} from "./cytoscape-snapper/cytoscape-snapper";
 
 export class GraphRenderer {
     public width: number = 800;
     public height: number = 600;
     public theme: GraphRendererTheme = VSCODE_THEME;
-    public outputType = 'base64';
 
     private generateCytoscapeElements(graph: Graph): object[] {
         const elements: any[] = [];
@@ -66,7 +62,7 @@ export class GraphRenderer {
     }
 
     public generateCytoscapeLayout(graph: Graph): object {
-        if (graph.layout == "dagre") {
+        if (graph.layout === "dagre") {
             return {
                 name: 'dagre',
                 edgeSep: 70,
@@ -74,7 +70,7 @@ export class GraphRenderer {
                 padding: 5
             };
         }
-        if (graph.layout == "avsdf") {
+        if (graph.layout === "avsdf") {
             return {
                 name: 'avsdf',
                 nodeSeparation: 100,
@@ -136,13 +132,10 @@ export class GraphRenderer {
            onGraphStarted?: (index: number, graph: Graph) => void,
            onGraphCompleted?: (index: number, graph: Graph, output: string) => void) {
         const that = this;
-        const snap = cytosnap({
-            args: ['--disable-gpu', '--no-sandbox', '--disable-dev-shm-usage'] // ubuntu fix
-        });
-
+        const snapper = new CytoscapeSnapper();
         const style = that.generateCytoscapeStyle();
 
-        snap.start().then(() => {
+        snapper.start().then((snapperInstance) => {
             const renderedPromises: Promise<any>[] = [];
 
             graphs.forEach((graph, index) => {
@@ -150,26 +143,23 @@ export class GraphRenderer {
                     onGraphStarted(index, graph);
                 }
 
-                const renderingPromise = snap.shot({
+                const renderingPromise = snapperInstance.shot({
                     elements: that.generateCytoscapeElements(graph),
                     layout: that.generateCytoscapeLayout(graph),
                     style: style,
-                    resolvesTo: this.outputType,
-                    format: 'png',
-                    quality: 100,
                     width: that.width,
                     height: that.height,
                     background: that.theme.backgroundColor
-                }).then(function (output: any) {
+                }).then((output) => {
                     if (onGraphCompleted) {
-                        onGraphCompleted(index, graph, output);
+                        onGraphCompleted(index, graph, output.base64);
                     }
                 });
                 renderedPromises.push(renderingPromise);
             });
 
             Promise.all(renderedPromises).then(() => {
-                snap.stop();
+                snapperInstance.stop();
             });
         });
     }

@@ -1,7 +1,6 @@
 import {GraphParser} from "../src/parser";
 import {expect} from "chai";
 import * as sinon from "sinon";
-import fs from "fs";
 
 
 const GOOD_TEMPLATE = {
@@ -73,36 +72,6 @@ const GOOD_AS = [
     }
 ];
 
-const GOOD_TEMPLATE_2 = {
-    "template": "graph",
-    "nodes": [
-        {
-            "atom": {
-                "name": "node",
-                "variables": ["label", "color"]
-            }
-        }
-    ],
-    "edges": [
-        {
-            "atom": {
-                "name": "edge",
-                "variables": ["from", "to", "color"]
-            }
-        }
-    ]
-};
-const GOOD_AS_2 = [
-    {
-        "as": [
-            "node(a,red)",
-            "node(b,greeb)",
-            "edge(a,b,blue)",
-        ],
-        "cost": "1@2"
-    }
-];
-
 describe("PARSER TEST", () => {
     it("should throw an exception if the template is not valid", () => {
         expect(function () {
@@ -127,7 +96,7 @@ describe("PARSER TEST", () => {
                 }]
             };
             new GraphParser(no_param_template, []);
-        }).to.throw(Error, "Template is not valid: /nodes/0/atom/variables must NOT have fewer than 1 items")
+        }).to.throw(Error, "Template is not valid: /nodes/0/atom/variables must NOT have fewer than 1 items");
     });
     it("should throw an exception if nodes key does not contain <label> in variables", () => {
         expect(function () {
@@ -147,7 +116,7 @@ describe("PARSER TEST", () => {
                 }]
             };
             new GraphParser(no_label_template, []);
-        }).to.throw(Error, "Variables provided: \"test\" must contain \"label\"")
+        }).to.throw(Error, "Variables provided: \"test\" must contain \"label\"");
     });
     it("should throw an exception if edge key does not contain at least two variables", () => {
         expect(function () {
@@ -167,7 +136,7 @@ describe("PARSER TEST", () => {
                 }]
             };
             new GraphParser(no_param_template, []);
-        }).to.throw(Error, "Template is not valid: /edges/0/atom/variables must NOT have fewer than 2 items")
+        }).to.throw(Error, "Template is not valid: /edges/0/atom/variables must NOT have fewer than 2 items");
     });
     it("should throw an exception if edge key does not contain <from, to> in variables", () => {
         expect(function () {
@@ -187,17 +156,17 @@ describe("PARSER TEST", () => {
                 }]
             };
             new GraphParser(no_label_template, []);
-        }).to.throw(Error, "Variables provided: \"test1,test2,weight\" must contain \"from,to\"")
+        }).to.throw(Error, "Variables provided: \"test1,test2,weight\" must contain \"from,to\"");
     });
     it("should throw an exception if the answersets is not valid", () => {
         expect(function () {
-            new GraphParser(GOOD_TEMPLATE, [1, 2, 3, 4, 5])
-        }).to.throw(Error, "Answer sets are not valid: /0 must be object")
+            new GraphParser(GOOD_TEMPLATE, [1, 2, 3, 4, 5]);
+        }).to.throw(Error, "Answer sets are not valid: /0 must be object");
     });
     it("should throw an exception if the answersets is empty", () => {
         expect(function () {
             new GraphParser(GOOD_TEMPLATE, []);
-        }).to.throw(Error, "Answer set list is empty")
+        }).to.throw(Error, "Answer set list is empty");
     });
     it("should detect edges which have an non-existing from node", () => {
         const as = [
@@ -256,9 +225,9 @@ describe("PARSER TEST", () => {
         parser.parse();
         expect(create_node_spy.called).to.be.true;
         const expected_value = ["node(a)", "node(b)", "node(c)", "node(d)", "node(e)", "node(f)", "node(g)"];
-        for (let i = 0; i < expected_value.length; ++i)
+        for (let i = 0; i < expected_value.length; ++i) {
             expect(create_node_spy.getCall(i).args[0]).to.be.eq(expected_value[i]);
-
+        }
         create_node_spy.restore();
     });
     it("should generate a correct edge from a string", () => {
@@ -268,10 +237,9 @@ describe("PARSER TEST", () => {
         expect(create_edge_spy.called).to.be.true;
         const expected_value = ["edge(a,b,10)", "edge(a,c,5)", "edge(b,d,6)", "edge(b,e,7)",
             "edge(b,f,5)", "edge(c,d,4)", "edge(d,g,3)"];
-
-        for (let i = 0; i < expected_value.length; ++i)
+        for (let i = 0; i < expected_value.length; ++i) {
             expect(create_edge_spy.getCall(i).args[0]).to.be.eq(expected_value[i]);
-
+        }
         create_edge_spy.restore();
     });
     it("should create, given the same template and as, always the same result", () => {
@@ -342,7 +310,7 @@ describe("PARSER TEST", () => {
                     "color": "green"
                 }
             }]
-        }
+        };
         const AS = [
             {
                 "as": [
@@ -353,7 +321,8 @@ describe("PARSER TEST", () => {
                     "edge(b,g,5)",
                     "edge(a,g,3)"
                 ]
-            }];
+            }
+        ];
         const parserTO = new GraphParser(TO_FROM, AS);
         const parserFROM = new GraphParser(FROM_TO, AS);
         const resTO = parserTO.parse();
@@ -367,12 +336,4 @@ describe("PARSER TEST", () => {
             }
         }
     });
-    // it("should pass colors in createNodeGraph if the provided template contains style", ()=>{
-    //     const createGraphNode_spy = sinon.spy(createGraphNode);
-    //     const parser = new GraphParser(GOOD_TEMPLATE, GOOD_AS);
-    //     parser.answerSetsToGraphs();
-    //     expect(createGraphNode_spy.called).to.be.true;
-    //     //expect(createGraphNode_spy.getCall(0).args[0]).to.be.eq({name:"a",color:GOOD_TEMPLATE.nodes.style.color});
-    //     createGraphNode_spy.restore();
-    // });
 });
