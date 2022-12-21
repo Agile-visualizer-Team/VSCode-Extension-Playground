@@ -2,6 +2,8 @@ import * as yargs from "yargs";
 const path = require("path");
 const readline = require("readline");
 const fs = require("fs");
+const get_pixels = require("get-pixels");
+const gif_encoder = require("gif-encoder");
 
 export class MatrixImagesCreator {
   answer_sets = require("./answers_sets_matrix_images.json");
@@ -9,13 +11,65 @@ export class MatrixImagesCreator {
   config_file = require("./config_matrix_images.json");
   style = this.get_config_style();
   base_styling = this.get_base_styling();
-  
+
   table = require("table");
   node_html_to_image = require("node-html-to-image");
   undefined_error_string: string = "this data cannot be undefined";
   images_directory_path: string = "";
   almost_one_image_printed: boolean = false;
   output_dir: string = '';
+
+  /**
+   Converting all the images in the output_files folder into a gif. 
+  */
+  convert_output_to_gif = async () => {
+   
+    //get witdh and height of image 1 in images
+    let width = 0;
+    let height = 0;
+
+    //read all the file names from output_files
+    let files = fs.readdirSync(__dirname + '/output_files');
+    
+    //create a list of all the images
+    let pics: any = [];
+    for (var i = 0; i < files.length; i++)
+      pics.push(__dirname+'/output_files/' + files[i]);
+    
+    //call the method to get pixels
+    await get_pixels(pics[0], (err: any, pixels: any) => {
+      //get width and height of image 1
+      width = pixels.shape[0];
+      height = pixels.shape[1];
+
+      //create gif
+      let gif = new gif_encoder(width, height);
+      let file = require('fs').createWriteStream('img.gif');
+      
+      //create the base for gif
+      gif.pipe(file);
+      gif.setQuality(100);
+      gif.setDelay(500);
+      gif.setRepeat(0);
+      gif.writeHeader();
+
+      //add all the images to the gif
+      const addToGif = (images: any, counter = 0) => {
+        get_pixels(images[counter], function (err: any, pixels: any) {
+          gif.addFrame(pixels.data);
+          gif.read();
+          if (counter === images.length - 1) {
+            gif.finish();
+          } else {
+            addToGif(images, ++counter);
+          }
+        })
+      }
+      addToGif(pics);
+    })
+
+
+  }
 
   /**
    * It takes a list of atoms, a mapped_atom (the atom choosen by user to be mapped on the table), and a table_html string
@@ -111,14 +165,14 @@ export class MatrixImagesCreator {
    * @returns A boolean value.
    */
   create_image_from_html(index: number, html_to_convert_in_image: string) {
-    if (!fs.existsSync(this.output_dir)){
-      fs.mkdirSync(this.output_dir , { recursive: true }); 
+    if (!fs.existsSync(this.output_dir)) {
+      fs.mkdirSync(this.output_dir, { recursive: true });
     }
     this.node_html_to_image({
-            output: this.output_dir+"answer_set_matrix_with_images" + index + ".png"
-          ,
-          html: html_to_convert_in_image,
-          puppeteerArgs: { executablePath: process.env.CHROME_PATH },
+      output: this.output_dir + "answer_set_matrix_with_images" + index + ".png"
+      ,
+      html: html_to_convert_in_image,
+      puppeteerArgs: { executablePath: process.env.CHROME_PATH },
     }).then(() => {
       return true;
     });
@@ -328,9 +382,9 @@ export class MatrixImagesCreator {
           if (self.config_file.images_binding[atom[2].toString()] != undefined)
             matrix[row][column] =
               self.config_file.images_binding[atom[2].toString()];
-            //   console.log(".---------------", self.config_file.images_binding, atom[2].toString());
-            //   console.log(".---------------", matrix[row][column]);
-              
+          //   console.log(".---------------", self.config_file.images_binding, atom[2].toString());
+          //   console.log(".---------------", matrix[row][column]);
+
         } else {
           if (self.config_file.colors_binding[atom[2]] != undefined)
             matrix[row][column] = self.config_file.colors_binding[atom[2]];
@@ -411,19 +465,19 @@ export class MatrixImagesCreator {
               const image = fs.readFileSync(
                 this.images_directory_path + matrix[i][j]
               );
-              
+
               const base64Image: any = new (Buffer as any).from(image).toString(
                 "base64"
               );
               const dataURI = "data:image/jpeg;base64," + base64Image;
-                
+
               html_table +=
                 `<td><img src="` +
                 dataURI +
                 `" style='height: 60px; width: 60px; object-fit: fill;'></img></td>`;
             }
-        } else {
-              
+          } else {
+
             html_table += `<td><div style='height: 60px; width: 60px; background-color:${matrix[i][j]}; border: 1px solid #307182'></img></td>`;
           }
         }
@@ -464,7 +518,7 @@ export class MatrixImagesCreator {
     console.log("Mapped atoms: " + mapping_list);
     console.log(
       "Maximum number answer set to convert in image: " +
-        max_num_of_as_to_convert
+      max_num_of_as_to_convert
     );
 
     let i: number = 0;
@@ -484,7 +538,7 @@ export class MatrixImagesCreator {
   ) {
     this.config_file = config_file;
     this.images_directory_path = images_directory;
-    this.output_dir=output_directory
+    this.output_dir = output_directory
     console.log(images_directory);
 
     if (fs.existsSync(this.images_directory_path)) {
@@ -498,12 +552,13 @@ export class MatrixImagesCreator {
 if (require.main === module) {
   let script = new MatrixImagesCreator();
 
-  let config_file: JSON = JSON.parse( fs.readFileSync('./src/config_matrix_images.json') );
+  let config_file: JSON = JSON.parse(fs.readFileSync('./src/config_matrix_images.json'));
   let answer_set_json: JSON = JSON.parse(fs.readFileSync('./src/answers_sets_matrix_images.json'));
-  let img_dir='./src/matrix_images/'
+  let img_dir = './src/matrix_images/'
   let output = './src/output_files/'
 
   script.setup_and_run_script(config_file, img_dir, answer_set_json, output);
+  script.convert_output_to_gif();
 }
 
 

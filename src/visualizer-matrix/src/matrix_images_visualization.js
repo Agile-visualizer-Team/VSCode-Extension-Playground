@@ -40,8 +40,11 @@ exports.MatrixImagesCreator = void 0;
 var path = require("path");
 var readline = require("readline");
 var fs = require("fs");
+var get_pixels = require("get-pixels");
+var gif_encoder = require("gif-encoder");
 var MatrixImagesCreator = /** @class */ (function () {
     function MatrixImagesCreator() {
+        var _this = this;
         this.answer_sets = require("./answers_sets_matrix_images.json");
         this.config_file = require("./config_matrix_images.json");
         this.style = this.get_config_style();
@@ -52,6 +55,52 @@ var MatrixImagesCreator = /** @class */ (function () {
         this.images_directory_path = "";
         this.almost_one_image_printed = false;
         this.output_dir = '';
+        this.makegif2 = function () { return __awaiter(_this, void 0, void 0, function () {
+            var width, height, files, pics, i;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        width = 0;
+                        height = 0;
+                        files = fs.readdirSync(__dirname + '/output_files');
+                        console.log(files);
+                        pics = [];
+                        for (i = 0; i < files.length; i++)
+                            pics.push(__dirname + '/output_files/' + files[i]);
+                        return [4 /*yield*/, get_pixels(pics[0], function (err, pixels) {
+                                //get width and height of image 1
+                                width = pixels.shape[0];
+                                height = pixels.shape[1];
+                                //create gif
+                                var gif = new gif_encoder(width, height);
+                                var file = require('fs').createWriteStream('img.gif');
+                                //create the base for gif
+                                gif.pipe(file);
+                                gif.setQuality(100);
+                                gif.setDelay(500);
+                                gif.setRepeat(0);
+                                gif.writeHeader();
+                                var addToGif = function (images, counter) {
+                                    if (counter === void 0) { counter = 0; }
+                                    get_pixels(images[counter], function (err, pixels) {
+                                        gif.addFrame(pixels.data);
+                                        gif.read();
+                                        if (counter === images.length - 1) {
+                                            gif.finish();
+                                        }
+                                        else {
+                                            addToGif(images, ++counter);
+                                        }
+                                    });
+                                };
+                                addToGif(pics);
+                            })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        }); };
     }
     /**
      * It takes a list of atoms, a mapped_atom (the atom choosen by user to be mapped on the table), and a table_html string
@@ -395,6 +444,7 @@ if (require.main === module) {
     var img_dir = './src/matrix_images/';
     var output = './src/output_files/';
     script.setup_and_run_script(config_file, img_dir, answer_set_json, output);
+    script.makegif2();
 }
 /*
 td img{

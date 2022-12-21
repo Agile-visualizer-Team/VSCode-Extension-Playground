@@ -6,6 +6,8 @@
   "dependencies": {
     "canvas": "^2.10.2",
     "chai": "4.3.7",
+    "get-pixels": "^3.3.3",
+    "gif-encoder": "^0.7.2",
     "mocha": "10.1.0",
     "node-html-to-image": "^3.2.4",
     "readline-sync": "^1.4.10",
@@ -55,8 +57,7 @@
     "test_table": "nyc mocha -r ts-node/register './src/tests/**/table_visualization.test.ts'",
     "test-acceptance": "mocha -r ts-node/register './src/test_acceptance/**/*.test.ts'",
     "start-matrix": "npx tsc ./src/matrix_visualization.ts && node ./src/matrix_visualization.js",
-    "start-table":"npx tsc ./src/table_visualization.ts && node ./src/table_visualization.js",
+    "start-table": "npx tsc ./src/table_visualization.ts && node ./src/table_visualization.js",
     "start-matrix_images-visualization": "npx tsc ./src/matrix_images_visualization.ts && node ./src/matrix_images_visualization.js"
-  
   }
 }
