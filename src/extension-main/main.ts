@@ -48,7 +48,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.window
       .showInputBox({
         prompt: "Enter the tyep of visualization you want to see",
-        placeHolder: "matrix, table, images",
+        placeHolder: "matrix, table, images, graph",
       })
       .then((value) => {
         switch (value) {
@@ -63,6 +63,10 @@ export function activate(context: vscode.ExtensionContext) {
           case "images":
             template = path.join(base, "images.json");
             program = path.join(base, "images.asp");
+            break;
+          case "graph":
+            template = path.join(base, "graph.json");
+            program = path.join(base, "3col.asp");
             break;
           default:
             console.log("no available visualization for this kind :(");

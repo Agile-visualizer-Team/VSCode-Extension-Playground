@@ -23,9 +23,9 @@ export function callNode(
   console.log(`Requested visualization: ${template_file.template}`);
 
   switch (visualization_type) {
-    // case "graph":
-    //   renderGraph(template_file, solver_result, out_dir);
-    //   break;
+    case "graph":
+      renderGraph(template_file, solver_result, out_dir);
+      break;
 
     case "matrix":
       new MatrixCreator().setup_and_run_script(
