@@ -12,7 +12,8 @@
     "activationEvents": [
         "onCommand:asp-vis.helloWorld",
         "onCommand:asp-vis.time.current",
-        "onCommand:asp-vis.wrapper"
+        "onCommand:asp-vis.wrapper",
+        "onCommand:asp-vis.ffmpeg"
     ],
     "main": "./dist/main.js",
     "contributes": {
@@ -28,6 +29,10 @@
             {
                 "command": "asp-vis.wrapper",
                 "title": "Wrapper"
+            },
+            {
+                "command": "asp-vis.ffmpeg",
+                "title": "Convert"
             }
         ]
     },
@@ -64,6 +69,7 @@
         "table": "^6.8.1",
         "ts-loader": "^9.4.1",
         "typescript": "^4.8.4",
-        "webpack": "^5.74.0"
+        "webpack": "^5.74.0",
+        "webpack-cli": "^5.0.1"
     }
 }

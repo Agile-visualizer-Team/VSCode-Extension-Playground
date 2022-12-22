@@ -36,7 +36,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   let wrapper = vscode.commands.registerCommand("asp-vis.wrapper", () => {
     const base = path.join(__dirname, "..", "src", "sample-files");
-    
+
     let sol_num: number = 1;
     let template: string = "";
     let program: string = "";
@@ -76,7 +76,23 @@ export function activate(context: vscode.ExtensionContext) {
       });
   });
 
+  let convert = vscode.commands.registerCommand("asp-vis.ffmpeg", () => {
+    //run a task to convert the images to a video
+    const task = new vscode.Task(
+      { type: "ffmpeg" },
+      vscode.TaskScope.Workspace,
+      "convert",
+      "ffmpeg",
+      new vscode.ShellExecution("ffmpeg -r 1 -i 0_%d.png answer_set.gif -y", {
+        cwd: path.join(__dirname, "..", "out", "output_files"),
+      })
+    );
+
+    vscode.tasks.executeTask(task);
+  });
+
   context.subscriptions.push(disposable);
+  context.subscriptions.push(convert);
   context.subscriptions.push(time);
   context.subscriptions.push(wrapper);
 }
