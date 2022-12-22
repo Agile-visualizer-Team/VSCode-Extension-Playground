@@ -1,5 +1,3 @@
-import { time } from "console";
-import * as yargs from "yargs"; 
 const path = require("path");
 const readline = require("readline");
 const fs = require("fs");
@@ -18,36 +16,33 @@ export class MatrixImagesCreator {
   undefined_error_string: string = "this data cannot be undefined";
   images_directory_path: string = "";
   almost_one_image_printed: boolean = false;
-  output_dir: string = '';
+  output_dir: string = "";
   time_array: Array<string> = [];
 
   /**
    Converting all the images in the output_files folder into a gif. 
   */
-  convert_output_to_gif = async (as:number) => {
-   
+  convert_output_to_gif = async (as: number) => {
     //get witdh and height of image 1 in images
     let width = 0;
     let height = 0;
 
     //read all the file names from output_files
-    let files = fs.readdirSync(__dirname + '/output_files');
-    
+    let files = fs.readdirSync(__dirname + "/output_files");
+
     //create a list of all the images
     let pics: any = [];
-    for (var i = 0; i < files.length; i++){
-      let filename:string=files[i];
-  
-      if(filename != undefined && filename.includes(as+'_')){
-        console.log(filename.includes(as+'_'))
-        console.log(as+'_')
-        pics.push(__dirname+'/output_files/' + files[i]);
-        console.log(files[i])
+    for (var i = 0; i < files.length; i++) {
+      let filename: string = files[i];
+
+      if (filename != undefined && filename.includes(as + "_")) {
+        console.log(filename.includes(as + "_"));
+        console.log(as + "_");
+        pics.push(__dirname + "/output_files/" + files[i]);
+        console.log(files[i]);
       }
-       
     }
-     
-    
+
     //call the method to get pixels
     await get_pixels(pics[0], (err: any, pixels: any) => {
       //get width and height of image 1
@@ -56,8 +51,8 @@ export class MatrixImagesCreator {
 
       //create gif
       let gif = new gif_encoder(width, height);
-      let file = require('fs').createWriteStream(as+'_img.gif');
-      
+      let file = require("fs").createWriteStream(as + "_img.gif");
+
       //create the base for gif
       gif.pipe(file);
       gif.setQuality(100);
@@ -75,13 +70,11 @@ export class MatrixImagesCreator {
           } else {
             addToGif(images, ++counter);
           }
-        })
-      }
+        });
+      };
       addToGif(pics);
-    })
-
-
-  }
+    });
+  };
 
   /**
    * It takes a list of atoms, a mapped_atom (the atom choosen by user to be mapped on the table), and a table_html string
@@ -97,8 +90,8 @@ export class MatrixImagesCreator {
   create_html_table_for_mapped_atom(
     atoms_list: string[],
     mapped_atom: string,
-    table_html: string, 
-    time:string
+    table_html: string,
+    time: string
   ): string {
     let rows_list: Array<number> = new Array();
     let columns_list: Array<number> = new Array();
@@ -109,7 +102,7 @@ export class MatrixImagesCreator {
         rows_list,
         columns_list,
         atoms_splitted_array,
-        mapped_atom, 
+        mapped_atom,
         time
       )
     ) {
@@ -159,7 +152,7 @@ export class MatrixImagesCreator {
     for (var i = 0; i < this.time_array.length; i++) {
       let table_html: string = "";
       let self = this;
-      
+
       mapping_list.forEach(function (mapped_atom) {
         table_html = self.create_html_table_for_mapped_atom(
           atoms_list,
@@ -171,9 +164,12 @@ export class MatrixImagesCreator {
       let html_to_convert_in_image =
         this.create_html_to_convert_in_image(table_html);
       console.log(this.time_array[i]);
-      this.create_image_from_html(index, Number(this.time_array[i]), html_to_convert_in_image);
+      this.create_image_from_html(
+        index,
+        Number(this.time_array[i]),
+        html_to_convert_in_image
+      );
     }
-    
   }
 
   /**
@@ -183,13 +179,16 @@ export class MatrixImagesCreator {
    * @param {string} html_to_convert_in_image - the html string that you want to convert to an image
    * @returns A boolean value.
    */
-  create_image_from_html(as:number,index: number, html_to_convert_in_image: string) {
+  create_image_from_html(
+    as: number,
+    index: number,
+    html_to_convert_in_image: string
+  ) {
     if (!fs.existsSync(this.output_dir)) {
       fs.mkdirSync(this.output_dir, { recursive: true });
     }
     this.node_html_to_image({
-      output: this.output_dir +as +"_"+ index + ".png"
-      ,
+      output: this.output_dir + as + "_" + index + ".png",
       html: html_to_convert_in_image,
       puppeteerArgs: { executablePath: process.env.CHROME_PATH },
     }).then(() => {
@@ -402,7 +401,6 @@ export class MatrixImagesCreator {
           if (self.config_file.images_binding[atom[2].toString()] != undefined)
             matrix[row][column] =
               self.config_file.images_binding[atom[2].toString()];
-
         } else {
           if (self.config_file.colors_binding[atom[2]] != undefined)
             matrix[row][column] = self.config_file.colors_binding[atom[2]];
@@ -431,8 +429,8 @@ export class MatrixImagesCreator {
     rows_list: number[],
     columns_list: number[],
     atoms_splitted_matrix: string[][],
-    cell_name: string, 
-    time:string
+    cell_name: string,
+    time: string
   ): boolean {
     /* Checking if the input is valid. */
     if (atoms_list == undefined) return false;
@@ -443,12 +441,15 @@ export class MatrixImagesCreator {
 
     for (let k: number = 0; k < atoms_list.length; k++) {
       if (atoms_list[k].includes(cell_name + "(")) {
-        let atom_values_tuple: string[] = this.tuple_of_values_from_atom(atoms_list, k);
-        if(atom_values_tuple[3]==time){
-        rows_list.push(Number(atom_values_tuple[0]));
-        columns_list.push(Number(atom_values_tuple[1]));
-        atoms_splitted_matrix.push(atom_values_tuple);
-      }
+        let atom_values_tuple: string[] = this.tuple_of_values_from_atom(
+          atoms_list,
+          k
+        );
+        if (atom_values_tuple[3] == time) {
+          rows_list.push(Number(atom_values_tuple[0]));
+          columns_list.push(Number(atom_values_tuple[1]));
+          atoms_splitted_matrix.push(atom_values_tuple);
+        }
       }
     }
 
@@ -463,7 +464,7 @@ export class MatrixImagesCreator {
 
     //console.log(atom);
     let atom_values_tuple: string[] = atom_value.split(",");
-    
+
     return atom_values_tuple;
   }
 
@@ -503,7 +504,6 @@ export class MatrixImagesCreator {
                 `" style='height: 60px; width: 60px; object-fit: fill;'></img></td>`;
             }
           } else {
-
             html_table += `<td><div style='height: 60px; width: 60px; background-color:${matrix[i][j]}; border: 1px solid #307182'></img></td>`;
           }
         }
@@ -544,14 +544,14 @@ export class MatrixImagesCreator {
     console.log("Mapped atoms: " + mapping_list);
     console.log(
       "Maximum number answer set to convert in image: " +
-      max_num_of_as_to_convert
+        max_num_of_as_to_convert
     );
 
     let i: number = 0;
     let self = this;
     answer_sets.forEach(function (value: { as: string[] }) {
       if (i >= max_num_of_as_to_convert) return;
-      self.fill_time_array(value.as)
+      self.fill_time_array(value.as);
       self.create_matrix_from_atoms_list(value.as, mapping_list, i);
       i++;
     });
@@ -559,10 +559,11 @@ export class MatrixImagesCreator {
   fill_time_array(as: string[]) {
     this.time_array.splice(0);
     for (let k: number = 0; k < as.length; k++) {
-      let atom_tuple=this.tuple_of_values_from_atom(as, k);
-      this.time_array.indexOf(atom_tuple[3]) === -1 ? this.time_array.push(atom_tuple[3]) : '';
+      let atom_tuple = this.tuple_of_values_from_atom(as, k);
+      this.time_array.indexOf(atom_tuple[3]) === -1
+        ? this.time_array.push(atom_tuple[3])
+        : "";
     }
-    
   }
 
   setup_and_run_script(
@@ -573,7 +574,7 @@ export class MatrixImagesCreator {
   ) {
     this.config_file = config_file;
     this.images_directory_path = images_directory;
-    this.output_dir = output_directory
+    this.output_dir = output_directory;
     console.log(images_directory);
 
     if (fs.existsSync(this.images_directory_path)) {
@@ -587,15 +588,17 @@ export class MatrixImagesCreator {
 if (require.main === module) {
   let script = new MatrixImagesCreator();
 
-  let config_file: JSON = JSON.parse(fs.readFileSync('./src/config_matrix_images.json'));
-  let answer_set_json: JSON = JSON.parse(fs.readFileSync('./src/answers_sets_matrix_images_gif.json'));
-  let img_dir = './src/matrix_images/'
-  let output = './src/output_files/'
+  let config_file: JSON = JSON.parse(
+    fs.readFileSync("./src/config_matrix_images.json")
+  );
+  let answer_set_json: JSON = JSON.parse(
+    fs.readFileSync("./src/answers_sets_matrix_images_gif.json")
+  );
+  let img_dir = "./src/matrix_images/";
+  let output = "./src/output_files/";
 
   script.setup_and_run_script(config_file, img_dir, answer_set_json, output);
-  
 }
-
 
 /*
 td img{
