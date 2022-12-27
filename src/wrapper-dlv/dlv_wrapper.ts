@@ -68,7 +68,7 @@ export class DLVWrapper {
       );
       final_array.splice(2, 1);
     }
-    let forDeletion = ["", "OPTIMUM", "DLV 2.1.1"];
+    let forDeletion = ["", "OPTIMUM", "DLV 2.1.1", "DLV 2.1.1\r", "\r"];
     let final_output: any = [];
     final_array = final_array.filter(
       (item: string) => !forDeletion.includes(item)
@@ -99,3 +99,5 @@ export function run_solver(
   };
   return new DLVWrapper().execute(argv);
 }
+
+
