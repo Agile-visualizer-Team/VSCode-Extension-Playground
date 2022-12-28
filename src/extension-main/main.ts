@@ -1,37 +1,130 @@
+import fs = require("fs");
 import path = require("path");
 import process = require("process");
 import * as vscode from "vscode";
 import { callNode } from "../visualizer-integrator/visualizer";
 
+function check_workspace() {
+  if (vscode.workspace.workspaceFolders !== undefined) {
+    return true;
+  } else {
+    vscode.window
+      .showErrorMessage("No workspace opened", "open folder", "cancel")
+      .then((val) => {
+        switch (val) {
+          case "open folder":
+            vscode.commands.executeCommand("vscode.openFolder");
+            break;
+          case "cancel":
+            vscode.window.showErrorMessage(
+              "ASP Visualizer cannot work without a workspace"
+            );
+            return false;
+        }
+        return check_workspace();
+      });
+  }
+}
+
+function handle_folder_creation(asp_vis_folder: string) {
+  vscode.window
+    .showInformationMessage(
+      "ASP Visualizer folder not found",
+      "create folder",
+      "ignore"
+    )
+    .then((val) => {
+      switch (val) {
+        case "create folder":
+          fs.mkdirSync(asp_vis_folder);
+          read_config();
+          break;
+        case "ignore":
+          vscode.window.showErrorMessage(
+            "ASP Visualizer will not work without a local folder"
+          );
+          break;
+      }
+    });
+}
+
+function check_folder() {
+  if (vscode.workspace.workspaceFolders !== undefined) {
+    let folder = vscode.workspace.workspaceFolders[0];
+    let folder_path = folder.uri.fsPath;
+    let asp_vis_folder = path.join(folder_path, "asp-vis");
+
+    if (!fs.existsSync(asp_vis_folder)) {
+      handle_folder_creation(asp_vis_folder);
+    }
+  }
+}
+
+function read_config() {
+  //check to see if it exists a .config file
+  if (vscode.workspace.workspaceFolders === undefined) {
+    return; // altrimenti caca il cazzo
+  }
+
+  let folder = vscode.workspace.workspaceFolders[0];
+  let folder_path = folder.uri.fsPath;
+  let config_file = path.join(folder_path, "asp-vis", "config.json");
+
+  if (fs.existsSync(config_file)) {
+    // read the config file and set the variables
+    let config = JSON.parse(fs.readFileSync(config_file, "utf8"));
+    process.env.SOL_NUM = config.sol_num;
+    process.env.SOLVER = config.solver;
+    process.env.TEMPLATE = config.template;
+    process.env.PROGRAM = config.program;
+    process.env.OUT_DIR = config.out_dir;
+    process.env.IMG_DIR = config.img_dir;
+    process.env.CHROME_PATH = config.chrome;
+  } else {
+    // write a json file with the default values
+    let base = path.join(folder_path, "asp-vis");
+    let default_config = {
+      sol_num: 1,
+      solver: path.join(base, "dlv2_win.exe"),
+      template: path.join(base, "template.json"),
+      program: path.join(base, "program.asp"),
+      out_dir: path.join(base, "out"),
+      img_dir: path.join(base, "images"),
+      chrome: path.join(
+        "c:\\",
+        "Program Files",
+        "Google",
+        "Chrome",
+        "Application",
+        "chrome.exe"
+      ),
+    };
+    fs.writeFileSync(config_file, JSON.stringify(default_config));
+  }
+}
+
 export function activate(context: vscode.ExtensionContext) {
+  if (!check_workspace()) {
+    return;
+  }
+  check_folder();
   console.log('Congratulations, "ASP Visualizer" is now active!');
-
-  //create a new env variable CHROME_PATH used for puppeteer to save the matrix
-  process.env.CHROME_PATH = path.join(
-    "C:",
-    "Program Files",
-    "Google",
-    "Chrome",
-    "Application",
-    "chrome.exe"
-  );
-  console.log(process.env.CHROME_PATH);
-
-  const watcher = vscode.workspace.createFileSystemWatcher("**/*matrix_0.png");
-  watcher.onDidCreate((uri) => {
-    console.log(`File ${uri} has been created`);
-    vscode.commands.executeCommand("vscode.open", uri, { preview: false });
-  });
 
   let disposable = vscode.commands.registerCommand("asp-vis.helloWorld", () => {
     vscode.window.showInformationMessage("Hello World");
   });
 
-  let time = vscode.commands.registerCommand("asp-vis.time.current", () => {
-    //show a popup box with the current time
-    var date = new Date();
-    var time = date.toLocaleTimeString();
-    vscode.window.showWarningMessage("The time is " + time);
+  let cfg = vscode.commands.registerCommand("asp-vis.execute", () => {
+    read_config();
+    
+    let template: string = process.env.TEMPLATE || "";
+    let program: string = process.env.PROGRAM || "";
+    let solver: string = process.env.SOLVER || "";
+    let sol: number = Number.parseInt(process.env.SOL_NUM || "1", 10);
+    let out: string = process.env.OUT_DIR || "";
+    let img: string = process.env.IMG_DIR || "";
+
+    callNode(template, program, solver, sol, out, img);
   });
 
   let wrapper = vscode.commands.registerCommand("asp-vis.wrapper", () => {
@@ -47,7 +140,7 @@ export function activate(context: vscode.ExtensionContext) {
     // show an input field from vscode and check the input
     vscode.window
       .showInputBox({
-        prompt: "Enter the tyep of visualization you want to see",
+        prompt: "Enter the type of visualization you want to see",
         placeHolder: "matrix, table, images, graph",
       })
       .then((value) => {
@@ -93,8 +186,8 @@ export function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(disposable);
   context.subscriptions.push(convert);
-  context.subscriptions.push(time);
   context.subscriptions.push(wrapper);
+  context.subscriptions.push(cfg);
 }
 
 export function deactivate() {
