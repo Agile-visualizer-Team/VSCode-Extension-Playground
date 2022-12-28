@@ -3,7 +3,6 @@ const readline = require("readline");
 const path = require("path");
 const fs = require("fs");
 
-
 export class TableCreator {
   answer_sets = require("./answers_sets.json");
   config_file = require("./config_table.json");
@@ -12,7 +11,7 @@ export class TableCreator {
   undefined_error_string: string = "this data cannot be undefined";
   style = this.get_config_style();
   base_styling = this.get_base_styling();
-  output_dir:string = ''
+  output_dir: string = "";
 
   /**
    * The function returns the value of the style property of the config_file object
@@ -102,13 +101,11 @@ export class TableCreator {
    */
   create_image_from_html(index: number, html_to_convert_in_image: string) {
     try {
-      if (!fs.existsSync(this.output_dir)){
-        fs.mkdirSync(this.output_dir , { recursive: true }); 
+      if (!fs.existsSync(this.output_dir)) {
+        fs.mkdirSync(this.output_dir, { recursive: true });
       }
       this.node_html_to_image({
-        output:
-          this.output_dir+"answer_set_table_" + index + ".png",
-        
+        output: path.join(this.output_dir, "table_" + index + ".png"),
         html: html_to_convert_in_image,
         puppeteerArgs: { executablePath: process.env.CHROME_PATH },
       }).then(() => {
@@ -358,9 +355,8 @@ export class TableCreator {
     output_directory: string
   ) {
     this.config_file = config_file;
-    this.output_dir=output_directory;
+    this.output_dir = output_directory;
     this.run_script(answer_set);
-    
   }
 }
 
@@ -370,8 +366,12 @@ method on it. */
 if (require.main === module) {
   let script = new TableCreator();
 
-  let config_file: JSON = JSON.parse( fs.readFileSync('./src/config_table.json') );
-  let answer_set_json: JSON = JSON.parse(fs.readFileSync('./src/answers_sets.json'));
-  let output = './src/output_files/'
+  let config_file: JSON = JSON.parse(
+    fs.readFileSync("./src/config_table.json")
+  );
+  let answer_set_json: JSON = JSON.parse(
+    fs.readFileSync("./src/answers_sets.json")
+  );
+  let output = "./src/output_files/";
   script.setup_and_run_script(config_file, answer_set_json, output);
 }

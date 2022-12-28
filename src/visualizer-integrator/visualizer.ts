@@ -51,7 +51,7 @@ export function callNode(
         out_dir
       );
       break;
-
+      
     default:
       console.error(`Template unknown: ${template_file.template}`);
       break;
@@ -70,58 +70,57 @@ if (require.main === module) {
   //   undefined
   // );
   //Calling graph
-
-  callNode(
-    path.resolve(
-      "D:\\",
-      "AlexFazio64",
-      "Dev",
-      "js",
-      "VSCode-Extension-Playground",
-      "src",
-      "sample-files",
-      "images.json"
-    ),
-    path.resolve(
-      "D:\\",
-      "AlexFazio64",
-      "Dev",
-      "js",
-      "VSCode-Extension-Playground",
-      "src",
-      "sample-files",
-      "images.asp"
-    ),
-    path.resolve(
-      "D:\\",
-      "AlexFazio64",
-      "Dev",
-      "js",
-      "VSCode-Extension-Playground",
-      "src",
-      "sample-files",
-      "dlv2_win.exe"
-    ),
-    1,
-    path.resolve(
-      "D:\\",
-      "AlexFazio64",
-      "Dev",
-      "js",
-      "VSCode-Extension-Playground",
-      "src",
-      "sample-files",
-      "output"
-    ),
-    path.resolve(
-      "D:\\",
-      "AlexFazio64",
-      "Dev",
-      "js",
-      "VSCode-Extension-Playground",
-      "src",
-      "sample-files",
-      "images"
-    )
-  );
+  // callNode(
+  //   path.resolve(
+  //     "D:\\",
+  //     "AlexFazio64",
+  //     "Dev",
+  //     "js",
+  //     "VSCode-Extension-Playground",
+  //     "src",
+  //     "sample-files",
+  //     "images.json"
+  //   ),
+  //   path.resolve(
+  //     "D:\\",
+  //     "AlexFazio64",
+  //     "Dev",
+  //     "js",
+  //     "VSCode-Extension-Playground",
+  //     "src",
+  //     "sample-files",
+  //     "images.asp"
+  //   ),
+  //   path.resolve(
+  //     "D:\\",
+  //     "AlexFazio64",
+  //     "Dev",
+  //     "js",
+  //     "VSCode-Extension-Playground",
+  //     "src",
+  //     "sample-files",
+  //     "dlv2_win.exe"
+  //   ),
+  //   1,
+  //   path.resolve(
+  //     "D:\\",
+  //     "AlexFazio64",
+  //     "Dev",
+  //     "js",
+  //     "VSCode-Extension-Playground",
+  //     "src",
+  //     "sample-files",
+  //     "output"
+  //   ),
+  //   path.resolve(
+  //     "D:\\",
+  //     "AlexFazio64",
+  //     "Dev",
+  //     "js",
+  //     "VSCode-Extension-Playground",
+  //     "src",
+  //     "sample-files",
+  //     "images"
+  //   )
+  // );
 }
