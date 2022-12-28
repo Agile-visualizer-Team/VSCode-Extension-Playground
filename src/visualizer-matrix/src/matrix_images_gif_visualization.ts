@@ -1,10 +1,9 @@
 const path = require("path");
-const readline = require("readline");
 const fs = require("fs");
 const get_pixels = require("get-pixels");
 const gif_encoder = require("gif-encoder");
 
-export class MatrixImagesCreator {
+export class MatrixImagesCreatorGIF {
   answer_sets = require("./answers_sets_matrix_images.json");
 
   config_file = require("./config_matrix_images.json");
@@ -188,7 +187,7 @@ export class MatrixImagesCreator {
       fs.mkdirSync(this.output_dir, { recursive: true });
     }
     this.node_html_to_image({
-      output: this.output_dir + as + "_" + index + ".png",
+      output: path.join(this.output_dir, "temp", as + "_" + index + ".png"),
       html: html_to_convert_in_image,
       puppeteerArgs: { executablePath: process.env.CHROME_PATH },
     }).then(() => {
@@ -586,7 +585,7 @@ export class MatrixImagesCreator {
 }
 
 if (require.main === module) {
-  let script = new MatrixImagesCreator();
+  let script = new MatrixImagesCreatorGIF();
 
   let config_file: JSON = JSON.parse(
     fs.readFileSync("./src/config_matrix_images.json")
