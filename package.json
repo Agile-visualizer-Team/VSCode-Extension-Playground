@@ -12,15 +12,29 @@
   "activationEvents": [
     "onCommand:asp-vis.helloWorld",
     "onCommand:asp-vis.wrapper",
+    "onCommand:asp-vis.sayHello",
     "onCommand:asp-vis.execute",
     "onCommand:asp-vis.ffmpeg"
   ],
   "main": "./dist/main.js",
   "contributes": {
+    "views": {
+      "explorer": [
+        {
+          "type": "webview",
+          "id": "asp-vis.webview",
+          "name": "Calico Colors"
+        }
+      ]
+    },
     "commands": [
       {
         "command": "asp-vis.helloWorld",
         "title": "Hello World"
+      },
+      {
+        "command": "asp-vis.sayHello",
+        "title": "Say Hello"
       },
       {
         "command": "asp-vis.wrapper",
