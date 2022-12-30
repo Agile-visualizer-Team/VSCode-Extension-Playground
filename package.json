@@ -18,12 +18,21 @@
   ],
   "main": "./dist/main.js",
   "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "asp-vis-settings",
+          "title": "ASP Visualizer Settings",
+          "icon": "./src/extension-main/res/icon.svg"
+        }
+      ]
+    },
     "views": {
-      "explorer": [
+      "asp-vis-settings": [
         {
           "type": "webview",
           "id": "asp-vis.webview",
-          "name": "Calico Colors"
+          "name": "Testing Webview"
         }
       ]
     },
