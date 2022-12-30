@@ -68,7 +68,7 @@ jobs:
         run: |
             cd src/visualizer-graph
             npm run build
-            git commit -m"a"
+            git commit -m"try"
       # Publishing on Github Packages
       - name: publish on Github Package
         run: npm publish
