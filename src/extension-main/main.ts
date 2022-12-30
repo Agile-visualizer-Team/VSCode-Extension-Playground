@@ -3,7 +3,7 @@ import process = require("process");
 import * as vscode from "vscode";
 import { callNode } from "../visualizer-integrator/visualizer";
 import { check_workspace, check_folder, read_config } from "./check_workspace";
-import { WebviewView } from "./webview";
+import { WebviewView } from "./webview_svelte";
 
 export function activate(context: vscode.ExtensionContext) {
   if (!check_workspace()) {
