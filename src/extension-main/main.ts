@@ -3,7 +3,7 @@ import process = require("process");
 import * as vscode from "vscode";
 import { callNode } from "../visualizer-integrator/visualizer";
 import { check_workspace, check_folder, read_config } from "./check_workspace";
-import { WebviewView } from "./webview_svelte";
+import { WebviewView } from "./webview";
 
 export function activate(context: vscode.ExtensionContext) {
   if (!check_workspace()) {
@@ -86,8 +86,16 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.tasks.executeTask(task);
   });
 
-  const webview_provider = new WebviewView(context.extensionUri);
-  
+  const webview_provider = new WebviewView(
+    vscode.Uri.joinPath(
+      context.extensionUri,
+      "src",
+      "extension-main",
+      "res",
+      "build"
+    )
+  );
+
   const webview = vscode.window.registerWebviewViewProvider(
     "asp-vis.webview",
     webview_provider

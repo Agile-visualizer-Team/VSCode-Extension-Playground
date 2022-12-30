@@ -1,43 +1,8 @@
-body {
-	background-color: transparent;
-}
-
-.color-list {
-	list-style: none;
-	padding: 0;
-}
-
-.color-entry {
-	width: 100%;
-	display: flex;
-	margin-bottom: 0.4em;
-	border: 1px solid var(--vscode-input-border);
-}
-
-.color-preview {
-	width: 2em;
-	height: 2em;
-}
-
-.color-preview:hover {
-	outline: inset white;
-}
-
-.color-input {
-	display: block;
-	flex: 1;
-	width: 100%;
-	color: var(--vscode-input-foreground);
-	background-color: var(--vscode-input-background);
-	border: none;
-	padding: 0 0.6em;
-}
-
-.add-color-button {
-	display: block;
-	border: none;
-	margin: 0 auto;
-}
+/* *:not(div, span) {
+	border-color: black !important;
+	border-style: solid !important;
+	border-width: 1px !important;
+} */
 
 :root {
 	--container-paddding: 20px;
@@ -85,7 +50,7 @@ code {
 	font-family: var(--vscode-editor-font-family);
 }
 
-button {
+button, select {
 	border: none;
 	padding: var(--input-padding-vertical) var(--input-padding-horizontal);
 	width: 100%;
@@ -96,7 +61,7 @@ button {
 	background: var(--vscode-button-background);
 }
 
-button:hover {
+button:hover, select:hover {
 	cursor: pointer;
 	background: var(--vscode-button-hoverBackground);
 }
@@ -114,8 +79,9 @@ button.secondary:hover {
 	background: var(--vscode-button-secondaryHoverBackground);
 }
 
-input:not([type='checkbox'], [type='color']),
+input:not([type='checkbox']),
 textarea {
+	box-sizing: border-box;
 	display: block;
 	width: 100%;
 	border: none;
