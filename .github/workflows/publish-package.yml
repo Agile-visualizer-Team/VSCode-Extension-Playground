@@ -64,6 +64,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.PAT }}
         with:
           version-type:  '${{ env.update }}'
+      - name: build visualizer-graph
+        run: |
+            cd src/visualizer-graph
+            npm run build
+            git commit -m"a"
       # Publishing on Github Packages
       - name: publish on Github Package
         run: npm publish
