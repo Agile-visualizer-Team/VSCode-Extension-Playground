@@ -42,17 +42,27 @@ export class WebviewView implements vscode.WebviewViewProvider {
         this._extensionUri,
         "_app",
         "immutable",
-        "start-3a3619f5.js"
+        "start-de539c50.js"
       )
     );
 
-    const index_js = webview.asWebviewUri(
+    const index_js_1 = webview.asWebviewUri(
       vscode.Uri.joinPath(
         this._extensionUri,
         "_app",
         "immutable",
         "chunks",
-        "index-b39776cc.js"
+        "index-0e60804f.js"
+      )
+    );
+
+    const index_js_2 = webview.asWebviewUri(
+      vscode.Uri.joinPath(
+        this._extensionUri,
+        "_app",
+        "immutable",
+        "chunks",
+        "index-0cfed5b3.js"
       )
     );
 
@@ -62,7 +72,7 @@ export class WebviewView implements vscode.WebviewViewProvider {
         "_app",
         "immutable",
         "chunks",
-        "singletons-8e60f9f9.js"
+        "singletons-01081e7b.js"
       )
     );
 
@@ -72,7 +82,7 @@ export class WebviewView implements vscode.WebviewViewProvider {
         "_app",
         "immutable",
         "components",
-        "layout.svelte-031b767c.js"
+        "layout.svelte-42b03c3f.js"
       )
     );
 
@@ -104,7 +114,7 @@ export class WebviewView implements vscode.WebviewViewProvider {
         "immutable",
         "components",
         "pages",
-        "_page.svelte-ca2cae5a.js"
+        "_page.svelte-df2fc0e3.js"
       )
     );
 
@@ -114,25 +124,29 @@ export class WebviewView implements vscode.WebviewViewProvider {
         "_app",
         "immutable",
         "assets",
-        "_page-ad855294.css"
+        "_page-12e27aba.css"
       )
     );
 
-    // Local path to css styles
     const global = webview.asWebviewUri(
       vscode.Uri.joinPath(this._extensionUri, "global.css")
+    );
+
+    const main_js = webview.asWebviewUri(
+      vscode.Uri.joinPath(this._extensionUri, "main.js")
     );
 
     return `<!DOCTYPE html>
     <html lang="en">
       <head>
         <meta charset="utf-8" />
-        <link rel="stylesheet" href="${global}" />
-        <link href="${_page_css}" rel="stylesheet">
         <meta name="viewport" content="width=device-width" />
         <meta http-equiv="content-security-policy" content="">
+        <link rel="stylesheet" href="${global}" />
+        <link rel="stylesheet" href="${_page_css}">
         <link rel="modulepreload" href="${start_js}">
-        <link rel="modulepreload" href="${index_js}">
+        <link rel="modulepreload" href="${index_js_1}">
+        <link rel="modulepreload" href="${index_js_2}">
         <link rel="modulepreload" href="${singletons_js}">
         <link rel="modulepreload" href="${layout_svelte_js}">
         <link rel="modulepreload" href="${_layout_ts_js}">
@@ -141,15 +155,25 @@ export class WebviewView implements vscode.WebviewViewProvider {
       </head>
       <body data-sveltekit-preload-data="hover">
         <div style="display: contents">
-    <select name="template" id="template" class="svelte-tayc8f"><option value="none" selected>Choose a template</option><option value="graph">Graph</option><option value="table">Table</option><option value="matrix">Matrix</option><option value="images">Matrix (images)</option></select>
-    <h2 class="svelte-6teu96">Select a template to start</h2>
-     <script type="module" data-sveltekit-hydrate="3l9wfh">
+    
+    
+    <textarea id="code" class="svelte-19vus7a"></textarea>
+    
+    <select name="template" id="template" class="svelte-19vus7a"><option value="none">Choose a template</option><option value="graph">Graph</option><option value="table">Table</option><option value="matrix">Matrix</option><option value="images" selected>Matrix (images)</option></select>
+    
+    <button id="render">Render Answer Set</button>
+    
+    <p>Matrix with Images</p>
+    
+    
+        <script type="module" data-sveltekit-hydrate="zq4bav">
           import { start } from "${start_js}";
+    
           start({
             env: {},
             paths: {"base":"","assets":""},
-            target: document.querySelector('[data-sveltekit-hydrate="3l9wfh"]').parentNode,
-            version: "1672382730925",
+            target: document.querySelector('[data-sveltekit-hydrate="zq4bav"]').parentNode,
+            version: "1672457619525",
             hydrate: {
               node_ids: [0, 2],
               data: [null,null],
@@ -157,6 +181,7 @@ export class WebviewView implements vscode.WebviewViewProvider {
             }
           });
         </script>
+        <script src="${main_js}"></script>
       </div>
       </body>
     </html>`;

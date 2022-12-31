@@ -13,7 +13,7 @@
 }
 
 body {
-	padding: 0 var(--container-paddding);
+	padding: var(--container-paddding);
 	color: var(--vscode-foreground);
 	font-size: var(--vscode-font-size);
 	font-weight: var(--vscode-font-weight);
@@ -95,4 +95,28 @@ textarea {
 input::placeholder,
 textarea::placeholder {
 	color: var(--vscode-input-placeholderForeground);
+}
+
+h1,h2,h3,h4,h5,h6 {
+	width: fit-content;
+}
+
+body{
+	min-width: 320px;
+}
+
+input[type='checkbox'] {
+	padding: 0;
+	margin: 0;
+	height: 30px;
+	width: 30px;
+	cursor: pointer;
+}
+
+input[type='color'] {
+	padding: 0;
+	margin: 0;
+	border: none !important;
+	height: 40px;
+	width: 40px;
 }
