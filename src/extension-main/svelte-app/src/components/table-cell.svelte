@@ -1,0 +1,125 @@
+<script lang="ts">
+	import { table } from '../store';
+	import { onMount } from 'svelte';
+
+	onMount(() => {
+		write();
+	});
+
+	$: if (cells || style) write();
+
+	let cells: string[] = ['cell1'];
+	let style: {
+		header_color: string;
+		header_font_size: number;
+		header_font_family: string;
+		header_font_weight: string;
+		dark_mode: boolean;
+	} = {
+		header_color: '#b41b22',
+		header_font_size: 20,
+		header_font_family: 'Arial',
+		header_font_weight: 'bold',
+		dark_mode: true
+	};
+
+	function addCell() {
+		cells = [...cells, 'cell' + (cells.length + 1)];
+	}
+
+	function remove(elem: number) {
+		if (cells.length == 1) return;
+		cells.splice(elem, 1);
+		cells = [...cells];
+	}
+
+	function write() {
+		table.update((table) => {
+			table.cell = cells;
+			table.style = style;
+			return table;
+		});
+		console.log($table);
+	}
+</script>
+
+<button class="add" on:click={addCell}>Add new Cell</button>
+{#if cells.length > 0}
+	{#each cells as arg, index}
+		<div class="arg">
+			<input type="text" name="variable" bind:value={arg} />
+			<button on:click={() => remove(index)}>remove</button>
+		</div>
+	{/each}
+{/if}
+
+<h3>Cell Styling</h3>
+
+<div class="style-arg">
+	<label for="hsize">Font Size</label>
+	<input type="number" name="hsize" bind:value={style.header_font_size} />
+</div>
+<div class="style-arg">
+	<label for="hfam">Font Family</label>
+	<input type="text" name="hfam" bind:value={style.header_font_family} />
+</div>
+<div class="style-arg">
+	<label for="hwei">Font Weight</label>
+	<input type="text" name="hwei" bind:value={style.header_font_family} />
+</div>
+
+<div class="color-palette">
+	<div>
+		<label for="hcol">Header color</label>
+		<input type="color" name="hcol" bind:value={style.header_color} />
+	</div>
+	<div>
+		<label for="dark">dark mode?</label>
+		<input type="checkbox" name="dark" bind:checked={style.dark_mode} />
+	</div>
+</div>
+
+<style>
+	.arg {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 1rem;
+		margin-bottom: 10px;
+	}
+
+	.arg button {
+		width: 20%;
+	}
+
+	.color-palette {
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+	}
+
+	.color-palette div {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	input[type='color'] {
+		padding: 0;
+		margin: 0;
+		border: none !important;
+		height: 40px;
+		width: 40px;
+	}
+
+	.style-arg {
+		display: grid;
+		grid-template-columns: 1fr 2fr;
+		gap: 1rem;
+		margin-bottom: 10px;
+	}
+
+	.add {
+		margin-bottom: 10px;
+	}
+</style>

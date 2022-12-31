@@ -12,4 +12,3 @@ src/visualizer-matrix/node_modules
 src/visualizer-matrix/preview_*
 src/visualizer-matrix/src/*.js
 **/*/package-lock.json
-src/extension-main/svelte-app
