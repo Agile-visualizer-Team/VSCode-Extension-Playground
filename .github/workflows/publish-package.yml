@@ -66,9 +66,12 @@ jobs:
           version-type:  '${{ env.update }}'
       - name: build visualizer-graph
         run: |
+            npm i
             cd src/visualizer-graph
             npm run build
             git commit -m"try "
+        env:
+            NPM_AUTH_TOKEN: ${{secrets.PAT}}
       # Publishing on Github Packages
       - name: publish on Github Package
         run: npm publish
