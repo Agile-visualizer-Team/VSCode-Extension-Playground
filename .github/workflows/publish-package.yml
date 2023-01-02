@@ -73,7 +73,7 @@ jobs:
             npm i
             npm run build
             git add -A
-            git commit -m"builded matrix"
+          # git commit -m"builded matrix"
       - name:  'automated version bump'
         uses:  'phips28/gh-action-bump-version@master'
         env:
