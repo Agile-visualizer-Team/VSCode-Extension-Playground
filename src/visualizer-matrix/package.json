@@ -51,7 +51,7 @@
     "report-dir": "coverage"
   },
   "scripts": {
-    "build": "tsc --listFiles --noEmit",
+    "build": "tsc",
     "test": "mocha -r ts-node/register './src/tests/**/*.test.ts'",
     "test_matrix_images": "nyc mocha -r ts-node/register './src/tests/**/matrix_images_visualization.test.ts'",
     "test_matrix": "nyc mocha -r ts-node/register './src/tests/**/matrix_visualization.test.ts'",
