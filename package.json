@@ -12,15 +12,38 @@
   "activationEvents": [
     "onCommand:asp-vis.helloWorld",
     "onCommand:asp-vis.wrapper",
+    "onCommand:asp-vis.sayHello",
     "onCommand:asp-vis.execute",
     "onCommand:asp-vis.ffmpeg"
   ],
   "main": "./dist/main.js",
   "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "asp-vis-settings",
+          "title": "ASP Visualizer Settings",
+          "icon": "./src/extension-main/res/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "asp-vis-settings": [
+        {
+          "type": "webview",
+          "id": "asp-vis.webview",
+          "name": "Testing Webview"
+        }
+      ]
+    },
     "commands": [
       {
         "command": "asp-vis.helloWorld",
         "title": "Hello World"
+      },
+      {
+        "command": "asp-vis.sayHello",
+        "title": "Say Hello"
       },
       {
         "command": "asp-vis.wrapper",
@@ -46,9 +69,10 @@
     "b:matrix": "echo ##### [COMPILING MATRIX] ##### && cd ./src/visualizer-matrix/ && npx tsc --outDir ../../dist/",
     "b:integrator": "echo ##### [COMPILING INTEGRATOR] ##### && cd ./src/visualizer-integrator/ && npx tsc --outDir ../../dist/",
     "b:wrapper": "echo ##### [COMPILING WRAPPER] ##### && cd ./src/wrapper-dlv/ && npx tsc --outDir ../../dist/",
+    "b:webview": "echo ##### [BUILDING WEBVIEW] ##### && cd ./src/extension-main/svelte-app && npm run build",
     "build:all": "npm run b:graph && npm run b:matrix && npm run b:integrator && npm run b:wrapper",
-    "compile": "webpack",
-    "watch": "webpack --watch",
+    "compile": "npm run b:webview && py builder.py && webpack",
+    "watch": "py builder.py && webpack --watch",
     "vscode:prepublish": "npm run package",
     "package": "webpack --mode production --devtool hidden-source-map",
     "lint": "eslint src --ext ts"
