@@ -70,6 +70,7 @@ jobs:
             cd src/visualizer-graph
             npm i
             npm run build
+            git add -A
             git commit -m"try to work"
         env:
             NPM_AUTH_TOKEN: ${{secrets.PAT}}
