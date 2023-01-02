@@ -71,7 +71,17 @@ jobs:
             npm i
             npm run build
             git add -A
-            git commit -m"try to work"
+            git commit -m"builded graph"
+            cd ../../
+        env:
+            NPM_AUTH_TOKEN: ${{secrets.PAT}}
+      - name: build visualizer-matrix
+        run: |
+            cd src/visualizer-matrix
+            npm i
+            npm run build
+            git add -A
+            git commit -m"builded matrix"
         env:
             NPM_AUTH_TOKEN: ${{secrets.PAT}}
       # Publishing on Github Packages
