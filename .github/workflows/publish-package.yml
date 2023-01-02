@@ -68,6 +68,7 @@ jobs:
         run: |
             npm i
             cd src/visualizer-graph
+            npm i
             npm run build
             git commit -m"try "
         env:
