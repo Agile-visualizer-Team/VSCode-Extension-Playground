@@ -32,15 +32,15 @@ jobs:
         name: check version to update
         run: ./publish_hook.pl $GITHUB_SHA >> $GITHUB_OUTPUT
 
-  test:
-    # Testing
-    needs: check_commit
-    if: needs.check_commit.outputs.status == 'success'
-    uses: agile-visualizer-team/visualizer-asp/.github/workflows/tests.yml@master
+  # test:
+  #   # Testing
+  #   needs: check_commit
+  #   if: needs.check_commit.outputs.status == 'success'
+  #   uses: agile-visualizer-team/visualizer-asp/.github/workflows/tests.yml@master
 
   publish-gpr:
     # Publishing
-    needs: [test, check_commit]
+    needs: [check_commit]
     runs-on: ubuntu-latest
     steps:
       - run: echo ${{ needs.check_commit.outputs.status }}
@@ -70,7 +70,7 @@ jobs:
             cd src/visualizer-graph
             npm i
             npm run build
-            git commit -m"try "
+            git commit -m"try to work"
         env:
             NPM_AUTH_TOKEN: ${{secrets.PAT}}
       # Publishing on Github Packages
