@@ -42,6 +42,7 @@ jobs:
     # Publishing
     needs: [check_commit]
     runs-on: ubuntu-latest
+    if: needs.check_commit.outputs.status == 'success'
     steps:
       - run: echo ${{ needs.check_commit.outputs.status }}
       - name: Checkout repository
@@ -66,24 +67,20 @@ jobs:
           version-type:  '${{ env.update }}'
       - name: build visualizer-graph
         run: |
-            npm i
             cd src/visualizer-graph
             npm i
             npm run build
             git add -A
             git commit -m"builded graph"
             cd ../../
-        env:
-            NPM_AUTH_TOKEN: ${{secrets.PAT}}
       - name: build visualizer-matrix
         run: |
             cd src/visualizer-matrix
+            pwd
             npm i
             npm run build
             git add -A
-            git commit -m"builded matrix"
-        env:
-            NPM_AUTH_TOKEN: ${{secrets.PAT}}
+          # git commit -m"builded matrix"
       # Publishing on Github Packages
       - name: publish on Github Package
         run: npm publish
