@@ -3,21 +3,16 @@ export function getHtmlForWebview(webview: vscode.Webview, _extensionUri: vscode
 return `<!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" href="./favicon.png" />
-		<link rel="stylesheet" href="./global.css" />
-		<meta name="viewport" content="width=device-width" />
-		<meta http-equiv="content-security-policy" content="">
-		<link href="./_app/immutable/assets/_page-a5c114d0.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/start-37ba24ac.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/index-cfceb4e3.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/singletons-3ec860b4.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/index-d4076a17.js">
-		<link rel="modulepreload" href="./_app/immutable/components/layout.svelte-6a995481.js">
-		<link rel="modulepreload" href="./_app/immutable/modules/pages/_layout.ts-55770e65.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/_layout-025914ab.js">
-		<link rel="modulepreload" href="./_app/immutable/components/pages/_page.svelte-d6618ce5.js">
-	</head>
+<link rel="stylesheet" href="${global_css}">
+<link rel="stylesheet" href="${_page_css}">
+<link rel="modulepreload" href="${start_js}">
+<link rel="modulepreload" href="${index_1_js}">
+<link rel="modulepreload" href="${singletons_js}">
+<link rel="modulepreload" href="${index_2_js}">
+<link rel="modulepreload" href="${layout_svelte_js}">
+<link rel="modulepreload" href="${_layout_ts_js}">
+<link rel="modulepreload" href="${_layout_js}">
+</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">
 
@@ -33,13 +28,13 @@ return `<!DOCTYPE html>
 
 
 		<script type="module" data-sveltekit-hydrate="1d3ju54">
-			import { start } from "./_app/immutable/start-37ba24ac.js";
+			import { start } from "${start_js}";
 
 			start({
 				env: {},
 				paths: {"base":"","assets":""},
 				target: document.querySelector('[data-sveltekit-hydrate="1d3ju54"]').parentNode,
-				version: "1672648342508",
+				version: "1672653330198",
 				hydrate: {
 					node_ids: [0, 2],
 					data: [null,null],
@@ -48,6 +43,6 @@ return `<!DOCTYPE html>
 			});
 		</script>
 	</div>
-	</body>
+	<script src="${main_js}"></script></body>
 </html>
 `;}
