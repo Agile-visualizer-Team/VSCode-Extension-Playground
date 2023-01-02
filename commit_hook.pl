@@ -11,7 +11,7 @@
 # }"
 
 $regex = 'Author:\s+(?<author_username>[\w\-]+)\s+.+\nDate:\s+(?<day>\w+)\s(?<mounth>\w+)\s(?<day_number>\w+)\s(?<hour>\d{2}):(?<minute>\d{2}):(?<second>\d{2})\s(?<year>\d{4}).+\n+(?<message>(.|\n)+?)\ndiff';
-$regex2 = 'Author:\s+(?<author_username>[\w\-]+)\s+.+\nDate:\s+(?<day>\w+)\s(?<mounth>\w+)\s(?<day_number>\w+)\s(?<hour>\d{2}):(?<minute>\d{2}):(?<second>\d{2})\s(?<year>\d{4}).+\n+(?<message>(.|\n)+?)';
+$regex2 = 'Author:\s+(?<author_username>[\w\-]+)\s+.+\nDate:\s+(?<day>\w+)\s(?<mounth>\w+)\s(?<day_number>\w+)\s(?<hour>\d{2}):(?<minute>\d{2}):(?<second>\d{2})\s(?<year>\d{4}).+\n+(?<message>(.|\n)+)';
 $regex_inner_message_pull_request = '(((?<=[\s+])pull_request{\n*\s*(?<inner_1>(.|\n)*?)\})|(^pull_request{\n*\s*(?<inner_2>(.|\n)*?)\}))';
 $regex_default_pull_request = '((\s+pull_request(?!{))|(^pull_request(?!{)))';
 
