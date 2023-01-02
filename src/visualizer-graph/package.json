@@ -27,6 +27,7 @@
         "demo:2": "npx ts-node src/script.ts fromfile --template input/demo-2-template.json --as input/demo-2-as.json --output ./output",
         "demo:3": "npx ts-node src/script.ts fromfile --template input/demo-3-template.json --as input/demo-3-as.json --output ./output",
         "test": "mocha --require ts-node/register --watch-extensions ts 'test/**/*.ts'",
+        "acceptance": "mocha --require ts-node/register --watch-extensions ts 'test/acceptance.ts'",
         "test:coverage": "nyc npm run test"
     },
     "nyc": {
