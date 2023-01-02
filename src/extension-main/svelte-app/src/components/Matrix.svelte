@@ -1,6 +1,25 @@
 <script lang="ts">
+	import { matrix } from '../store';
+	import { onMount } from 'svelte';
 	import MatrixCell from './matrix-cell.svelte';
 	let maxNumOfAnswerSetToConvert: number = 4;
+
+	onMount(() => {
+		write();
+	});
+
+	$: if (maxNumOfAnswerSetToConvert) {
+		write();
+	}
+
+	function write() {
+		matrix.update((cell) => {
+			cell.maxNumOfAnswerSetToConvert = maxNumOfAnswerSetToConvert;
+			return cell;
+		});
+
+		// console.log($matrix);
+	}
 </script>
 
 <center>

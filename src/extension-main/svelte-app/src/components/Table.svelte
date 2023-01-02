@@ -1,7 +1,37 @@
 <script lang="ts">
-	import TableCell from './table-cell.svelte';
+	import { table } from '../store';
+	import { onMount } from 'svelte';
+	import TableStyle from './table-style.svelte';
 	import TableMapping from './table-mapping.svelte';
 	let maxNumOfAnswerSetToConvert: number = 4;
+	let cells: string[] = ['cell1'];
+
+	onMount(() => {
+		write();
+	});
+
+	$: if (maxNumOfAnswerSetToConvert || cells) {
+		write();
+	}
+
+	function addCell() {
+		cells = [...cells, 'cell' + (cells.length + 1)];
+	}
+
+	function remove(elem: number) {
+		if (cells.length == 1) return;
+		cells.splice(elem, 1);
+		cells = [...cells];
+	}
+
+	function write() {
+		table.update((cell) => {
+			cell.maxNumOfAnswerSetToConvert = maxNumOfAnswerSetToConvert;
+			cell.cell = cells;
+			return cell;
+		});
+		// console.log($table);
+	}
 </script>
 
 <center>
@@ -14,10 +44,35 @@
 </div>
 
 <h2>Rendered Cells</h2>
-<TableCell />
+<button class="add" on:click={addCell}>Add new Cell</button>
+{#if cells.length > 0}
+	{#each cells as arg, index}
+		<div class="var">
+			<input type="text" name="variable" bind:value={arg} />
+			<button on:click={() => remove(index)}>remove</button>
+		</div>
+	{/each}
+{/if}
 <TableMapping />
+<TableStyle />
 
 <style>
+	.var {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 1rem;
+		margin-bottom: 10px;
+	}
+
+	.var button {
+		width: 20%;
+	}
+
+	.add {
+		margin-bottom: 10px;
+	}
+
 	#maxAS {
 		margin-bottom: 10px;
 	}

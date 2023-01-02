@@ -21,7 +21,7 @@
 		nodes = [...nodes];
 
 		REMOVE_NODE(elem);
-		console.log($graph);
+		// console.log($graph);
 	}
 
 	function removeEdge(elem: number) {
@@ -31,7 +31,7 @@
 		edges = [...edges];
 
 		REMOVE_EDGE(elem);
-		console.log($graph);
+		// console.log($graph);
 	}
 </script>
 

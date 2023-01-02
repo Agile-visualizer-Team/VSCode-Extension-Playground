@@ -41,7 +41,7 @@
 			}
 		});
 
-		console.log($graph);
+		// console.log($graph);
 	}
 </script>
 

@@ -6,9 +6,8 @@
 		write();
 	});
 
-	$: if (cells || style) write();
+	$: if (style) write();
 
-	let cells: string[] = ['cell1'];
 	let style: {
 		header_color: string;
 		header_font_size: number;
@@ -23,35 +22,14 @@
 		dark_mode: true
 	};
 
-	function addCell() {
-		cells = [...cells, 'cell' + (cells.length + 1)];
-	}
-
-	function remove(elem: number) {
-		if (cells.length == 1) return;
-		cells.splice(elem, 1);
-		cells = [...cells];
-	}
-
 	function write() {
 		table.update((table) => {
-			table.cell = cells;
 			table.style = style;
 			return table;
 		});
-		console.log($table);
+		// console.log($table);
 	}
 </script>
-
-<button class="add" on:click={addCell}>Add new Cell</button>
-{#if cells.length > 0}
-	{#each cells as arg, index}
-		<div class="arg">
-			<input type="text" name="variable" bind:value={arg} />
-			<button on:click={() => remove(index)}>remove</button>
-		</div>
-	{/each}
-{/if}
 
 <h3>Cell Styling</h3>
 
@@ -80,18 +58,6 @@
 </div>
 
 <style>
-	.arg {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		gap: 1rem;
-		margin-bottom: 10px;
-	}
-
-	.arg button {
-		width: 20%;
-	}
-
 	.color-palette {
 		display: flex;
 		align-items: center;
@@ -116,10 +82,6 @@
 		display: grid;
 		grid-template-columns: 1fr 2fr;
 		gap: 1rem;
-		margin-bottom: 10px;
-	}
-
-	.add {
 		margin-bottom: 10px;
 	}
 </style>

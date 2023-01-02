@@ -11,7 +11,6 @@ type Graph = {
 		style: { color: string; oriented: boolean };
 	}[];
 };
-
 type Matrix = {
 	template: string;
 	maxNumOfAnswerSetToConvert: number;
@@ -32,6 +31,29 @@ type Table = {
 		0: string;
 		1: string;
 		2: string;
+	};
+	style: {
+		header_color: string;
+		header_font_size: number;
+		header_font_family: string;
+		header_font_weight: string;
+		dark_mode: boolean;
+	};
+};
+type Images = {
+	template: string;
+	maxNumOfAnswerSetToConvert: number;
+	cell: string[];
+	use_images: boolean;
+	images_binding: {
+		wall: string;
+		floor: string;
+		man: string;
+	};
+	colors_binding: {
+		wall: string;
+		floor: string;
+		man: string;
 	};
 	style: {
 		header_color: string;
@@ -78,7 +100,30 @@ export const table: Writable<Table> = writable({
 		dark_mode: true
 	}
 });
-export const images: Writable<object> = writable();
+
+export const images: Writable<Images> = writable({
+	template: 'images',
+	maxNumOfAnswerSetToConvert: 4,
+	cell: [''],
+	use_images: false,
+	images_binding: {
+		wall: '',
+		floor: '',
+		man: ''
+	},
+	colors_binding: {
+		wall: '',
+		floor: '',
+		man: ''
+	},
+	style: {
+		header_color: '',
+		header_font_size: 0,
+		header_font_family: '',
+		header_font_weight: '',
+		dark_mode: true
+	}
+});
 
 export function REMOVE_NODE(idx: number) {
 	graph.update((g) => {

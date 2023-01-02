@@ -6,11 +6,15 @@
 	import Welcome from '../components/Welcome.svelte';
 	import { graph, matrix, table, images } from '../store';
 
-	let template = 'images';
-	let ta: HTMLTextAreaElement;
+	let template = 'none';
+	let ta: string = '';
 
 	$: if (template) {
-		graph.set({ template: template, nodes: [], edges: [] });
+		graph.set({
+			template: 'graph',
+			nodes: [],
+			edges: []
+		});
 		matrix.set({
 			template: 'matrix',
 			maxNumOfAnswerSetToConvert: 4,
@@ -40,48 +44,75 @@
 				dark_mode: true
 			}
 		});
-		images.set({});
+		images.set({
+			template: 'images',
+			maxNumOfAnswerSetToConvert: 4,
+			cell: [''],
+			use_images: false,
+			images_binding: {
+				wall: '',
+				floor: '',
+				man: ''
+			},
+			colors_binding: {
+				wall: '',
+				floor: '',
+				man: ''
+			},
+			style: {
+				header_color: '',
+				header_font_size: 0,
+				header_font_family: '',
+				header_font_weight: '',
+				dark_mode: true
+			}
+		});
 	}
+
+	//call compile() when the stores are changed
+	$: if ($graph || $matrix || $table || $images) compile();
 
 	function compile() {
 		switch (template) {
 			case 'graph':
-				ta.value = JSON.stringify($graph);
+				ta = JSON.stringify($graph);
 				break;
 			case 'table':
-				ta.value = JSON.stringify($table);
+				ta = JSON.stringify($table);
 				break;
 			case 'matrix':
-				ta.value = JSON.stringify($matrix);
+				ta = JSON.stringify($matrix);
 				break;
 			case 'images':
-				ta.value = JSON.stringify($images);
+				ta = JSON.stringify($images);
 				break;
 			default:
 				break;
 		}
-		console.log(ta.value);
+		console.log(ta);
 	}
 </script>
 
-<textarea id="code" bind:this={ta} />
+<textarea id="code" bind:value={ta} />
 
 <select
 	name="template"
 	id="template"
-	on:change={(event) => {
-		template = event.currentTarget.value;
+	on:change={(e) => {
+		template = e.currentTarget.value;
 	}}
 >
-	<option value="none">Choose a template</option>
+	<option value="none" selected>Choose a template</option>
 	<option value="graph">Graph</option>
 	<option value="table">Table</option>
 	<option value="matrix">Matrix</option>
-	<option value="images" selected>Matrix (images)</option>
+	<option value="images">Matrix (images)</option>
 </select>
 
 {#if template !== 'none'}
 	<button id="render" on:click={compile}>Render Answer Set</button>
+{:else}
+	<button id="render" style="display: none;" on:click={compile}>Render Answer Set</button>
 {/if}
 
 {#if template === 'graph'}
@@ -98,7 +129,8 @@
 
 <style>
 	#code {
-		display: none;
+		position: absolute;
+		top: -200%;
 	}
 
 	select {

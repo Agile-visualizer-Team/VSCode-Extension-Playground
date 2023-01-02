@@ -9,19 +9,19 @@
 	};
 
 	onMount(() => {
-		console.log(table_field_mapping);
+		write();
 	});
 
 	$: if (table_field_mapping[0] || table_field_mapping[1] || table_field_mapping[2]) {
-		console.log(table_field_mapping);
+		write();
 	}
 
 	function write() {
-		table.update((table) => {
-			table.table_field_mapping = table_field_mapping;
-			return table;
+		table.update((cell) => {
+			cell.table_field_mapping = table_field_mapping;
+			return cell;
 		});
-		console.log($table);
+		// console.log($table);
 	}
 </script>
 
