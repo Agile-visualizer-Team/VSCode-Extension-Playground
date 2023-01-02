@@ -59,6 +59,12 @@ jobs:
         with:
             perl-version: '5.34'
       - run: npm ci
+      - name:  'automated version bump'
+        uses:  'phips28/gh-action-bump-version@master'
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+        with:
+          version-type:  '${{ env.update }}'
       - name: build visualizer-graph
         run: |
             cd src/visualizer-graph
@@ -74,12 +80,6 @@ jobs:
             npm run build
             git add -A
           # git commit -m"builded matrix"
-      - name:  'automated version bump'
-        uses:  'phips28/gh-action-bump-version@master'
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
-        with:
-          version-type:  '${{ env.update }}'
       # Publishing on Github Packages
       - name: publish on Github Package
         run: npm publish
