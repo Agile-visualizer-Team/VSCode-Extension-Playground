@@ -28,6 +28,7 @@ for link in links:
     if 'index' in name:
         name = name.replace('index', f'index_{count}')
         count += 1
+    
     names.append("{"+name+"}")
     code.append(template.replace('<name>', name).replace(
         '<path-arr>', str(path_arr).replace('[', '').replace(']', '')))
