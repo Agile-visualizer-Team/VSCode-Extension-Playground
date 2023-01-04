@@ -40,8 +40,9 @@ jobs:
 
   publish-gpr:
     # Publishing
-    needs: [test, check_commit]
+    needs: [check_commit]
     runs-on: ubuntu-latest
+    if: needs.check_commit.outputs.status == 'success'
     steps:
       - run: echo ${{ needs.check_commit.outputs.status }}
       - name: Checkout repository
@@ -64,6 +65,22 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.PAT }}
         with:
           version-type:  '${{ env.update }}'
+      - name: build visualizer-graph
+        run: |
+            cd src/visualizer-graph
+            npm i
+            npm run build
+            git add -A
+            git commit -m"builded graph"
+            cd ../../
+      - name: build visualizer-matrix
+        run: |
+            cd src/visualizer-matrix
+            npm i
+            npm run build
+            git add -A
+            git status
+            git commit -m"builded matrix"
       # Publishing on Github Packages
       - name: publish on Github Package
         run: npm publish
