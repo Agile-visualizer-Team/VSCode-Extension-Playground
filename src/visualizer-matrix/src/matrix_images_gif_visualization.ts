@@ -397,9 +397,12 @@ export class MatrixImagesCreatorGIF {
         let row: number = Number(atom[0]);
         let column: number = Number(atom[1]);
         if (self.config_file.useImages) {
+          
           if (self.config_file.images_binding[atom[2].toString()] != undefined)
+          
             matrix[row][column] =
               self.config_file.images_binding[atom[2].toString()];
+              
         } else {
           if (self.config_file.colors_binding[atom[2]] != undefined)
             matrix[row][column] = self.config_file.colors_binding[atom[2]];
