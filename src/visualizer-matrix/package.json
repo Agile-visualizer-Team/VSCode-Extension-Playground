@@ -37,7 +37,10 @@
     "all": true,
     "include": [
       "src/matrix_visualization.ts",
-      "src/table_visualization.ts"
+      "src/table_visualization.ts",
+      "src/matrix_images_visualization.ts",
+      "src/matrix_images_gif_visualization.ts"
+
     ],
     "exclude": [
       "src/tests/*/.*"
@@ -54,6 +57,7 @@
     "build": "tsc",
     "test": "mocha -r ts-node/register './src/tests/**/*.test.ts'",
     "test_matrix_images": "nyc mocha -r ts-node/register './src/tests/**/matrix_images_visualization.test.ts'",
+    "test_matrix_gif_images": "nyc mocha -r ts-node/register './src/tests/**/matrix_images_gif_visualization.test.ts'",
     "test_matrix": "nyc mocha -r ts-node/register './src/tests/**/matrix_visualization.test.ts'",
     "test_table": "nyc mocha -r ts-node/register './src/tests/**/table_visualization.test.ts'",
     "test-acceptance": "mocha -r ts-node/register './src/test_acceptance/**/*.test.ts'",
