@@ -79,7 +79,6 @@ jobs:
             npm i
             npm run build
             git add -A
-            git status
             git commit -m"builded matrix"
       # Publishing on Github Packages
       - name: publish on Github Package
