@@ -1,8 +1,9 @@
 <script lang="ts">
-	import { table } from '../store';
+	import { matrix } from '../../store';
 	import { onMount } from 'svelte';
-	import TableStyle from './table-style.svelte';
-	import TableMapping from './table-mapping.svelte';
+	import TableMapping from "./table_mapping.svelte";
+	import TableStyle from "../Matrix/matrix-style.svelte";
+
 	let maxNumOfAnswerSetToConvert: number = 4;
 	let cells: string[] = ['cell1'];
 
@@ -25,12 +26,11 @@
 	}
 
 	function write() {
-		table.update((cell) => {
+		matrix.update((cell) => {
 			cell.maxNumOfAnswerSetToConvert = maxNumOfAnswerSetToConvert;
 			cell.cell = cells;
 			return cell;
 		});
-		// console.log($table);
 	}
 </script>
 

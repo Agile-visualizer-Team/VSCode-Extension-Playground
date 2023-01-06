@@ -1,8 +1,9 @@
 <script lang="ts">
+	import { matrix } from '../../store';
 	import { onMount } from 'svelte';
-	import { images } from '../store';
-	import ImageCell from './images-cell.svelte';
-	import ImageStyle from './images-style.svelte';
+	import MatrixCell from './matrix-cell.svelte';
+	
+	const template = "matrix";
 	let maxNumOfAnswerSetToConvert: number = 4;
 
 	onMount(() => {
@@ -14,25 +15,25 @@
 	}
 
 	function write() {
-		images.update((images) => {
-			images.maxNumOfAnswerSetToConvert = maxNumOfAnswerSetToConvert;
-			return images;
+		matrix.update((cell) => {
+			cell.template = template;
+			cell.maxNumOfAnswerSetToConvert = maxNumOfAnswerSetToConvert;
+			return cell;
 		});
 	}
 </script>
 
 <center>
-	<h1>Matrix with Images</h1>
+	<h1>Matrix</h1>
 </center>
 
 <div id="ctrl">
 	<h3>Answer Sets to compute</h3>
-	<input type="number" name="maxas" id="maxAS" bind:value={maxNumOfAnswerSetToConvert} min="1" />
+	<input type="number" name="maxas" id="maxAS" bind:value={maxNumOfAnswerSetToConvert} min="0" />
 </div>
 
 <h2>Rendered Cells</h2>
-<ImageCell />
-<ImageStyle />
+<MatrixCell />
 
 <style>
 	#maxAS {

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import GraphNode from './graph-node.svelte';
 	import GraphEdge from './graph-edge.svelte';
-	import { REMOVE_NODE, REMOVE_EDGE, graph } from '../store';
+	import { REMOVE_NODE, REMOVE_EDGE, graph } from '../../store';
 
 	let nodes: string[] = ['0'];
 	let edges: string[] = ['0'];

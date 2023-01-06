@@ -15,46 +15,10 @@ type Matrix = {
 	template: string;
 	maxNumOfAnswerSetToConvert: number;
 	cell: string[];
-	style: {
-		header_color: string;
-		header_font_size: number;
-		header_font_family: string;
-		header_font_weight: string;
-		dark_mode: boolean;
-	};
-};
-type Table = {
-	template: string;
-	maxNumOfAnswerSetToConvert: number;
-	cell: string[];
-	table_field_mapping: {
-		0: string;
-		1: string;
-		2: string;
-	};
-	style: {
-		header_color: string;
-		header_font_size: number;
-		header_font_family: string;
-		header_font_weight: string;
-		dark_mode: boolean;
-	};
-};
-type Images = {
-	template: string;
-	maxNumOfAnswerSetToConvert: number;
-	cell: string[];
-	use_images: boolean;
-	images_binding: {
-		wall: string;
-		floor: string;
-		man: string;
-	};
-	colors_binding: {
-		wall: string;
-		floor: string;
-		man: string;
-	};
+	use_images?: boolean;
+	table_field_mapping?: Map<string, string>;
+	images_binding?: Map<string, string>;
+	colors_binding?: Map<string, string>;
 	style: {
 		header_color: string;
 		header_font_size: number;
@@ -73,49 +37,7 @@ export const graph: Writable<Graph> = writable({
 export const matrix: Writable<Matrix> = writable({
 	template: 'matrix',
 	maxNumOfAnswerSetToConvert: 4,
-	cell: [''],
-	style: {
-		header_color: '',
-		header_font_size: 0,
-		header_font_family: '',
-		header_font_weight: '',
-		dark_mode: true
-	}
-});
-
-export const table: Writable<Table> = writable({
-	template: 'table',
-	maxNumOfAnswerSetToConvert: 4,
-	cell: [''],
-	table_field_mapping: {
-		0: 'row to map',
-		1: 'column',
-		2: 'value'
-	},
-	style: {
-		header_color: '',
-		header_font_size: 0,
-		header_font_family: '',
-		header_font_weight: '',
-		dark_mode: true
-	}
-});
-
-export const images: Writable<Images> = writable({
-	template: 'images',
-	maxNumOfAnswerSetToConvert: 4,
-	cell: [''],
-	use_images: false,
-	images_binding: {
-		wall: '',
-		floor: '',
-		man: ''
-	},
-	colors_binding: {
-		wall: '',
-		floor: '',
-		man: ''
-	},
+	cell: [],
 	style: {
 		header_color: '',
 		header_font_size: 0,

@@ -1,10 +1,10 @@
 <script lang="ts">
-	import Graph from '../components/Graph.svelte';
-	import Matrix from '../components/Matrix.svelte';
-	import Table from '../components/Table.svelte';
-	import Images from '../components/Images.svelte';
+	import Graph from '../components/Graph/Graph.svelte';
+	import Matrix from '../components/Matrix/Matrix.svelte';
+	import Table from '../components/Table/Table.svelte';
+	import Images from '../components/Image/Images.svelte';
 	import Welcome from '../components/Welcome.svelte';
-	import { graph, matrix, table, images } from '../store';
+	import { graph, matrix } from '../store';
 
 	let template = 'none';
 	let ta: string = '';
@@ -27,69 +27,25 @@
 				dark_mode: true
 			}
 		});
-		table.set({
-			template: 'table',
-			maxNumOfAnswerSetToConvert: 4,
-			cell: [''],
-			table_field_mapping: {
-				0: 'row to map',
-				1: 'column',
-				2: 'value'
-			},
-			style: {
-				header_color: '',
-				header_font_size: 0,
-				header_font_family: '',
-				header_font_weight: '',
-				dark_mode: true
-			}
-		});
-		images.set({
-			template: 'images',
-			maxNumOfAnswerSetToConvert: 4,
-			cell: [''],
-			use_images: false,
-			images_binding: {
-				wall: '',
-				floor: '',
-				man: ''
-			},
-			colors_binding: {
-				wall: '',
-				floor: '',
-				man: ''
-			},
-			style: {
-				header_color: '',
-				header_font_size: 0,
-				header_font_family: '',
-				header_font_weight: '',
-				dark_mode: true
-			}
-		});
 	}
 
-	//call compile() when the stores are changed
-	$: if ($graph || $matrix || $table || $images) compile();
+	$: if ($graph || $matrix) compile();
 
 	function compile() {
-		switch (template) {
-			case 'graph':
-				ta = JSON.stringify($graph);
-				break;
-			case 'table':
-				ta = JSON.stringify($table);
-				break;
-			case 'matrix':
-				ta = JSON.stringify($matrix);
-				break;
-			case 'images':
-				ta = JSON.stringify($images);
-				break;
-			default:
-				break;
+		if (template === 'none') return;
+
+		if (template === 'graph') {
+			ta = JSON.stringify($graph, null, 4);
+		} else {
+			ta = JSON.stringify($matrix, mapExtractor, 4);
 		}
+
 		console.log(ta);
+	}
+
+	function mapExtractor(key: string, value: any) {
+		if (value instanceof Map) return Object.fromEntries(value);
+		return value;
 	}
 </script>
 
@@ -102,7 +58,7 @@
 		template = e.currentTarget.value;
 	}}
 >
-	<option value="none" selected>Choose a template</option>
+	<option value="none" selected>Settings</option>
 	<option value="graph">Graph</option>
 	<option value="table">Table</option>
 	<option value="matrix">Matrix</option>

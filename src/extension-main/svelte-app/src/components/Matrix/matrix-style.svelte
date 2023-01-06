@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { table } from '../store';
+	import { matrix } from '../../store';
 	import { onMount } from 'svelte';
 
 	onMount(() => {
@@ -23,15 +23,14 @@
 	};
 
 	function write() {
-		table.update((table) => {
-			table.style = style;
-			return table;
+		matrix.update((cell) => {
+			cell.style = style;
+			return cell;
 		});
-		// console.log($table);
 	}
 </script>
 
-<h3>Cell Styling</h3>
+<h3>Style</h3>
 
 <div class="style-arg">
 	<label for="hsize">Font Size</label>
@@ -43,7 +42,7 @@
 </div>
 <div class="style-arg">
 	<label for="hwei">Font Weight</label>
-	<input type="text" name="hwei" bind:value={style.header_font_family} />
+	<input type="text" name="hwei" bind:value={style.header_font_weight} />
 </div>
 
 <div class="color-palette">
@@ -68,14 +67,6 @@
 		display: flex;
 		align-items: center;
 		gap: 1rem;
-	}
-
-	input[type='color'] {
-		padding: 0;
-		margin: 0;
-		border: none !important;
-		height: 40px;
-		width: 40px;
 	}
 
 	.style-arg {

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { graph } from '../store';
+	import { graph } from '../../store';
 	import { onMount } from 'svelte';
 
 	export let idx: number;
@@ -8,12 +8,15 @@
 		write();
 	});
 
-	$: if (name || variables || color || oriented) write();
+	$: if (name || variables || color) write();
 
-	let name: string = 'edge';
+	let name: string = 'node';
 	let variables: string[] = ['arg1'];
-	let color: string = '#FF0000';
-	let oriented: boolean = false;
+	let color: { root: string; leaves: string; nonRoot: string } = {
+		root: '#FF0000',
+		leaves: '#00FF00',
+		nonRoot: '#0000FF'
+	};
 
 	function addArg() {
 		variables = [...variables, 'arg' + (variables.length + 1)];
@@ -26,16 +29,15 @@
 
 	function write() {
 		graph.update((graph) => {
-			if (graph.edges[idx]) {
-				graph.edges[idx].atom.name = name;
-				graph.edges[idx].atom.variables = variables;
-				graph.edges[idx].style.color = color;
-				graph.edges[idx].style.oriented = oriented;
+			if (graph.nodes[idx]) {
+				graph.nodes[idx].atom.name = name;
+				graph.nodes[idx].atom.variables = variables;
+				graph.nodes[idx].style.color = color;
 				return graph;
 			} else {
-				graph.edges.push({
+				graph.nodes.push({
 					atom: { name, variables },
-					style: { color, oriented }
+					style: { color }
 				});
 				return graph;
 			}
@@ -60,15 +62,19 @@
 	{/each}
 {/if}
 
-<h3>Edge Styling</h3>
+<h3>Node Styling</h3>
 <div class="color-palette">
 	<div>
 		<label for="root">root</label>
-		<input type="color" name="root" bind:value={color} />
+		<input type="color" name="root" bind:value={color.root} />
 	</div>
 	<div>
-		<label for="oriented">oriented?</label>
-		<input type="checkbox" name="oriented" bind:checked={oriented} />
+		<label for="leaves">leaves</label>
+		<input type="color" name="leaves" bind:value={color.leaves} />
+	</div>
+	<div>
+		<label for="nonroot">Non Root</label>
+		<input type="color" name="non" bind:value={color.nonRoot} />
 	</div>
 </div>
 
@@ -97,16 +103,29 @@
 	}
 
 	.color-palette {
-		width: 100%;
 		display: flex;
 		align-items: center;
-		justify-content: center;
-		gap: 10%;
+		justify-content: space-around;
 	}
 
 	.color-palette div {
 		display: flex;
 		align-items: center;
 		gap: 1rem;
+	}
+
+	@media (max-width: 365px) {
+		.color-palette div {
+			flex-direction: column;
+			gap: initial;
+		}
+	}
+
+	input[type='color'] {
+		padding: 0;
+		margin: 0;
+		border: none !important;
+		height: 40px;
+		width: 40px;
 	}
 </style>
