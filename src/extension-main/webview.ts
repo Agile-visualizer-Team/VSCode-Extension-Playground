@@ -18,22 +18,58 @@ export class WebviewView implements vscode.WebviewViewProvider {
       localResourceRoots: [this._extensionUri],
     };
 
-    webviewView.webview.html = getHtmlForWebview(webviewView.webview, this._extensionUri);
+    webviewView.webview.html = getHtmlForWebview(
+      webviewView.webview,
+      this._extensionUri
+    );
 
-    webviewView.webview.onDidReceiveMessage((data) => {
+    webviewView.webview.onDidReceiveMessage(async (data) => {
+      console.log({ data });
+      let value: vscode.Uri[] | undefined;
+
       switch (data.type) {
-        case "hello": {
-          console.log("webview said: " + data.value);
-          this.respond();
+        case "save":
+        case "config":
+          vscode.commands.executeCommand("asp-vis." + data.type, data.value);
           break;
-        }
+
+        case "run":
+          vscode.commands.executeCommand("asp-vis.execute");
+          break;
+
+        case "output":
+        case "image":
+          value = await vscode.window.showOpenDialog({
+            canSelectMany: false,
+            canSelectFiles: false,
+            canSelectFolders: true,
+            openLabel: "Select directory",
+          });
+
+          if (value) {
+            this._view?.webview.postMessage({
+              type: data.type + "-back",
+              value: value[0].fsPath,
+            });
+          }
+          break;
+
+        default:
+          value = await vscode.window.showOpenDialog({
+            canSelectMany: false,
+            canSelectFiles: true,
+            canSelectFolders: false,
+            openLabel: "Select a file",
+          });
+
+          if (value) {
+            this._view?.webview.postMessage({
+              type: data.type + "-back",
+              value: value[0].fsPath,
+            });
+          }
+          break;
       }
     });
-  }
-
-  public respond() {
-    if (this._view) {
-      this._view.webview.postMessage({ type: "pong", value: "pong" });
-    }
   }
 }

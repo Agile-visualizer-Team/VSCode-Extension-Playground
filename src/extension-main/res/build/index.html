@@ -6,15 +6,15 @@
 		<link rel="stylesheet" href="./global.css" />
 		<meta name="viewport" content="width=device-width" />
 		<meta http-equiv="content-security-policy" content="">
-		<link href="./_app/immutable/assets/_page-e29a7e1b.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/start-3b928335.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/index-cfceb4e3.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/singletons-3ec860b4.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/index-d4076a17.js">
-		<link rel="modulepreload" href="./_app/immutable/components/layout.svelte-6a995481.js">
+		<link href="./_app/immutable/assets/_page-e6abbf30.css" rel="stylesheet">
+		<link rel="modulepreload" href="./_app/immutable/start-ffa697c1.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index-4864de32.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/singletons-f241056d.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index-ca760e77.js">
+		<link rel="modulepreload" href="./_app/immutable/components/layout.svelte-bddc0508.js">
 		<link rel="modulepreload" href="./_app/immutable/modules/pages/_layout.ts-070df6f0.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/_layout-af12d980.js">
-		<link rel="modulepreload" href="./_app/immutable/components/pages/_page.svelte-c411cad9.js">
+		<link rel="modulepreload" href="./_app/immutable/components/pages/_page.svelte-ecdfd314.js">
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">
@@ -22,22 +22,68 @@
 
 <textarea id="code" class="svelte-8ve48e"></textarea>
 
-<select name="template" id="template" class="svelte-8ve48e"><option value="none" selected>Settings</option><option value="graph">Graph</option><option value="table">Table</option><option value="matrix">Matrix</option><option value="images">Matrix (images)</option></select>
+<select name="template" class="svelte-8ve48e"><option value="none" selected>Settings</option><option value="graph">Graph</option><option value="table">Table</option><option value="matrix">Matrix</option><option value="images">Matrix (images)</option></select>
 
-<button id="render" style="display: none;">Render Answer Set</button>
+<button id="save-btn" style="display: none;">Save Template File</button>
 
-<center><h2 class="svelte-6teu96">Select a template to start</h2>
-</center>
+<center><h1>Settings</h1></center>
+
+<form class="svelte-vj96q"><div class="svelte-vj96q"><button id="run-btn" type="submit">Run using config file</button></div>
+
+	<h2># of Answer Sets</h2>
+	<h5 class="svelte-vj96q">required</h5>
+
+	<div class="svelte-vj96q"><input id="sol-in" type="number" min="1" value="1" required class="svelte-vj96q"></div>
+
+	<h2>Solver path</h2>
+	<h5 class="svelte-vj96q">required</h5>
+
+	<div class="svelte-vj96q"><button id="solver-btn">Solver Executable</button>
+		<textarea id="solver-ta" required class="svelte-vj96q"></textarea></div>
+
+	<h2>Program file</h2>
+	<h5 class="svelte-vj96q">required</h5>
+
+	<div class="svelte-vj96q"><button id="program-btn">Program Path</button>
+		<textarea id="program-ta" required class="svelte-vj96q"></textarea></div>
+
+	<h2>Output Directory</h2>
+	<h5 class="svelte-vj96q">required</h5>
+
+	<div class="svelte-vj96q"><button id="output-btn">Output Directory</button>
+		<textarea id="output-ta" required class="svelte-vj96q"></textarea></div>
+
+	<h2>Chrome Executable</h2>
+	<h5 class="svelte-vj96q">required</h5>
+
+	<div class="svelte-vj96q"><button id="chrome-btn">Chromium Based Browser Executable</button>
+		<textarea id="chrome-ta" required class="svelte-vj96q"></textarea></div>
+
+	<h2>Template file</h2>
+	<h5 class="svelte-vj96q">required</h5>
+
+	<div class="svelte-vj96q"><button id="template-btn">Template File</button>
+		<textarea id="template-ta" required class="svelte-vj96q"></textarea></div>
+
+	<h2>Image Directory</h2>
+	<h5 class="svelte-vj96q">image matrix, optional</h5>
+
+	<div class="svelte-vj96q"><button id="image-btn">Image Resources Directory</button>
+		<textarea id="image-ta" class="svelte-vj96q"></textarea></div>
+
+	<div class="svelte-vj96q"><button id="config-btn" type="submit" class="svelte-vj96q">Save Configuration File</button>
+		<textarea id="config-ta" rows="10" class="svelte-vj96q"></textarea></div>
+</form>
 
 
-		<script type="module" data-sveltekit-hydrate="1wqttyp">
-			import { start } from "./_app/immutable/start-3b928335.js";
+		<script type="module" data-sveltekit-hydrate="1g46jzg">
+			import { start } from "./_app/immutable/start-ffa697c1.js";
 
 			start({
 				env: {},
 				paths: {"base":"","assets":""},
-				target: document.querySelector('[data-sveltekit-hydrate="1wqttyp"]').parentNode,
-				version: "1673005491511",
+				target: document.querySelector('[data-sveltekit-hydrate="1g46jzg"]').parentNode,
+				version: "1673084728384",
 				hydrate: {
 					node_ids: [0, 2],
 					data: [null,null],

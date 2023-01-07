@@ -31,7 +31,7 @@
 
 	$: if ($graph || $matrix) compile();
 
-	function compile() {
+	function compile(change: boolean = false) {
 		if (template === 'none') return;
 
 		if (template === 'graph') {
@@ -41,6 +41,7 @@
 		}
 
 		console.log(ta);
+		if (change) template = 'none';
 	}
 
 	function mapExtractor(key: string, value: any) {
@@ -53,7 +54,6 @@
 
 <select
 	name="template"
-	id="template"
 	on:change={(e) => {
 		template = e.currentTarget.value;
 	}}
@@ -66,9 +66,9 @@
 </select>
 
 {#if template !== 'none'}
-	<button id="render" on:click={compile}>Render Answer Set</button>
+	<button id="save-btn" on:click={() => compile(true)}>Save Template File</button>
 {:else}
-	<button id="render" style="display: none;" on:click={compile}>Render Answer Set</button>
+	<button id="save-btn" style="display: none;">Save Template File</button>
 {/if}
 
 {#if template === 'graph'}

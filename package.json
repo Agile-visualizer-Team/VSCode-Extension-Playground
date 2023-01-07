@@ -12,6 +12,8 @@
   "activationEvents": [
     "onCommand:asp-vis.helloWorld",
     "onCommand:asp-vis.wrapper",
+    "onCommand:asp-vis.config",
+    "onCommand:asp-vis.save",
     "onCommand:asp-vis.sayHello",
     "onCommand:asp-vis.execute",
     "onCommand:asp-vis.ffmpeg"
@@ -40,10 +42,6 @@
       {
         "command": "asp-vis.helloWorld",
         "title": "Hello World"
-      },
-      {
-        "command": "asp-vis.sayHello",
-        "title": "Say Hello"
       },
       {
         "command": "asp-vis.wrapper",

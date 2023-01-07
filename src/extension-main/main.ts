@@ -16,7 +16,15 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.window.showInformationMessage("Hello World");
   });
 
-  let cfg = vscode.commands.registerCommand("asp-vis.execute", () => {
+  let config = vscode.commands.registerCommand("asp-vis.config", (arg) => {
+    console.log(arg);
+  });
+
+  let save = vscode.commands.registerCommand("asp-vis.save", (arg) => {
+    console.log(arg);
+  });
+
+  let exec = vscode.commands.registerCommand("asp-vis.execute", () => {
     read_config();
 
     let template: string = process.env.TEMPLATE || "";
@@ -101,12 +109,7 @@ export function activate(context: vscode.ExtensionContext) {
     webview_provider
   );
 
-  let pong = vscode.commands.registerCommand(
-    "asp-vis.sayHello",
-    webview_provider.respond
-  );
-
-  context.subscriptions.push(disposable, convert, wrapper, cfg, pong, webview);
+  context.subscriptions.push(disposable, save, config, convert, wrapper, exec, webview);
 }
 
 export function deactivate() {
