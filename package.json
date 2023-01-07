@@ -48,6 +48,10 @@
         "title": "Wrapper"
       },
       {
+        "command": "asp-vis.save",
+        "title": "Template"
+      },
+      {
         "command": "asp-vis.execute",
         "title": "Execute"
       },

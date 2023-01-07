@@ -2,8 +2,8 @@
 	import { matrix } from '../../store';
 	import { onMount } from 'svelte';
 	import MatrixCell from './matrix-cell.svelte';
+	import MatrixStyle from './matrix-style.svelte';
 	
-	const template = "matrix";
 	let maxNumOfAnswerSetToConvert: number = 4;
 
 	onMount(() => {
@@ -16,7 +16,7 @@
 
 	function write() {
 		matrix.update((cell) => {
-			cell.template = template;
+			cell.template = "matrix";
 			cell.maxNumOfAnswerSetToConvert = maxNumOfAnswerSetToConvert;
 			return cell;
 		});
@@ -34,6 +34,7 @@
 
 <h2>Rendered Cells</h2>
 <MatrixCell />
+<MatrixStyle />
 
 <style>
 	#maxAS {

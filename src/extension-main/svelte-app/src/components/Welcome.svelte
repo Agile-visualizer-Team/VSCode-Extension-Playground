@@ -4,7 +4,12 @@
 
 <form on:submit|preventDefault>
 	<div>
-		<button id="run-btn" type="submit">Run using config file</button>
+		<button id="run-btn" type="button">Run using config file</button>
+	</div>
+
+	<div>
+		<button id="config-btn" type="submit">Save Configuration File</button>
+		<textarea id="config-ta" rows="10" />
 	</div>
 
 	<h2># of Answer Sets</h2>
@@ -18,7 +23,7 @@
 	<h5>required</h5>
 
 	<div>
-		<button id="solver-btn">Solver Executable</button>
+		<button type="button" id="solver-btn">Solver Executable</button>
 		<textarea id="solver-ta" required />
 	</div>
 
@@ -26,7 +31,7 @@
 	<h5>required</h5>
 
 	<div>
-		<button id="program-btn">Program Path</button>
+		<button type="button" id="program-btn">Program Path</button>
 		<textarea id="program-ta" required />
 	</div>
 
@@ -34,7 +39,7 @@
 	<h5>required</h5>
 
 	<div>
-		<button id="output-btn">Output Directory</button>
+		<button type="button" id="output-btn">Output Directory</button>
 		<textarea id="output-ta" required />
 	</div>
 
@@ -42,7 +47,7 @@
 	<h5>required</h5>
 
 	<div>
-		<button id="chrome-btn">Chromium Based Browser Executable</button>
+		<button type="button" id="chrome-btn">Chromium Based Browser Executable</button>
 		<textarea id="chrome-ta" required />
 	</div>
 
@@ -50,7 +55,7 @@
 	<h5>required</h5>
 
 	<div>
-		<button id="template-btn">Template File</button>
+		<button type="button" id="template-btn">Template File</button>
 		<textarea id="template-ta" required />
 	</div>
 
@@ -58,13 +63,8 @@
 	<h5>image matrix, optional</h5>
 
 	<div>
-		<button id="image-btn">Image Resources Directory</button>
+		<button type="button" id="image-btn">Image Resources Directory</button>
 		<textarea id="image-ta" />
-	</div>
-
-	<div>
-		<button id="config-btn" type="submit">Save Configuration File</button>
-		<textarea id="config-ta" rows="10" />
 	</div>
 </form>
 
@@ -86,10 +86,6 @@
 
 	input[type='number'] {
 		text-align: center;
-	}
-
-	#config-btn {
-		margin: 20px 0;
 	}
 
 	textarea {

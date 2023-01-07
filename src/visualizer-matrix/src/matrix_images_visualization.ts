@@ -1,6 +1,4 @@
-import * as yargs from "yargs";
 const path = require("path");
-const readline = require("readline");
 const fs = require("fs");
 const get_pixels = require("get-pixels");
 const gif_encoder = require("gif-encoder");
@@ -17,25 +15,25 @@ export class MatrixImagesCreator {
   undefined_error_string: string = "this data cannot be undefined";
   images_directory_path: string = "";
   almost_one_image_printed: boolean = false;
-  output_dir: string = '';
+  output_dir: string = "";
 
   /**
    Converting all the images in the output_files folder into a gif. 
   */
   convert_output_to_gif = async () => {
-   
     //get witdh and height of image 1 in images
     let width = 0;
     let height = 0;
 
     //read all the file names from output_files
-    let files = fs.readdirSync(__dirname + '/output_files');
-    
+    let files = fs.readdirSync(__dirname + "/output_files");
+
     //create a list of all the images
     let pics: any = [];
-    for (var i = 0; i < files.length; i++)
-      pics.push(__dirname+'/output_files/' + files[i]);
-    
+    for (var i = 0; i < files.length; i++) {
+      pics.push(__dirname + "/output_files/" + files[i]);
+    }
+
     //call the method to get pixels
     await get_pixels(pics[0], (err: any, pixels: any) => {
       //get width and height of image 1
@@ -44,8 +42,8 @@ export class MatrixImagesCreator {
 
       //create gif
       let gif = new gif_encoder(width, height);
-      let file = require('fs').createWriteStream('img.gif');
-      
+      let file = require("fs").createWriteStream("img.gif");
+
       //create the base for gif
       gif.pipe(file);
       gif.setQuality(100);
@@ -63,13 +61,11 @@ export class MatrixImagesCreator {
           } else {
             addToGif(images, ++counter);
           }
-        })
-      }
+        });
+      };
       addToGif(pics);
-    })
-
-
-  }
+    });
+  };
 
   /**
    * It takes a list of atoms, a mapped_atom (the atom choosen by user to be mapped on the table), and a table_html string
@@ -99,7 +95,7 @@ export class MatrixImagesCreator {
         mapped_atom
       )
     ) {
-      if (rows_list.length != 0 && columns_list.length != 0) {
+      if (rows_list.length !== 0 && columns_list.length !== 0) {
         let matrix: Array<Array<string>> = new Array();
         matrix = this.init_matrix_rows_and_columns(
           matrix,
@@ -193,12 +189,14 @@ export class MatrixImagesCreator {
     rows_list: number[],
     columns_list: number[]
   ) {
-    if (rows_list == undefined)
+    if (rows_list === undefined) {
       throw new Error(this.undefined_error_string + " rows_list");
-    if (columns_list == undefined)
+    }
+    if (columns_list === undefined) {
       throw new Error(this.undefined_error_string + " columns_list");
+    }
 
-    if (rows_list.length != 0 && columns_list.length != 0) {
+    if (rows_list.length !== 0 && columns_list.length !== 0) {
       matrix = new Array(Math.max.apply(null, rows_list) + 1);
       for (var i = 0; i < matrix.length; i++) {
         matrix[i] = new Array(Math.max.apply(null, columns_list) + 1);
@@ -341,7 +339,9 @@ export class MatrixImagesCreator {
    * @returns the html that will be converted into an image.
    */
   create_html_to_convert_in_image(table_html: string): string {
-    if (table_html === undefined) return "";
+    if (table_html === undefined) {
+      return "";
+    }
     let html =
       `<html>
             <head>
@@ -368,25 +368,34 @@ export class MatrixImagesCreator {
     atoms_splitted_matrix: string[][],
     matrix: string[][]
   ): boolean {
-    if (atoms_splitted_matrix === undefined) return false;
-    if (atoms_splitted_matrix.length === 0) return false;
-    if (matrix === undefined) return false;
+    if (atoms_splitted_matrix === undefined) {
+      return false;
+    }
+    if (atoms_splitted_matrix.length === 0) {
+      return false;
+    }
+    if (matrix === undefined) {
+      return false;
+    }
 
     const self = this;
     atoms_splitted_matrix.forEach(function (atom) {
-      if (atom.length == 3) {
+      if (atom.length === 3) {
         let row: number = Number(atom[0]);
         let column: number = Number(atom[1]);
         if (self.config_file.useImages) {
-          if (self.config_file.images_binding[atom[2].toString()] != undefined)
+          if (
+            self.config_file.images_binding[atom[2].toString()] !== undefined
+          ) {
             matrix[row][column] =
               self.config_file.images_binding[atom[2].toString()];
-          //   console.log(".---------------", self.config_file.images_binding, atom[2].toString());
+          }
+          //   consle.log(".---------------", self.config_file.images_binding, atom[2].toString());
           //   console.log(".---------------", matrix[row][column]);
-
         } else {
-          if (self.config_file.colors_binding[atom[2]] != undefined)
+          if (self.config_file.colors_binding[atom[2]] !== undefined) {
             matrix[row][column] = self.config_file.colors_binding[atom[2]];
+          }
         }
       }
     });
@@ -415,11 +424,21 @@ export class MatrixImagesCreator {
     cell_name: string
   ): boolean {
     /* Checking if the input is valid. */
-    if (atoms_list == undefined) return false;
-    if (rows_list == undefined || rows_list.length !== 0) return false;
-    if (columns_list == undefined || columns_list.length !== 0) return false;
-    if (atoms_splitted_matrix == undefined) return false;
-    if (atoms_splitted_matrix.length !== 0) return false;
+    if (atoms_list === undefined) {
+      return false;
+    }
+    if (rows_list === undefined || rows_list.length !== 0) {
+      return false;
+    }
+    if (columns_list === undefined || columns_list.length !== 0) {
+      return false;
+    }
+    if (atoms_splitted_matrix === undefined) {
+      return false;
+    }
+    if (atoms_splitted_matrix.length !== 0) {
+      return false;
+    }
 
     for (let k: number = 0; k < atoms_list.length; k++) {
       if (atoms_list[k].includes(cell_name + "(")) {
@@ -448,8 +467,12 @@ export class MatrixImagesCreator {
    * @returns A string that contains the HTML code for a table.
    */
   create_table_html(matrix: string[][], cell_name: string): string {
-    if (matrix == undefined || matrix.length == 0) return "";
-    if (cell_name == undefined || cell_name == "") return "";
+    if (matrix === undefined || matrix.length === 0) {
+      return "";
+    }
+    if (cell_name === undefined || cell_name === "") {
+      return "";
+    }
 
     let html_table: string = `<table><thead><tr class="titolo"><th>Visualization</th></tr></thead><tbody>`;
 
@@ -457,13 +480,12 @@ export class MatrixImagesCreator {
     for (var i: number = 0; i < matrix.length; i++) {
       html_table += "<tr>";
       for (var j = 0; j < matrix[i].length; j++) {
-        if (matrix[i][j] != "undefined") {
+        if (matrix[i][j] !== "undefined") {
           this.almost_one_image_printed = true;
           if (this.config_file.useImages) {
-            if (fs.existsSync(this.images_directory_path + matrix[i][j])) {
-              const image = fs.readFileSync(
-                this.images_directory_path + matrix[i][j]
-              );
+            let img_path = path.join(this.images_directory_path, matrix[i][j]);
+            if (fs.existsSync(img_path)) {
+              const image = fs.readFileSync(img_path);
 
               const base64Image: any = new (Buffer as any).from(image).toString(
                 "base64"
@@ -476,7 +498,6 @@ export class MatrixImagesCreator {
                 `" style='height: 60px; width: 60px; object-fit: fill;'></img></td>`;
             }
           } else {
-
             html_table += `<td><div style='height: 60px; width: 60px; background-color:${matrix[i][j]}; border: 1px solid #307182'></img></td>`;
           }
         }
@@ -485,9 +506,10 @@ export class MatrixImagesCreator {
     }
 
     html_table += "</tbody></table>";
-    if (!this.almost_one_image_printed)
+    if (!this.almost_one_image_printed) {
       html_table +=
         "<strong>There aren not atoms with values you mapped as images</strong>";
+    }
 
     return html_table;
   }
@@ -517,13 +539,15 @@ export class MatrixImagesCreator {
     console.log("Mapped atoms: " + mapping_list);
     console.log(
       "Maximum number answer set to convert in image: " +
-      max_num_of_as_to_convert
+        max_num_of_as_to_convert
     );
 
     let i: number = 0;
     let self = this;
     answer_sets.forEach(function (value: { as: string[] }) {
-      if (i >= max_num_of_as_to_convert) return;
+      if (i >= max_num_of_as_to_convert) {
+        return;
+      }
       self.create_matrix_from_atoms_list(value.as, mapping_list, i);
       i++;
     });
@@ -537,10 +561,11 @@ export class MatrixImagesCreator {
   ) {
     this.config_file = config_file;
     this.images_directory_path = images_directory;
-    this.output_dir = output_directory
+    this.output_dir = output_directory;
     console.log(images_directory);
 
     if (fs.existsSync(this.images_directory_path)) {
+      console.log(this.images_directory_path);
       this.run_script(answer_set);
     } else {
       console.log("The image directory does not exists, please check the path");
@@ -551,15 +576,18 @@ export class MatrixImagesCreator {
 if (require.main === module) {
   let script = new MatrixImagesCreator();
 
-  let config_file: JSON = JSON.parse(fs.readFileSync('./src/config_matrix_images.json'));
-  let answer_set_json: JSON = JSON.parse(fs.readFileSync('./src/answers_sets_matrix_images.json'));
-  let img_dir = './src/matrix_images/'
-  let output = './src/output_files/'
+  let config_file: JSON = JSON.parse(
+    fs.readFileSync("./src/config_matrix_images.json")
+  );
+  let answer_set_json: JSON = JSON.parse(
+    fs.readFileSync("./src/answers_sets_matrix_images.json")
+  );
+  let img_dir = "./src/matrix_images/";
+  let output = "./src/output_files/";
 
   script.setup_and_run_script(config_file, img_dir, answer_set_json, output);
   script.convert_output_to_gif();
 }
-
 
 /*
 td img{

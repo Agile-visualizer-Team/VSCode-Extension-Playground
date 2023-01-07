@@ -1,28 +1,6 @@
 (function () {
   const vscode = acquireVsCodeApi();
 
-  // add handlers to the buttons with the following ids:
-  // - save-btn
-  // - run-btn
-  // - solver-btn
-  // - program-btn
-  // - output-btn
-  // - chrome-btn
-  // - image-btn
-  // - template-btn
-  // - config-btn
-
-  // get textareas with the following ids:
-  // - code
-  // - save-ta
-  // - solver-ta
-  // - program-ta
-  // - output-ta
-  // - chrome-ta
-  // - image-ta
-  // - template-ta
-  // - config-ta
-
   const save = document.getElementById("save-btn");
   const code_ta = document.getElementById("code");
   const sol_in = document.getElementById("sol-in");

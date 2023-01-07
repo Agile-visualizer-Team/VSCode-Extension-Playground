@@ -24,12 +24,12 @@ export class WebviewView implements vscode.WebviewViewProvider {
     );
 
     webviewView.webview.onDidReceiveMessage(async (data) => {
-      console.log({ data });
       let value: vscode.Uri[] | undefined;
 
       switch (data.type) {
         case "save":
         case "config":
+          console.log(data.value);
           vscode.commands.executeCommand("asp-vis." + data.type, data.value);
           break;
 

@@ -17,11 +17,37 @@ export function activate(context: vscode.ExtensionContext) {
   });
 
   let config = vscode.commands.registerCommand("asp-vis.config", (arg) => {
-    console.log(arg);
+    if (vscode.workspace.workspaceFolders) {
+      const folder = vscode.workspace.workspaceFolders[0];
+      const path = vscode.Uri.joinPath(folder.uri, "asp-vis", "config.json");
+      const data = Buffer.from(arg, "utf8");
+
+      vscode.workspace.fs.writeFile(path, data).then(() => {
+        vscode.window.showInformationMessage("Config file saved at " + path);
+      });
+    }
   });
 
   let save = vscode.commands.registerCommand("asp-vis.save", (arg) => {
-    console.log(arg);
+    let template: string = "";
+    template = JSON.parse(arg)["template"];
+
+    vscode.window
+      .showInputBox({
+        prompt: "Enter the filename of the template file",
+        placeHolder: template + ".json",
+      })
+      .then((value) => {
+        if (value && vscode.workspace.workspaceFolders) {
+          const folder = vscode.workspace.workspaceFolders[0];
+          const path = vscode.Uri.joinPath(folder.uri, "asp-vis", value);
+          const data = Buffer.from(arg, "utf8");
+
+          vscode.workspace.fs.writeFile(path, data).then(() => {
+            vscode.window.showInformationMessage("Template saved at " + path);
+          });
+        }
+      });
   });
 
   let exec = vscode.commands.registerCommand("asp-vis.execute", () => {
@@ -109,7 +135,15 @@ export function activate(context: vscode.ExtensionContext) {
     webview_provider
   );
 
-  context.subscriptions.push(disposable, save, config, convert, wrapper, exec, webview);
+  context.subscriptions.push(
+    disposable,
+    save,
+    config,
+    convert,
+    wrapper,
+    exec,
+    webview
+  );
 }
 
 export function deactivate() {

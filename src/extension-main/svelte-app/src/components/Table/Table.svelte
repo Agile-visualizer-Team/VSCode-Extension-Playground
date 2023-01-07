@@ -5,7 +5,7 @@
 	import TableStyle from "../Matrix/matrix-style.svelte";
 
 	let maxNumOfAnswerSetToConvert: number = 4;
-	let cells: string[] = ['cell1'];
+	let cells: string[] = ['cell'];
 
 	onMount(() => {
 		write();
@@ -27,6 +27,7 @@
 
 	function write() {
 		matrix.update((cell) => {
+			cell.template = "table";
 			cell.maxNumOfAnswerSetToConvert = maxNumOfAnswerSetToConvert;
 			cell.cell = cells;
 			return cell;

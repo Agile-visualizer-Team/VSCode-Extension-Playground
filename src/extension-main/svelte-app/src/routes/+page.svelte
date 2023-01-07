@@ -52,24 +52,19 @@
 
 <textarea id="code" bind:value={ta} />
 
-<select
-	name="template"
-	on:change={(e) => {
-		template = e.currentTarget.value;
-	}}
->
-	<option value="none" selected>Settings</option>
+<select name="template" bind:value={template}>
+	<option value="none">Settings</option>
 	<option value="graph">Graph</option>
 	<option value="table">Table</option>
 	<option value="matrix">Matrix</option>
 	<option value="images">Matrix (images)</option>
 </select>
 
-{#if template !== 'none'}
-	<button id="save-btn" on:click={() => compile(true)}>Save Template File</button>
-{:else}
-	<button id="save-btn" style="display: none;">Save Template File</button>
-{/if}
+<button
+	id="save-btn"
+	on:click={() => compile(true)}
+	style="display:{template !== 'none' ? 'block' : 'none'}">Save Template File</button
+>
 
 {#if template === 'graph'}
 	<Graph />

@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { graph } from '../../store';
+	import { graph, COLORS } from '../../store';
 	import { onMount } from 'svelte';
+	import { each } from 'svelte/internal';
 
 	export let idx: number;
 
@@ -13,9 +14,9 @@
 	let name: string = 'node';
 	let variables: string[] = ['arg1'];
 	let color: { root: string; leaves: string; nonRoot: string } = {
-		root: '#FF0000',
-		leaves: '#00FF00',
-		nonRoot: '#0000FF'
+		root: 'yellow',
+		leaves: 'fuchsia',
+		nonRoot: 'blue'
 	};
 
 	function addArg() {
@@ -65,16 +66,37 @@
 <h3>Node Styling</h3>
 <div class="color-palette">
 	<div>
-		<label for="root">root</label>
-		<input type="color" name="root" bind:value={color.root} />
+		<div>
+			<label for="root">root</label>
+			<div class="color" style="background-color: {color.root};" />
+		</div>
+		<select name="root" bind:value={color.root}>
+			{#each COLORS as color}
+				<option value={color}>{color}</option>
+			{/each}
+		</select>
 	</div>
 	<div>
-		<label for="leaves">leaves</label>
-		<input type="color" name="leaves" bind:value={color.leaves} />
+		<div>
+			<label for="leaves">leaves</label>
+			<div class="color" style="background-color: {color.leaves};" />
+		</div>
+		<select name="leaves" bind:value={color.leaves}>
+			{#each COLORS as color}
+				<option value={color}>{color}</option>
+			{/each}
+		</select>
 	</div>
 	<div>
-		<label for="nonroot">Non Root</label>
-		<input type="color" name="non" bind:value={color.nonRoot} />
+		<div>
+			<label for="nonroot">Non Root</label>
+			<div class="color" style="background-color: {color.nonRoot};" />
+		</div>
+		<select name="nonroot" bind:value={color.nonRoot}>
+			{#each COLORS as color}
+				<option value={color}>{color}</option>
+			{/each}
+		</select>
 	</div>
 </div>
 
@@ -104,28 +126,33 @@
 
 	.color-palette {
 		display: flex;
-		align-items: center;
-		justify-content: space-around;
-	}
-
-	.color-palette div {
-		display: flex;
-		align-items: center;
+		flex-direction: column;
 		gap: 1rem;
 	}
 
-	@media (max-width: 365px) {
-		.color-palette div {
-			flex-direction: column;
-			gap: initial;
-		}
+	.color-palette > div {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 1rem;
 	}
 
-	input[type='color'] {
-		padding: 0;
-		margin: 0;
-		border: none !important;
-		height: 40px;
-		width: 40px;
+	.color-palette > div > div {
+		width: 30%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.color-palette select {
+		width: 70%;
+	}
+
+	.color {
+		width: 25px;
+		height: 25px;
+		border: black solid 1px;
+		border-radius: 100%;
+		transition: all 0.15s linear;
 	}
 </style>

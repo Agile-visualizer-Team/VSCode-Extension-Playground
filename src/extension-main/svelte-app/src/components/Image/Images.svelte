@@ -19,6 +19,7 @@
 
 	function write() {
 		matrix.update((cell) => {
+			cell.template = "matrix_images";
 			cell.maxNumOfAnswerSetToConvert = maxNumOfAnswerSetToConvert;
 			return cell;
 		});
