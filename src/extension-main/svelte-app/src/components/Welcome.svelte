@@ -2,9 +2,9 @@
 	<h1>Settings</h1>
 </center>
 
-<form on:submit|preventDefault>
+<form on:submit|preventDefault id="run-form">
 	<div>
-		<button id="run-btn" type="button">Run using config file</button>
+		<button type="button">Run using config file</button>
 	</div>
 
 	<div>

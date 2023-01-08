@@ -16,7 +16,7 @@
     vscode.postMessage({ type: "save", value: code_ta.value });
   });
 
-  document.getElementById("run-btn").addEventListener("click", () => {
+  document.getElementById("run-form").addEventListener("submit", () => {
     vscode.postMessage({ type: "run" });
   });
 

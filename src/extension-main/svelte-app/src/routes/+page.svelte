@@ -18,12 +18,12 @@
 		matrix.set({
 			template: 'matrix',
 			maxNumOfAnswerSetToConvert: 4,
-			cell: [''],
+			cell: [],
 			style: {
-				header_color: '',
-				header_font_size: 0,
-				header_font_family: '',
-				header_font_weight: '',
+				header_color: 'white',
+				header_font_size: 20,
+				header_font_family: 'Arial',
+				header_font_weight: 'bold',
 				dark_mode: true
 			}
 		});

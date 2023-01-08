@@ -21,6 +21,7 @@
 		matrix.update((cell) => {
 			cell.template = "matrix_images";
 			cell.maxNumOfAnswerSetToConvert = maxNumOfAnswerSetToConvert;
+			cell.useImages = useImages;
 			return cell;
 		});
 	}

@@ -3,8 +3,8 @@
 	import { matrix } from '../../store';
 
 	let colors_mapping: Map<string, string> = new Map();
-	let atom_name: string[] = ['atom1', 'atom2'];
-	let col_value: string[] = ['#b41b22', '#b41b22'];
+	let atom_name: string[] = ['wall', 'floor', 'man'];
+	let col_value: string[] = ['#b41b22', '#FFFFFF', '#000000'];
 
 	onMount(() => {
 		write();
@@ -17,8 +17,8 @@
 	function write() {
 		matrix.update((cell) => {
 			colors_mapping = new Map();
-			for (const name of atom_name) {
-				colors_mapping.set(name, '#b41b22');
+			for (let i = 0; i < atom_name.length; i++) {
+				colors_mapping.set(atom_name[i], col_value[i]);
 			}
 			cell.colors_binding = colors_mapping;
 			return cell;

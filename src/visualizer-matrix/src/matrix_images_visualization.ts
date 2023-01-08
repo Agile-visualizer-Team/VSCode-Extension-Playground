@@ -165,7 +165,10 @@ export class MatrixImagesCreator {
       fs.mkdirSync(this.output_dir, { recursive: true });
     }
     this.node_html_to_image({
-      output: path.join(this.output_dir, "img_matrix_" + index + ".png"),
+      output: path.join(
+        this.output_dir,
+        "img_matrix_" + index + "_" + Date.now() + ".png"
+      ),
       html: html_to_convert_in_image,
       puppeteerArgs: { executablePath: process.env.CHROME_PATH },
     }).then(() => {

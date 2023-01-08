@@ -15,7 +15,7 @@ type Matrix = {
 	template: string;
 	maxNumOfAnswerSetToConvert: number;
 	cell: string[];
-	use_images?: boolean;
+	useImages?: boolean;
 	table_field_mapping?: Map<string, string>;
 	images_binding?: Map<string, string>;
 	colors_binding?: Map<string, string>;

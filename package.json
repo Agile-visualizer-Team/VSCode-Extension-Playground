@@ -24,7 +24,7 @@
       "activitybar": [
         {
           "id": "asp-vis-settings",
-          "title": "ASP Visualizer Settings",
+          "title": "ASP Visualizer",
           "icon": "./src/extension-main/res/icon.svg"
         }
       ]
@@ -34,7 +34,7 @@
         {
           "type": "webview",
           "id": "asp-vis.webview",
-          "name": "Testing Webview"
+          "name": "ASP Visualizer"
         }
       ]
     },
@@ -53,7 +53,7 @@
       },
       {
         "command": "asp-vis.execute",
-        "title": "Execute"
+        "title": "ASP Visualizer: Run with config file"
       },
       {
         "command": "asp-vis.ffmpeg",

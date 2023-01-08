@@ -24,7 +24,7 @@
 			return cell;
 		});
 
-		console.log($matrix);
+		// console.log($matrix);
 	}
 
 	function addEntry() {
