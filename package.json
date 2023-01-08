@@ -12,6 +12,8 @@
   "activationEvents": [
     "onCommand:asp-vis.helloWorld",
     "onCommand:asp-vis.wrapper",
+    "onCommand:asp-vis.config",
+    "onCommand:asp-vis.save",
     "onCommand:asp-vis.sayHello",
     "onCommand:asp-vis.execute",
     "onCommand:asp-vis.ffmpeg"
@@ -22,7 +24,7 @@
       "activitybar": [
         {
           "id": "asp-vis-settings",
-          "title": "ASP Visualizer Settings",
+          "title": "ASP Visualizer",
           "icon": "./src/extension-main/res/icon.svg"
         }
       ]
@@ -32,7 +34,7 @@
         {
           "type": "webview",
           "id": "asp-vis.webview",
-          "name": "Testing Webview"
+          "name": "ASP Visualizer"
         }
       ]
     },
@@ -42,16 +44,16 @@
         "title": "Hello World"
       },
       {
-        "command": "asp-vis.sayHello",
-        "title": "Say Hello"
-      },
-      {
         "command": "asp-vis.wrapper",
         "title": "Wrapper"
       },
       {
+        "command": "asp-vis.save",
+        "title": "Template"
+      },
+      {
         "command": "asp-vis.execute",
-        "title": "Execute"
+        "title": "ASP Visualizer: Run with config file"
       },
       {
         "command": "asp-vis.ffmpeg",

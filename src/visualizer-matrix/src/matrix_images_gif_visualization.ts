@@ -17,6 +17,7 @@ export class MatrixImagesCreatorGIF {
   almost_one_image_printed: boolean = false;
   output_dir: string = "";
   time_array: Array<string> = [];
+  timestamp: number = 0;
 
   /**
    Converting all the images in the output_files folder into a gif. 
@@ -34,7 +35,7 @@ export class MatrixImagesCreatorGIF {
     for (var i = 0; i < files.length; i++) {
       let filename: string = files[i];
 
-      if (filename != undefined && filename.includes(as + "_")) {
+      if (filename !== undefined && filename.includes(as + "_")) {
         console.log(filename.includes(as + "_"));
         console.log(as + "_");
         pics.push(__dirname + "/output_files/" + files[i]);
@@ -105,7 +106,7 @@ export class MatrixImagesCreatorGIF {
         time
       )
     ) {
-      if (rows_list.length != 0 && columns_list.length != 0) {
+      if (rows_list.length !== 0 && columns_list.length !== 0) {
         let matrix: Array<Array<string>> = new Array();
         matrix = this.init_matrix_rows_and_columns(
           matrix,
@@ -187,7 +188,10 @@ export class MatrixImagesCreatorGIF {
       fs.mkdirSync(this.output_dir, { recursive: true });
     }
     this.node_html_to_image({
-      output: path.join(this.output_dir, as + "_" + index + ".png"),
+      output: path.join(
+        this.output_dir,
+        this.timestamp + "_" + as + "_" + index + ".png"
+      ),
       html: html_to_convert_in_image,
       puppeteerArgs: { executablePath: process.env.CHROME_PATH },
     }).then(() => {
@@ -397,12 +401,9 @@ export class MatrixImagesCreatorGIF {
         let row: number = Number(atom[0]);
         let column: number = Number(atom[1]);
         if (self.config_file.useImages) {
-          
           if (self.config_file.images_binding[atom[2].toString()] != undefined)
-          
             matrix[row][column] =
               self.config_file.images_binding[atom[2].toString()];
-              
         } else {
           if (self.config_file.colors_binding[atom[2]] != undefined)
             matrix[row][column] = self.config_file.colors_binding[atom[2]];
@@ -577,6 +578,7 @@ export class MatrixImagesCreatorGIF {
     this.config_file = config_file;
     this.images_directory_path = images_directory;
     this.output_dir = output_directory;
+    this.timestamp = Date.now();
     console.log(images_directory);
 
     if (fs.existsSync(this.images_directory_path)) {

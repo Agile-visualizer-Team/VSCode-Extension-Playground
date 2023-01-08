@@ -15,46 +15,10 @@ type Matrix = {
 	template: string;
 	maxNumOfAnswerSetToConvert: number;
 	cell: string[];
-	style: {
-		header_color: string;
-		header_font_size: number;
-		header_font_family: string;
-		header_font_weight: string;
-		dark_mode: boolean;
-	};
-};
-type Table = {
-	template: string;
-	maxNumOfAnswerSetToConvert: number;
-	cell: string[];
-	table_field_mapping: {
-		0: string;
-		1: string;
-		2: string;
-	};
-	style: {
-		header_color: string;
-		header_font_size: number;
-		header_font_family: string;
-		header_font_weight: string;
-		dark_mode: boolean;
-	};
-};
-type Images = {
-	template: string;
-	maxNumOfAnswerSetToConvert: number;
-	cell: string[];
-	use_images: boolean;
-	images_binding: {
-		wall: string;
-		floor: string;
-		man: string;
-	};
-	colors_binding: {
-		wall: string;
-		floor: string;
-		man: string;
-	};
+	useImages?: boolean;
+	table_field_mapping?: Map<string, string>;
+	images_binding?: Map<string, string>;
+	colors_binding?: Map<string, string>;
 	style: {
 		header_color: string;
 		header_font_size: number;
@@ -73,49 +37,7 @@ export const graph: Writable<Graph> = writable({
 export const matrix: Writable<Matrix> = writable({
 	template: 'matrix',
 	maxNumOfAnswerSetToConvert: 4,
-	cell: [''],
-	style: {
-		header_color: '',
-		header_font_size: 0,
-		header_font_family: '',
-		header_font_weight: '',
-		dark_mode: true
-	}
-});
-
-export const table: Writable<Table> = writable({
-	template: 'table',
-	maxNumOfAnswerSetToConvert: 4,
-	cell: [''],
-	table_field_mapping: {
-		0: 'row to map',
-		1: 'column',
-		2: 'value'
-	},
-	style: {
-		header_color: '',
-		header_font_size: 0,
-		header_font_family: '',
-		header_font_weight: '',
-		dark_mode: true
-	}
-});
-
-export const images: Writable<Images> = writable({
-	template: 'images',
-	maxNumOfAnswerSetToConvert: 4,
-	cell: [''],
-	use_images: false,
-	images_binding: {
-		wall: '',
-		floor: '',
-		man: ''
-	},
-	colors_binding: {
-		wall: '',
-		floor: '',
-		man: ''
-	},
+	cell: [],
 	style: {
 		header_color: '',
 		header_font_size: 0,
@@ -138,3 +60,154 @@ export function REMOVE_EDGE(idx: number) {
 		return g;
 	});
 }
+
+export const COLORS = [
+	'aliceblue',
+	'antiquewhite',
+	'aqua',
+	'aquamarine',
+	'azure',
+	'beige',
+	'bisque',
+	'black',
+	'blanchedalmond',
+	'blue',
+	'blueviolet',
+	'brown',
+	'burlywood',
+	'cadetblue',
+	'chartreuse',
+	'chocolate',
+	'coral',
+	'cornflowerblue',
+	'cornsilk',
+	'crimson',
+	'cyan',
+	'darkblue',
+	'darkcyan',
+	'darkgoldenrod',
+	'darkgray',
+	'darkgrey',
+	'darkgreen',
+	'darkkhaki',
+	'darkmagenta',
+	'darkolivegreen',
+	'darkorange',
+	'darkorchid',
+	'darkred',
+	'darksalmon',
+	'darkseagreen',
+	'darkslateblue',
+	'darkslategray',
+	'darkslategrey',
+	'darkturquoise',
+	'darkviolet',
+	'deeppink',
+	'deepskyblue',
+	'dimgray',
+	'dimgrey',
+	'dodgerblue',
+	'firebrick',
+	'floralwhite',
+	'forestgreen',
+	'fuchsia',
+	'gainsboro',
+	'ghostwhite',
+	'gold',
+	'goldenrod',
+	'gray',
+	'grey',
+	'green',
+	'greenyellow',
+	'honeydew',
+	'hotpink',
+	'indianred ',
+	'indigo ',
+	'ivory',
+	'khaki',
+	'lavender',
+	'lavenderblush',
+	'lawngreen',
+	'lemonchiffon',
+	'lightblue',
+	'lightcoral',
+	'lightcyan',
+	'lightgoldenrodyellow',
+	'lightgray',
+	'lightgrey',
+	'lightgreen',
+	'lightpink',
+	'lightsalmon',
+	'lightseagreen',
+	'lightskyblue',
+	'lightslategray',
+	'lightslategrey',
+	'lightsteelblue',
+	'lightyellow',
+	'lime',
+	'limegreen',
+	'linen',
+	'magenta',
+	'maroon',
+	'mediumaquamarine',
+	'mediumblue',
+	'mediumorchid',
+	'mediumpurple',
+	'mediumseagreen',
+	'mediumslateblue',
+	'mediumspringgreen',
+	'mediumturquoise',
+	'mediumvioletred',
+	'midnightblue',
+	'mintcream',
+	'mistyrose',
+	'moccasin',
+	'navajowhite',
+	'navy',
+	'oldlace',
+	'olive',
+	'olivedrab',
+	'orange',
+	'orangered',
+	'orchid',
+	'palegoldenrod',
+	'palegreen',
+	'paleturquoise',
+	'palevioletred',
+	'papayawhip',
+	'peachpuff',
+	'peru',
+	'pink',
+	'plum',
+	'powderblue',
+	'purple',
+	'rebeccapurple',
+	'red',
+	'rosybrown',
+	'royalblue',
+	'saddlebrown',
+	'salmon',
+	'sandybrown',
+	'seagreen',
+	'seashell',
+	'sienna',
+	'silver',
+	'skyblue',
+	'slateblue',
+	'slategray',
+	'slategrey',
+	'snow',
+	'springgreen',
+	'steelblue',
+	'tan',
+	'teal',
+	'thistle',
+	'tomato',
+	'turquoise',
+	'violet',
+	'wheat',
+	'white',
+	'whitesmoke',
+	'yellow',
+	'yellowgreen'
+];

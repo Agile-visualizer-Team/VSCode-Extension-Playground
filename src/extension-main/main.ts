@@ -16,7 +16,41 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.window.showInformationMessage("Hello World");
   });
 
-  let cfg = vscode.commands.registerCommand("asp-vis.execute", () => {
+  let config = vscode.commands.registerCommand("asp-vis.config", (arg) => {
+    if (vscode.workspace.workspaceFolders) {
+      const folder = vscode.workspace.workspaceFolders[0];
+      const path = vscode.Uri.joinPath(folder.uri, "asp-vis", "config.json");
+      const data = Buffer.from(arg, "utf8");
+
+      vscode.workspace.fs.writeFile(path, data).then(() => {
+        vscode.window.showInformationMessage("Config file saved at " + path);
+      });
+    }
+  });
+
+  let save = vscode.commands.registerCommand("asp-vis.save", (arg) => {
+    let template: string = "";
+    template = JSON.parse(arg)["template"];
+
+    vscode.window
+      .showInputBox({
+        prompt: "Enter the filename of the template file",
+        placeHolder: template + ".json",
+      })
+      .then((value) => {
+        if (value && vscode.workspace.workspaceFolders) {
+          const folder = vscode.workspace.workspaceFolders[0];
+          const path = vscode.Uri.joinPath(folder.uri, "asp-vis", value);
+          const data = Buffer.from(arg, "utf8");
+
+          vscode.workspace.fs.writeFile(path, data).then(() => {
+            vscode.window.showInformationMessage("Template saved at " + path);
+          });
+        }
+      });
+  });
+
+  let exec = vscode.commands.registerCommand("asp-vis.execute", () => {
     read_config();
 
     let template: string = process.env.TEMPLATE || "";
@@ -101,12 +135,15 @@ export function activate(context: vscode.ExtensionContext) {
     webview_provider
   );
 
-  let pong = vscode.commands.registerCommand(
-    "asp-vis.sayHello",
-    webview_provider.respond
+  context.subscriptions.push(
+    disposable,
+    save,
+    config,
+    convert,
+    wrapper,
+    exec,
+    webview
   );
-
-  context.subscriptions.push(disposable, convert, wrapper, cfg, pong, webview);
 }
 
 export function deactivate() {

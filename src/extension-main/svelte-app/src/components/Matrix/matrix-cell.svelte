@@ -1,8 +1,6 @@
 <script lang="ts">
-	import { images } from '../store';
+	import { matrix } from '../../store';
 	import { onMount } from 'svelte';
-	import ImagesColorMapping from './images-color_mapping.svelte';
-	import ImagesMapping from './images-images_mapping.svelte';
 
 	onMount(() => {
 		write();
@@ -23,11 +21,10 @@
 	}
 
 	function write() {
-		images.update((image) => {
-			image.cell = cells;
-			return image;
+		matrix.update((store) => {
+			store.cell = cells;
+			return store;
 		});
-		// console.log($images);
 	}
 </script>
 
@@ -40,9 +37,6 @@
 		</div>
 	{/each}
 {/if}
-
-<ImagesMapping />
-<ImagesColorMapping />
 
 <style>
 	.arg {
