@@ -27,6 +27,15 @@ export class WebviewView implements vscode.WebviewViewProvider {
       let value: vscode.Uri[] | undefined;
 
       switch (data.type) {
+        case "gif":
+          const wsf = vscode.workspace.workspaceFolders;
+          if (!wsf) {
+            return;
+          }
+
+          vscode.commands.executeCommand("asp-vis.ffmpeg", wsf[0].uri);
+          return;
+
         case "save":
         case "config":
           console.log(data.value);

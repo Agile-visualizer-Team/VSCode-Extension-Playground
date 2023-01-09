@@ -1,3 +1,4 @@
+import { spawn, spawnSync } from "child_process";
 import path = require("path");
 import process = require("process");
 import * as vscode from "vscode";
@@ -106,15 +107,29 @@ export function activate(context: vscode.ExtensionContext) {
   });
 
   let convert = vscode.commands.registerCommand("asp-vis.ffmpeg", () => {
-    //run a task to convert the images to a video
+    read_config();
+
+    if (!process.env.OUT_DIR) {
+      vscode.window.showErrorMessage("No output directory specified");
+      return;
+    }
+
+    const wsf = vscode.workspace.workspaceFolders;
+    if (!wsf) {
+      return;
+    }
+
     const task = new vscode.Task(
       { type: "ffmpeg" },
       vscode.TaskScope.Workspace,
       "convert",
       "ffmpeg",
-      new vscode.ShellExecution("ffmpeg -r 1 -i 0_%d.png answer_set.gif -y", {
-        cwd: path.join(__dirname, "..", "out", "output_files"),
-      })
+      new vscode.ShellExecution(
+        path.join(wsf[0].uri.fsPath, "asp-vis", "gif.ps1"),
+        {
+          cwd: path.join(process.env.OUT_DIR, "gif"),
+        }
+      )
     );
 
     vscode.tasks.executeTask(task);

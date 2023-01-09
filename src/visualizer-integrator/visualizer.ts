@@ -4,6 +4,7 @@ import { run_solver } from "../wrapper-dlv/dlv_wrapper";
 import { TableCreator } from "../visualizer-matrix/src/table_visualization";
 import { MatrixImagesCreator } from "../visualizer-matrix/src/matrix_images_visualization";
 import { MatrixCreator } from "../visualizer-matrix/src/matrix_visualization";
+import { MatrixImagesCreatorGIF } from "../visualizer-matrix/src/matrix_images_gif_visualization";
 import { renderGraph } from "../visualizer-graph/src/script";
 
 export function callNode(
@@ -45,6 +46,15 @@ export function callNode(
 
     case "matrix_images":
       new MatrixImagesCreator().setup_and_run_script(
+        template_file,
+        image_directory,
+        JSON.parse(solver_result),
+        out_dir
+      );
+      break;
+
+    case "gif":
+      new MatrixImagesCreatorGIF().setup_and_run_script(
         template_file,
         image_directory,
         JSON.parse(solver_result),

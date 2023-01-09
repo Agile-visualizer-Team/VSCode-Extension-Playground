@@ -1,6 +1,7 @@
 (function () {
   const vscode = acquireVsCodeApi();
 
+  const gif = document.getElementById("gif-btn");
   const save = document.getElementById("save-btn");
   const code_ta = document.getElementById("code");
   const sol_in = document.getElementById("sol-in");
@@ -12,11 +13,15 @@
   const template_ta = document.getElementById("template-ta");
   const config_ta = document.getElementById("config-ta");
 
+  gif.addEventListener("click", () => {
+    vscode.postMessage({ type: "gif" });
+  });
+
   save.addEventListener("click", () => {
     vscode.postMessage({ type: "save", value: code_ta.value });
   });
 
-  document.getElementById("run-form").addEventListener("submit", () => {
+  document.getElementById("run-btn").addEventListener("click", () => {
     vscode.postMessage({ type: "run" });
   });
 
