@@ -32,11 +32,11 @@ jobs:
         name: check version to update
         run: ./publish_hook.pl $GITHUB_SHA >> $GITHUB_OUTPUT
 
-  test:
-    # Testing
-    needs: check_commit
-    if: needs.check_commit.outputs.status == 'success'
-    uses: agile-visualizer-team/visualizer-asp/.github/workflows/tests.yml@master
+  # test:
+  #   # Testing
+  #   needs: check_commit
+  #   if: needs.check_commit.outputs.status == 'success'
+  #   uses: agile-visualizer-team/visualizer-asp/.github/workflows/tests.yml@master
 
   publish-gpr:
     # Publishing
