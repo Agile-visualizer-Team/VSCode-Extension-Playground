@@ -1,4 +1,4 @@
-import fs = require("fs");
+const fs = require("fs");
 const path = require("path");
 import { run_solver } from "../wrapper-dlv/dlv_wrapper";
 import { TableCreator } from "../visualizer-matrix/src/table_visualization";
@@ -7,14 +7,7 @@ import { MatrixCreator } from "../visualizer-matrix/src/matrix_visualization";
 import { MatrixImagesCreatorGIF } from "../visualizer-matrix/src/matrix_images_gif_visualization";
 import { renderGraph } from "../visualizer-graph/src/script";
 
-export function callNode(
-  template_file_path: string,
-  asp_file_path: string,
-  dlv_path: string,
-  as_number: number,
-  out_dir: string,
-  image_directory: string
-) {
+export function callNode(template_file_path: string, asp_file_path: string, dlv_path: string, as_number: number, out_dir: string, image_directory: string) {
   console.log("Running dlv...");
   let solver_result: any = run_solver(dlv_path, asp_file_path, "", as_number);
 

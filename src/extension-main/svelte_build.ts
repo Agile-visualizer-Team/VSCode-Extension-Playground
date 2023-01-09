@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-export function getHtmlForWebview(webview: vscode.Webview, _extensionUri: vscode.Uri): string {const global_css = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, 'global.css'));const _page_css = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'assets', '_page-5ff138dd.css'));const start_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'start-a3cc4969.js'));const index_1_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', 'index-ab7f3f50.js'));const singletons_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', 'singletons-c5682e71.js'));const index_2_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', 'index-226f0dfd.js'));const layout_svelte_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'components', 'layout.svelte-756d04dc.js'));const _layout_ts_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'modules', 'pages', '_layout.ts-070df6f0.js'));const _layout_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', '_layout-af12d980.js'));const _page_svelte_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'components', 'pages', '_page.svelte-bf184459.js'));const main_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, "main.js"));
+export function getHtmlForWebview(webview: vscode.Webview, _extensionUri: vscode.Uri): string {const global_css = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, 'global.css'));const _page_css = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'assets', '_page-5ff138dd.css'));const start_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'start-a5128d37.js'));const index_1_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', 'index-ab7f3f50.js'));const singletons_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', 'singletons-c5682e71.js'));const index_2_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', 'index-226f0dfd.js'));const layout_svelte_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'components', 'layout.svelte-756d04dc.js'));const _layout_ts_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'modules', 'pages', '_layout.ts-070df6f0.js'));const _layout_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', '_layout-af12d980.js'));const _page_svelte_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'components', 'pages', '_page.svelte-1230737d.js'));const main_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, "main.js"));
 return `<!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -26,7 +26,7 @@ return `<!DOCTYPE html>
 <center><h1>Settings</h1></center>
 
 <div class="svelte-1rjg5gt"><button type="button" id="run-btn" class="svelte-1rjg5gt">Run using config file</button></div>
-<div class="svelte-1rjg5gt"><button type="button" id="gif-btn" class="svelte-1rjg5gt">Convert image output to gif</button></div>
+<div class="svelte-1rjg5gt"><button type="button" id="gif-btn" class="svelte-1rjg5gt">Convert image sequence to gif</button></div>
 
 <form class="svelte-1rjg5gt"><div class="svelte-1rjg5gt"><button id="config-btn" type="submit" class="svelte-1rjg5gt">Save Configuration File</button>
 		<textarea id="config-ta" rows="10" class="svelte-1rjg5gt"></textarea></div>
@@ -74,14 +74,14 @@ return `<!DOCTYPE html>
 </form>
 
 
-		<script type="module" data-sveltekit-hydrate="1hwf4m">
+		<script type="module" data-sveltekit-hydrate="16dt1li">
 			import { start } from "${start_js}";
 
 			start({
 				env: {},
 				paths: {"base":"","assets":""},
-				target: document.querySelector('[data-sveltekit-hydrate="1hwf4m"]').parentNode,
-				version: "1673264646109",
+				target: document.querySelector('[data-sveltekit-hydrate="16dt1li"]').parentNode,
+				version: "1673294323361",
 				hydrate: {
 					node_ids: [0, 2],
 					data: [null,null],

@@ -39,8 +39,6 @@ const extensionConfig = {
         test: /\.ts$/,
         exclude: [
           /node_modules/,
-          /src\/visualizer-*/,
-          /src\/wrapper-dlv/,
           /src\/sample-files/,
         ],
         use: [
