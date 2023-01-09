@@ -10,6 +10,7 @@ export class CytoscapeSnapper {
         .launch({
           headless: true,
           args: ["--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage"],
+          executablePath: process.env.CHROME_PATH
         })
         .then((browser: Browser) => {
           resolve(new CytoscapeSnapperInstance(browser));

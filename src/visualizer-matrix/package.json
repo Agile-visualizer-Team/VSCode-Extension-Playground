@@ -40,7 +40,6 @@
       "src/table_visualization.ts",
       "src/matrix_images_visualization.ts",
       "src/matrix_images_gif_visualization.ts"
-
     ],
     "exclude": [
       "src/tests/*/.*"
@@ -64,6 +63,6 @@
     "start-matrix": "npx tsc ./src/matrix_visualization.ts && node ./src/matrix_visualization.js",
     "start-table": "npx tsc ./src/table_visualization.ts && node ./src/table_visualization.js",
     "start-matrix_images-visualization": "npx tsc ./src/matrix_images_visualization.ts && node ./src/matrix_images_visualization.js",
-    "start-matrix_images-visualization-gif": "npx tsc ./src/matrix_images_gif_visualization.ts && node ./src/matrix_images_gif_visualization.js" 
+    "start-matrix_images-visualization-gif": "npx tsc ./src/matrix_images_gif_visualization.ts && node ./src/matrix_images_gif_visualization.js"
   }
 }

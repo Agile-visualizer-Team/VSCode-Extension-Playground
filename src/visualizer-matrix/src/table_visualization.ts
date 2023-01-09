@@ -110,7 +110,7 @@ export class TableCreator {
           "table_" + index + "_" + Date.now() + ".png"
         ),
         html: html_to_convert_in_image,
-        puppeteerArgs: { executablePath: process.env.CHROME_PATH },
+        puppeteerArgs: { executablePath: process.env.CHROME_PATH},
       }).then(() => {
         return true;
       });
