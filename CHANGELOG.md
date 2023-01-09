@@ -8,6 +8,10 @@ All notable changes to "ASP Visualizer Extension" will be documented in this fil
 - Remotion of unused commands
 - Cleaning of the code
 
+## [1.1]
+
+- Added option to convert image sequence to gif in the output folder in a subfolder
+
 ## [1.0]
 
 - Added UI for the creation of config files and running of the extension

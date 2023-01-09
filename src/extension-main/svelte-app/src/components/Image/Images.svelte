@@ -8,6 +8,7 @@
 
 	let maxNumOfAnswerSetToConvert: number = 4;
 	let useImages: boolean = false;
+	let gif: boolean = false;
 
 	onMount(() => {
 		write();
@@ -19,7 +20,7 @@
 
 	function write() {
 		matrix.update((cell) => {
-			cell.template = "matrix_images";
+			cell.template = gif ? "matrix_images": "gif";
 			cell.maxNumOfAnswerSetToConvert = maxNumOfAnswerSetToConvert;
 			cell.useImages = useImages;
 			return cell;
@@ -42,6 +43,8 @@
 <div class="use-img">
 	<label for="useimg">use images?</label>
 	<input type="checkbox" name="useimg" bind:checked={useImages} />
+	<label for="gif">make image sequence?</label>
+	<input type="checkbox" name="gif" bind:checked={gif} />
 </div>
 
 {#if useImages}

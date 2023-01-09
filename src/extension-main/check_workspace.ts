@@ -36,6 +36,11 @@ function handle_folder_creation(asp_vis_folder: string) {
       switch (val) {
         case "create folder":
           fs.mkdirSync(asp_vis_folder);
+          fs.writeFileSync(
+            path.join(asp_vis_folder, "/gif.ps1"),
+            '$files = Get-ChildItem -Filter "*.png"\n$index = 0\nforeach ($file in $files) {\n$newName = "$index.png"\nRename-Item -Path $file.FullName -NewName $newName\n$index++\n}\nStart-Process -FilePath "ffmpeg.exe" -ArgumentList "-r 1 -start_number 0 -i %d.png answer_sets.gif -y"\n',
+            "utf8"
+          );
           read_config();
           break;
         case "ignore":

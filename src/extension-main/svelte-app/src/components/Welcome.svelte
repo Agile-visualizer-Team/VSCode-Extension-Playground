@@ -2,11 +2,14 @@
 	<h1>Settings</h1>
 </center>
 
-<form on:submit|preventDefault id="run-form">
-	<div>
-		<button type="button">Run using config file</button>
-	</div>
+<div>
+	<button type="button" id="run-btn">Run using config file</button>
+</div>
+<div>
+	<button type="button" id="gif-btn">Convert image sequence to gif</button>
+</div>
 
+<form on:submit|preventDefault>
 	<div>
 		<button id="config-btn" type="submit">Save Configuration File</button>
 		<textarea id="config-ta" rows="10" />
@@ -23,40 +26,40 @@
 	<h5>required</h5>
 
 	<div>
-		<button type="button" id="solver-btn">Solver Executable</button>
 		<textarea id="solver-ta" required />
+		<button type="button" id="solver-btn">Solver Executable</button>
 	</div>
 
 	<h2>Program file</h2>
 	<h5>required</h5>
 
 	<div>
-		<button type="button" id="program-btn">Program Path</button>
 		<textarea id="program-ta" required />
+		<button type="button" id="program-btn">Program Path</button>
 	</div>
 
 	<h2>Output Directory</h2>
 	<h5>required</h5>
 
 	<div>
-		<button type="button" id="output-btn">Output Directory</button>
 		<textarea id="output-ta" required />
+		<button type="button" id="output-btn">Output Directory</button>
 	</div>
 
 	<h2>Chrome Executable</h2>
 	<h5>required</h5>
 
 	<div>
-		<button type="button" id="chrome-btn">Chromium Based Browser Executable</button>
 		<textarea id="chrome-ta" required />
+		<button type="button" id="chrome-btn">Chromium Based Browser Executable</button>
 	</div>
 
 	<h2>Template file</h2>
 	<h5>required</h5>
 
 	<div>
-		<button type="button" id="template-btn">Template File</button>
 		<textarea id="template-ta" required />
+		<button type="button" id="template-btn">Template File</button>
 	</div>
 
 	<h2>Image Directory</h2>
@@ -94,5 +97,19 @@
 		height: 1vh;
 		z-index: -1;
 		opacity: 0;
+	}
+
+	button {
+		margin-bottom: 10px;
+	}
+
+	input:valid {
+		background-color: green;
+		color: white;
+	}
+
+	textarea:valid ~ button {
+		background-color: green;
+		color: white;
 	}
 </style>
