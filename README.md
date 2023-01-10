@@ -4,10 +4,11 @@ This extension allows you to visualize answer sets of ASP programs in VS Code.
 
 ## Requirements
 
-- VS Code (Duh)
-- Node.js
-- NPM
-- Any Chromium Browser (_Chrome recommended_)
+- VS Code (1.73.0 and above)
+- Node.js (18.13.0 and above)
+- NPM (9.1.1)
+- Any Chromium Browser (_Chrome recommended for image rendering_)
+- Python3 (_integration of the webview with a simple script_)
 
 ## Installation
 

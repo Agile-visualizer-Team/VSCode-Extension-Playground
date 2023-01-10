@@ -1,9 +1,8 @@
 #!/usr/bin/bash
 cd ./src/extension-main/svelte-app/
 
-npm run build_linux
+npm run build:l
 
 cd ../../../
 
-python3 builder.py
-webpack
+npm run compile:l
