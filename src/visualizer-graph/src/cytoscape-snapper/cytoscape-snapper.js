@@ -1,70 +1,50 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.CytoscapeSnapperInstance = exports.CytoscapeSnapper = void 0;
-const puppeteer = require("puppeteer");
-const os = __importStar(require("os"));
-const path = __importStar(require("path"));
-class CytoscapeSnapper {
-    start() {
-        return new Promise((resolve, reject) => {
+var puppeteer = require("puppeteer");
+var os = require("os");
+var path = require("path");
+var CytoscapeSnapper = /** @class */ (function () {
+    function CytoscapeSnapper() {
+    }
+    CytoscapeSnapper.prototype.start = function () {
+        return new Promise(function (resolve, reject) {
             puppeteer
                 .launch({
                 headless: true,
-                args: ["--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage"],
+                args: ["--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage"]
             })
-                .then((browser) => {
+                .then(function (browser) {
                 resolve(new CytoscapeSnapperInstance(browser));
-            })
-                .catch((e) => {
+            })["catch"](function (e) {
                 reject(e);
             });
         });
-    }
-}
+    };
+    return CytoscapeSnapper;
+}());
 exports.CytoscapeSnapper = CytoscapeSnapper;
-class CytoscapeSnapperInstance {
-    constructor(browser) {
+var CytoscapeSnapperInstance = /** @class */ (function () {
+    function CytoscapeSnapperInstance(browser) {
         this.browser = browser;
     }
-    shot(options) {
-        return new Promise((resolve, reject) => {
-            let page;
-            return this.browser
+    CytoscapeSnapperInstance.prototype.shot = function (options) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            var page;
+            return _this.browser
                 .newPage()
-                .then((puppeteerPage) => {
+                .then(function (puppeteerPage) {
                 page = puppeteerPage;
             })
-                .then(() => {
+                .then(function () {
                 return page.setViewport({
                     width: options.width,
-                    height: options.height,
+                    height: options.height
                 });
             })
-                .then(() => {
-                const patchUri = (uri) => {
+                .then(function () {
+                var patchUri = function (uri) {
                     if (os.platform() === "win32") {
                         return "/" + uri.replace(/\\/g, "/");
                     }
@@ -74,36 +54,36 @@ class CytoscapeSnapperInstance {
                 };
                 return page.goto("file://" + patchUri(path.join(__dirname, "./browser/index.html")));
             })
-                .then(() => {
+                .then(function () {
                 return page.evaluateHandle("__runCytoscape( " + JSON.stringify(options) + ")");
             })
-                .then(() => {
+                .then(function () {
                 return page.screenshot({
                     type: "png",
                     quality: 0,
-                    encoding: "base64",
+                    encoding: "base64"
                 });
             })
-                .then((b64Img) => {
+                .then(function (b64Img) {
                 resolve({ base64: b64Img });
                 return page.close();
-            })
-                .catch((error) => {
+            })["catch"](function (error) {
                 reject(error);
             });
         });
-    }
-    stop() {
-        return new Promise((resolve, reject) => {
-            this.browser
+    };
+    CytoscapeSnapperInstance.prototype.stop = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.browser
                 .close()
-                .then(() => {
+                .then(function () {
                 resolve();
-            })
-                .catch((e) => {
+            })["catch"](function (e) {
                 reject(e);
             });
         });
-    }
-}
+    };
+    return CytoscapeSnapperInstance;
+}());
 exports.CytoscapeSnapperInstance = CytoscapeSnapperInstance;

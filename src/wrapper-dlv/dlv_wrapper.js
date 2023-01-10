@@ -65,7 +65,7 @@ var DLVWrapper = /** @class */ (function () {
             final_array = [split_multiple_as[0]].concat(split_multiple_as[1].split("\n"));
             final_array.splice(2, 1);
         }
-        var forDeletion = ["", "OPTIMUM", "DLV 2.1.1"];
+        var forDeletion = ["", "OPTIMUM", "DLV 2.1.1", "DLV 2.1.1\r", "\r"];
         var final_output = [];
         final_array = final_array.filter(function (item) { return !forDeletion.includes(item); });
         final_array.forEach(function (element) {
