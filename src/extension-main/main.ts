@@ -1,4 +1,3 @@
-import { spawn, spawnSync } from "child_process";
 import path = require("path");
 import process = require("process");
 import * as vscode from "vscode";
