@@ -1,4 +1,3 @@
-import { platform } from "os";
 import path = require("path");
 import process = require("process");
 import * as vscode from "vscode";
@@ -39,6 +38,7 @@ export function activate(context: vscode.ExtensionContext) {
       .showInputBox({
         prompt: "Enter the filename of the template file",
         placeHolder: template + ".json",
+        value: template + ".json",
       })
       .then((value) => {
         if (value && vscode.workspace.workspaceFolders) {
@@ -46,13 +46,9 @@ export function activate(context: vscode.ExtensionContext) {
           const path = vscode.Uri.joinPath(folder.uri, "asp-vis", value);
           const data = Buffer.from(arg, "utf8");
 
-          vscode.workspace.fs.writeFile(path, data).then(() => {
-            vscode.window.showInformationMessage(
-              "Template saved at " + path.fsPath
-            );
-            vscode.commands.executeCommand("workbench.view.explorer");
-          });
+          vscode.workspace.fs.writeFile(path, data);
         }
+        vscode.commands.executeCommand("workbench.view.explorer");
       });
   });
 
@@ -158,6 +154,14 @@ export function activate(context: vscode.ExtensionContext) {
   const webview = vscode.window.registerWebviewViewProvider(
     "asp-vis.webview",
     webview_provider
+  );
+
+  const watcher = vscode.workspace.createFileSystemWatcher("**/*");
+
+  context.subscriptions.push(
+    watcher.onDidCreate((uri) => {
+      vscode.window.showInformationMessage(`File created at: ${uri.fsPath}`);
+    })
   );
 
   context.subscriptions.push(

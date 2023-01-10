@@ -32,12 +32,8 @@ export class WebviewView implements vscode.WebviewViewProvider {
           if (!wsf) {
             return;
           }
-
-          vscode.commands
-            .executeCommand("asp-vis.ffmpeg", wsf[0].uri)
-            .then((a) => {
-              vscode.window.showInformationMessage("GIF created at: " + a);
-            });
+          vscode.commands.executeCommand("asp-vis.ffmpeg", wsf[0].uri);
+          return;
 
         case "save":
         case "config":
