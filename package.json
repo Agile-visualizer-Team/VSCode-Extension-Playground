@@ -1,8 +1,13 @@
 {
-  "name": "@agile-visualizer-team/visualizer-asp",
+  "name": "visualizer-asp",
   "displayName": "ASP Visualizer",
+  "publisher": "ASP-VISTeam1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Agile-visualizer-Team/visualizer-asp"
+  },
   "description": "",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "engines": {
     "vscode": "^1.73.0"
   },
@@ -10,13 +15,7 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:asp-vis.helloWorld",
-    "onCommand:asp-vis.wrapper",
-    "onCommand:asp-vis.config",
-    "onCommand:asp-vis.save",
-    "onCommand:asp-vis.sayHello",
-    "onCommand:asp-vis.execute",
-    "onCommand:asp-vis.ffmpeg"
+    "onStartupFinished"
   ],
   "main": "./dist/main.js",
   "contributes": {
@@ -25,7 +24,7 @@
         {
           "id": "asp-vis-settings",
           "title": "ASP Visualizer",
-          "icon": "./src/extension-main/res/icon.svg"
+          "icon": "./icon.png"
         }
       ]
     },
@@ -57,16 +56,17 @@
       },
       {
         "command": "asp-vis.ffmpeg",
-        "title": "Convert"
+        "title": "ASP Visualizer: Convert to gif"
       }
     ]
   },
   "scripts": {
     "i:graph": "echo ##### [INSTALLING GRAPH] ##### && cd ./src/visualizer-graph && npm i",
+    "i:svelte": "echo ##### [INSTALLING SVELTEKIT] ##### && cd ./src/extension-main/svelte-app && npm i",
     "i:matrix": "echo ##### [INSTALLING MATRIX] ##### && cd ./src/visualizer-matrix && npm i",
     "i:integrator": "echo ##### [INSTALLING INTEGRATOR] ##### && cd ./src/visualizer-integrator && npm i",
     "i:wrapper": "echo ##### [INSTALLING WRAPPER] ##### && cd ./src/wrapper-dlv && npm i",
-    "install:all": "npm run i:graph && npm run i:matrix && npm run i:integrator && npm run i:wrapper",
+    "install:all": "npm run i:graph && npm run i:matrix && npm run i:integrator && npm run i:wrapper && npm run i:svelte",
     "b:graph": "echo ##### [COMPILING GRAPH] ##### && cd ./src/visualizer-graph/ && npx tsc --outDir ../../dist/",
     "b:matrix": "echo ##### [COMPILING MATRIX] ##### && cd ./src/visualizer-matrix/ && npx tsc --outDir ../../dist/",
     "b:integrator": "echo ##### [COMPILING INTEGRATOR] ##### && cd ./src/visualizer-integrator/ && npx tsc --outDir ../../dist/",
@@ -74,8 +74,9 @@
     "b:webview": "echo ##### [BUILDING WEBVIEW] ##### && cd ./src/extension-main/svelte-app && npm run build",
     "build:all": "npm run b:graph && npm run b:matrix && npm run b:integrator && npm run b:wrapper",
     "compile": "npm run b:webview && py builder.py && webpack",
+    "compile:l": "python3 builder.py && webpack",
     "watch": "py builder.py && webpack --watch",
-    "vscode:prepublish": "npm run package",
+    "vscode:prepublish": "",
     "package": "webpack --mode production --devtool hidden-source-map",
     "lint": "eslint src --ext ts"
   },

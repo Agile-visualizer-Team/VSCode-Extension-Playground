@@ -514,9 +514,11 @@ export class MatrixImagesCreatorGIF {
         if (matrix[i][j] !== "undefined") {
           this.almost_one_image_printed = true;
           if (this.config_file.useImages) {
-            if (fs.existsSync(this.images_directory_path + matrix[i][j])) {
+            if (
+              fs.existsSync(path.join(this.images_directory_path, matrix[i][j]))
+            ) {
               const image = fs.readFileSync(
-                this.images_directory_path + matrix[i][j]
+                path.join(this.images_directory_path, matrix[i][j])
               );
 
               const base64Image: any = new (Buffer as any).from(image).toString(
@@ -542,7 +544,6 @@ export class MatrixImagesCreatorGIF {
       html_table +=
         "<strong>There aren not atoms with values you mapped as images</strong>";
     }
-
     return html_table;
   }
 

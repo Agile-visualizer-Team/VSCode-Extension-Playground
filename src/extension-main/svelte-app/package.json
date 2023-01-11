@@ -5,6 +5,7 @@
 	"scripts": {
 		"dev": "vite dev -- --open",
 		"build": "vite build && py ../builder.py",
+		"build:l": "vite build && python3 ../builder.py",
 		"preview": "vite preview",
 		"test": "playwright test",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",

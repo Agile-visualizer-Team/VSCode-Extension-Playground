@@ -1,4 +1,3 @@
-import { spawn, spawnSync } from "child_process";
 import path = require("path");
 import process = require("process");
 import * as vscode from "vscode";
@@ -24,7 +23,9 @@ export function activate(context: vscode.ExtensionContext) {
       const data = Buffer.from(arg, "utf8");
 
       vscode.workspace.fs.writeFile(path, data).then(() => {
-        vscode.window.showInformationMessage("Config file saved at " + path);
+        vscode.window.showInformationMessage(
+          "Config file saved at " + path.fsPath
+        );
       });
     }
   });
@@ -37,6 +38,7 @@ export function activate(context: vscode.ExtensionContext) {
       .showInputBox({
         prompt: "Enter the filename of the template file",
         placeHolder: template + ".json",
+        value: template + ".json",
       })
       .then((value) => {
         if (value && vscode.workspace.workspaceFolders) {
@@ -44,10 +46,9 @@ export function activate(context: vscode.ExtensionContext) {
           const path = vscode.Uri.joinPath(folder.uri, "asp-vis", value);
           const data = Buffer.from(arg, "utf8");
 
-          vscode.workspace.fs.writeFile(path, data).then(() => {
-            vscode.window.showInformationMessage("Template saved at " + path);
-          });
+          vscode.workspace.fs.writeFile(path, data);
         }
+        vscode.commands.executeCommand("workbench.view.explorer");
       });
   });
 
@@ -111,43 +112,50 @@ export function activate(context: vscode.ExtensionContext) {
 
     if (!process.env.OUT_DIR) {
       vscode.window.showErrorMessage("No output directory specified");
-      return;
+      return "";
     }
 
     const wsf = vscode.workspace.workspaceFolders;
     if (!wsf) {
-      return;
+      return "";
     }
+
+    const cmd = process.platform === "win32" ? "gif.ps1" : "gif.sh";
 
     const task = new vscode.Task(
       { type: "ffmpeg" },
       vscode.TaskScope.Workspace,
       "convert",
       "ffmpeg",
-      new vscode.ShellExecution(
-        path.join(wsf[0].uri.fsPath, "asp-vis", "gif.ps1"),
-        {
-          cwd: path.join(process.env.OUT_DIR, "gif"),
-        }
-      )
+      new vscode.ShellExecution(path.join(wsf[0].uri.fsPath, "asp-vis", cmd), {
+        cwd: path.join(process.env.OUT_DIR, "gif"),
+      })
     );
 
-    vscode.tasks.executeTask(task);
+    vscode.tasks.executeTask(task).then(() => {
+      vscode.window.showInformationMessage(
+        "GIF created at: " + path.join(process.env.OUT_DIR || "", "gif")
+      );
+    });
+
+    return path.join(process.env.OUT_DIR || "", "gif");
   });
 
   const webview_provider = new WebviewView(
-    vscode.Uri.joinPath(
-      context.extensionUri,
-      "src",
-      "extension-main",
-      "res",
-      "build"
-    )
+    vscode.Uri.joinPath(context.extensionUri, "dist", "svelte")
   );
 
   const webview = vscode.window.registerWebviewViewProvider(
     "asp-vis.webview",
     webview_provider
+  );
+
+  const watcher = vscode.workspace.createFileSystemWatcher("**/*");
+
+  context.subscriptions.push(
+    watcher.onDidCreate((uri) => {
+      vscode.window.showInformationMessage(`File created at: ${uri.fsPath}`);
+    })
   );
 
   context.subscriptions.push(
