@@ -142,13 +142,7 @@ export function activate(context: vscode.ExtensionContext) {
   });
 
   const webview_provider = new WebviewView(
-    vscode.Uri.joinPath(
-      context.extensionUri,
-      "src",
-      "extension-main",
-      "res",
-      "build"
-    )
+    vscode.Uri.joinPath(context.extensionUri, "dist", "svelte")
   );
 
   const webview = vscode.window.registerWebviewViewProvider(
