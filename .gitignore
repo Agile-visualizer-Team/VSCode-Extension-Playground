@@ -11,4 +11,4 @@ src/visualizer-matrix/.vscode
 src/visualizer-matrix/node_modules
 src/visualizer-matrix/preview_*
 **/*/package-lock.json
-**/*/*.js
+# **/*/*.js
