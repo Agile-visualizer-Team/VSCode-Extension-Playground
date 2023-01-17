@@ -80,7 +80,7 @@ jobs:
             npm run build
             git add -A
             git commit -m"builded matrix"
-      # Publishing on Github Packages
+      # Publishing on Github Packages 
       - name: publish on Github Package
         run: npm publish
         env:
