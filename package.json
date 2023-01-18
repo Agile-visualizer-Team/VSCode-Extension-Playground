@@ -7,7 +7,7 @@
     "url": "https://github.com/Agile-visualizer-Team/visualizer-asp"
   },
   "description": "",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "engines": {
     "vscode": "^1.73.0"
   },
