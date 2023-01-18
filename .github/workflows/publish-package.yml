@@ -32,12 +32,6 @@ jobs:
         name: check version to update
         run: ./publish_hook.pl $GITHUB_SHA >> $GITHUB_OUTPUT
 
-  # test:
-  #   # Testing
-  #   needs: check_commit
-  #   if: needs.check_commit.outputs.status == 'success'
-  #   uses: agile-visualizer-team/visualizer-asp/.github/workflows/tests.yml@master
-
   publish-gpr:
     # Publishing
     needs: [check_commit]
@@ -53,7 +47,7 @@ jobs:
           ref: master
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           registry-url: https://npm.pkg.github.com/
       - uses: shogo82148/actions-setup-perl@v1
         with:
