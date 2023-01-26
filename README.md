@@ -18,11 +18,11 @@ In order to use this extension, you need to have the following installed:
 ## Extension Folder
 At the start of the extension, you will be required to **create a folder for the extension's files**. This folder will be used to store the *configuration files* to run the extension with the same setting every time. 
 
-[Screen pop-up]
+![Popup](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/popup.png)
 
 ## Initial configuration
 After creating the folder for the extension's files, the extension will look like this:
-[Screen initial setup] 
+![initial](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/Initial%20setup.png)
 
 All the **mandatory** settings are marked with the *required* keyword. In particular, you need to set the following:
 
@@ -36,7 +36,7 @@ All the **mandatory** settings are marked with the *required* keyword. In partic
     * Clicking **Save template file** will ask you a name for the json file that will be saved in the extension's folder. 
     * You can select this file in the dropdown menu to use it as a template for the execution.
     
-    [Gif template file]
+    ![Gif template file](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/gif%20template.gif)
 * Image Directory: the path to the folder containing the images to be used in the image visualization. It's suggested to name the files in the folder with the same name of the node in the ASP program in order to have an easier configuration.
     
 After all of this you are ready to run the extension with the template file you just created. 
@@ -57,7 +57,7 @@ For each node, it's possible to style it with different color for:
 
 For each edge, you can set the **atom name** and the **attributes** for each edge. It's possible to setup the color of the edges and to choose if the edge is **oriented or not**.
 
-[Screen graph]
+![Screen graph](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/graph.png)
 ## Table
 
 In the **Table** menu it's possible to *Add* or *Remove* cells from the visualization. It's mandatory to map the cells to the atoms in the ASP program.
@@ -71,7 +71,7 @@ It's possible to style the table with:
 * The font weight
 * Choose to use dark mode or not
 
-[Screen table]
+![Screen table](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/table.png)
 ## Matrix
 
 In the **Matrix** menu it's possible to *Add* or *Remove* cells from the visualization. It's mandatory to map the cells to the atoms in the ASP program.
@@ -85,7 +85,7 @@ It's possible to style the matrix with:
 * The font weight
 * Choose to use dark mode or not
 
-[Screen matrix]
+![Screen matrix](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/matrix.png)
 
 
 ## Matrix Image
@@ -109,7 +109,7 @@ It's possible to style the matrix changing:
 
 It's possible to **check** the *Make image sequence* checkbox to prepare the files for the gif creation.
 
-[Matrix images screen]
+![Matrix images screen](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/matrix_image.png)
 
 
 # Common issues 
