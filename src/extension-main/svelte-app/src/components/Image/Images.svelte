@@ -14,7 +14,7 @@
 		write();
 	});
 
-	$: if (maxNumOfAnswerSetToConvert) {
+	$: if (maxNumOfAnswerSetToConvert  || gif || useImages) {
 		write();
 	}
 
