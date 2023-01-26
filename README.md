@@ -1,112 +1,116 @@
-# Answer Set Programming Visualizer Extension
+# Visualizer ASP Extension User Manual
+This extension allows you to convert your **ASP answer sets** into various **visualizations**. The available visualizations are:
+* **Graph** - a graph representation of the answer set
+* **Table** - a table representation of the answer set
+* **Matrix** - a matrix representation of the answer set
+* **Image** - a image representation of the answer set
+* **Gif** - a gif representation of the image answer set
 
-This extension allows you to visualize answer sets of ASP programs in VS Code.
+The visualizations have some customizations available, such as the ability to change the **color** of the nodes and edges, the **theme**, the **color** of the table, and the ability to choose to use images or colors for AS visualization.
 
-## Requirements
+## Installation dependencies
+In order to use this extension, you need to have the following installed:
+* [DLV Solver](https://dlv.demacs.unical.it/home)
+* A Chromium-based browser (Google Chrome, Microsoft Edge, etc.)
+* [FFMPEG](https://ffmpeg.org/) (optional for GIF creation)
 
-- VS Code (1.73.0 and above)
-- Node.js (18.13.0 and above)
-- NPM (9.1.1)
-- Any Chromium Browser (_Chrome recommended for image rendering_)
-- Python3 (_integration of the webview with a simple script_)
+# Getting Started:
+## Extension Folder
+At the start of the extension, you will be required to **create a folder for the extension's files**. This folder will be used to store the *configuration files* to run the extension with the same setting every time. 
 
-## Installation
+[Screen pop-up]
 
-```bash
-git clone https://github.com/Agile-visualizer-Team/visualizer-asp.git
-cd visualizer-asp
-npm i
-```
+## Initial configuration
+After creating the folder for the extension's files, the extension will look like this:
+[Screen initial setup] 
 
-### Installing on Windows
+All the **mandatory** settings are marked with the *required* keyword. In particular, you need to set the following:
 
-```bash
-npm run install:all
-```
+* \# of Answer Sets: the number of answer sets to be visualized
+* Solver Path: the path to the DLV solver based on the operating system you are using. 
+* Program File: the path to the ASP program file that contains the rules and facts to be visualized
+* Output directory: the path to the folder where the visualizations will be saved
+* Chrome Executable: the path to the Chrome executable file based on the Chromium-based browser you are using.
+* Template file: the path to the file containing the mapping for the execution to be runned. It's suggested to **generate the file using the extension** appropriate menu.
+    * The first dropdown menu allows you to choose the type of visualization you want to generate. 
+    * Clicking **Save template file** will ask you a name for the json file that will be saved in the extension's folder. 
+    * You can select this file in the dropdown menu to use it as a template for the execution.
+    
+    [Gif template file]
+* Image Directory: the path to the folder containing the images to be used in the image visualization. It's suggested to name the files in the folder with the same name of the node in the ASP program in order to have an easier configuration.
+    
+After all of this you are ready to run the extension with the template file you just created. 
 
-### Installing on Linux
 
-```bash
-./install.sh
-```
+# Features:
+The extension is capable of generating various visualizations, each with its own features. 
 
-## Building
+## Graph
+In the **Graph** menu it's possible to *Add* or *Remove* nodes and edges from the visualization.
 
-All the compiled modules will be built in the `dist` folder of the root.
+It's is possible to set the **name of the atom** and, for each atom, add or remove **arguments**.
 
-### Building on Windows
+For each node, it's possible to style it with different color for:
+* Root node
+* Leaves node
+* Non root node
 
-From the root directory
+For each edge, you can set the **atom name** and the **attributes** for each edge. It's possible to setup the color of the edges and to choose if the edge is **oriented or not**.
 
-```bash
-npm run compile
-```
+[Screen graph]
+## Table
 
-or
+In the **Table** menu it's possible to *Add* or *Remove* cells from the visualization. It's mandatory to map the cells to the atoms in the ASP program.
 
-```bash
-npm run watch
-```
+In the Table Mapping section, it's possible to setup the columns of the table and set a name for each coulmn.
 
-### Building on Linux
+It's possible to style the table with:
+* The color of the table's header
+* The font size
+* The font family
+* The font weight
+* Choose to use dark mode or not
 
-```bash
-./compile.sh
-```
+[Screen table]
+## Matrix
 
-## Running the extension
+In the **Matrix** menu it's possible to *Add* or *Remove* cells from the visualization. It's mandatory to map the cells to the atoms in the ASP program.
 
-- Build the extension
-- Open `/src/main.ts` in the editor
-- Press **F5** to start a new VSCode Development Window with the extension already loaded
-- **CTRL+SHIFT+P** to open the command palette
-- Type _`Hello World`_
-  - it should show a popup notification greeting you
-- **CTRL+SHIFT+I** to open the VSCode developer console and see the output
+Here is added the possiblity to choose the **number of answer sets to compute**.
 
-## Testing the modules
+It's possible to style the matrix with:
+* The color of the table's header
+* The font size
+* The font family
+* The font weight
+* Choose to use dark mode or not
 
-from the root directory of the **module**
+[Screen matrix]
 
-check the `package.json` file for the test scripts
 
-## Pipeline
+## Matrix Image
 
-### Creating a pull request
+In the **Matrix Image** menu it's possible to *Add* or *Remove* cells from the visualization. It's mandatory to map the cells to the atoms in the ASP program.
 
-- Create a branch from master
-- Commit any changes
+Here is added the possiblity to choose the **number of answer sets to compute**.
 
-  - If you want to merge with master, the last commit before the push must be like this:
+It's possible to choose to use images or colors for the visualization.
 
-    ```py
-    git commit -m "This is a commit pull_request{
-    title=title of the request:
-    body=pull request body:
-    reviewer=instafiore
-    }"
-    ```
+ If you choose to use images, you need to set the **image directory** in the initial configuration. Plus, you need to set the **image name** for each attribute.
 
-    (All fields are optional)
+ If you choose to use colors, you need to set the **color** for each attribute.
 
-  - or:
+It's possible to style the matrix changing:
+* The color of the table's header
+* The font size
+* The font family
+* The font weight
+* Choose to use dark mode or not
 
-    ```py
-    git commit -m"This is a commit pull_request"
-    ```
+It's possible to **check** the *Make image sequence* checkbox to prepare the files for the gif creation.
 
-    for a default pull_request.
+[Matrix images screen]
 
-**DON'T** create a pull requests manually.
 
-### Incrementing versions
-
-If you want to bump a specific version, the _commit message of merge action_ must include one of the following:
-
-- update_package_major
-- update_package_minor
-- update_package_patch
-
-Example:
-update_package_minor -> from 2.0.0 to 2.1.0
-The default action is 'update_package_patch'
+# Common issues 
+Un poco
