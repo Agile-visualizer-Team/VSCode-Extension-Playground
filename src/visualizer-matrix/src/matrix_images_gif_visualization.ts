@@ -604,7 +604,9 @@ export class MatrixImagesCreatorGIF {
     this.config_file = config_file;
     this.images_directory_path = images_directory;
     this.output_dir = output_directory;
-    console.log(images_directory);
+    this.style = this.get_config_style()
+    this.base_styling = this.get_base_styling();
+
 
     if (fs.existsSync(this.images_directory_path)) {
       this.run_script(answer_set);

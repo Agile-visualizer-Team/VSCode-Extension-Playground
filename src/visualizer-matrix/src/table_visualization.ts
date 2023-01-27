@@ -358,6 +358,8 @@ export class TableCreator {
   ) {
     this.config_file = config_file;
     this.output_dir = output_directory;
+    this.style = this.get_config_style()
+    this.base_styling = this.get_base_styling();
     this.run_script(answer_set);
   }
 }
