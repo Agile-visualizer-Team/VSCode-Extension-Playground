@@ -131,8 +131,6 @@
           chrome_ta.value = config[key];
           break;
       }
-
-      console.log(key, config[key]);
     }
   }
 })();

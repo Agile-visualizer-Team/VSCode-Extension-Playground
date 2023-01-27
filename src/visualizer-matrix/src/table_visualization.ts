@@ -140,7 +140,6 @@ export class TableCreator {
       `</body>
         </html>`;
     //Using this for debugging and testing
-    fs.writeFileSync("./preview_table.html", html);
     return html;
   }
   /**
