@@ -24,6 +24,9 @@ At the start of the extension, you will be required to **create a folder for the
 After creating the folder for the extension's files, the extension will look like this:
 ![initial](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/Initial%20setup.png)
 
+### Linux 
+Devi fare chmod poi per favore qualcuno lo scriva in linuxese perché non so come si fa
+
 All the **mandatory** settings are marked with the *required* keyword. In particular, you need to set the following:
 
 * \# of Answer Sets: the number of answer sets to be visualized

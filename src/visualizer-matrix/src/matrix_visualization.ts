@@ -288,7 +288,6 @@ export class MatrixCreator {
       `</body>
         </html>`;
     //Using this for debugging and testing
-    fs.writeFileSync("./preview_matrix.html", html);
     return html;
   }
 
