@@ -114,3 +114,11 @@ It's possible to **check** the *Make image sequence* checkbox to prepare the fil
 
 # Common issues 
 Un poco
+
+# Advanced users
+You can customize more but you need to know what you are doing.
+
+Write everything here for the json customization
+
+# Credits
+Io
