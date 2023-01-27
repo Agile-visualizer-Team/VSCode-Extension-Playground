@@ -3,6 +3,7 @@
 
   //Chiamata all'estensione
   vscode.postMessage({ type: "read_config" });
+  vscode.postMessage({ type: "folder" });
 
   const gif = document.getElementById("gif-btn");
   const save = document.getElementById("save-btn");
@@ -15,9 +16,14 @@
   const image_ta = document.getElementById("image-ta");
   const template_ta = document.getElementById("template-ta");
   const config_ta = document.getElementById("config-ta");
+  const folder = document.getElementById("folder-btn");
 
   gif.addEventListener("click", () => {
     vscode.postMessage({ type: "gif" });
+  });
+
+  folder.addEventListener("click", () => {
+    vscode.postMessage({ type: "folder" });
   });
 
   save.addEventListener("click", () => {
@@ -85,6 +91,10 @@
       case "config_value":
         let config = message.value;
         check_config(config);
+        break;
+      case "folder_check":
+        //set folder button to disabled if the folder is not set
+        folder.disabled = message.value;
         break;
     }
 

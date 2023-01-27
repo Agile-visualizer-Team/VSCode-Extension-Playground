@@ -20,7 +20,7 @@
 
 	function write() {
 		matrix.update((cell) => {
-			cell.template = gif ? "matrix_images": "gif";
+			cell.template = gif ? "gif" : "matrix_images";
 			cell.maxNumOfAnswerSetToConvert = maxNumOfAnswerSetToConvert;
 			cell.useImages = useImages;
 			return cell;

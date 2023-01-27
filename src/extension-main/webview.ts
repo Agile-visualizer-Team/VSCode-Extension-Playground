@@ -1,7 +1,8 @@
 import * as vscode from "vscode";
 import { getHtmlForWebview } from "./svelte_build";
 import path = require("path");
-import { readFileSync } from "fs";
+import { readFileSync, existsSync } from "fs";
+import { createFolder } from "./check_workspace";
 export class WebviewView implements vscode.WebviewViewProvider {
   private _view?: vscode.WebviewView;
 
@@ -29,6 +30,25 @@ export class WebviewView implements vscode.WebviewViewProvider {
 
       switch (data.type) {
 
+
+        case "folder":
+          console.log("folder");
+          if (vscode.workspace.workspaceFolders !== undefined) {
+            let folder = vscode.workspace.workspaceFolders[0];
+            let folder_path = folder.uri.fsPath;
+            let asp_vis_folder = path.join(folder_path, "asp-vis");
+
+            //If already exists, does nothing
+            createFolder(asp_vis_folder);
+
+
+            this._view?.webview.postMessage({
+              type: "folder_check",
+              value: existsSync(asp_vis_folder),
+            });
+
+          }
+          break;
 
         case "read_config":
           let config = JSON.parse("{}");
@@ -59,7 +79,7 @@ export class WebviewView implements vscode.WebviewViewProvider {
 
         case "save":
         case "config":
-          console.log(data.value );
+          console.log(data.value);
           vscode.commands.executeCommand("asp-vis." + data.type, data.value);
           break;
 

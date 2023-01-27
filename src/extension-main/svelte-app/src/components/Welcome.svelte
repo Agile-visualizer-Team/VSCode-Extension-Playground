@@ -1,7 +1,22 @@
+<script lang="ts">
+	let changed = false;
+
+	function hasChanged() {
+		changed = true;
+	}
+
+	function saveConfig() {
+		changed = false;
+	}
+
+</script>
+
 <center>
 	<h1>Settings</h1>
 </center>
-
+<div>
+	<button type="button" id="folder-btn">Create extension folder</button>
+</div>
 <div>
 	<button type="button" id="run-btn">Run using config file</button>
 </div>
@@ -9,9 +24,11 @@
 	<button type="button" id="gif-btn">Convert image sequence to gif</button>
 </div>
 
-<form on:submit|preventDefault>
+<form on:change={() => hasChanged()} on:submit|preventDefault={() => saveConfig()}>
 	<div>
-		<button id="config-btn" type="submit">Save Configuration File</button>
+		<button class={changed ? 'changed' : ''} id="config-btn" type="submit"
+			>Save Configuration File</button
+		>
 		<textarea id="config-ta" rows="10" />
 	</div>
 
@@ -112,4 +129,30 @@
 		background-color: green;
 		color: white;
 	}
+
+	.changed {
+		background-color: #242830;
+		color: #aba671;
+		animation: blinking 1s infinite alternate;
+		border: 1px solid #aba671;
+	}
+
+	@keyframes blinking {
+		from {
+			background-color: #323842;
+		}
+		to {
+			background-color: #242830;
+		}
+	}
+
+	:disabled{
+		cursor: not-allowed;
+		background-color: unset;
+	}
+	
+	:disabled:hover{
+		background-color: unset;
+	}
+
 </style>
