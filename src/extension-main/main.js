@@ -1,6 +1,9 @@
 (function () {
   const vscode = acquireVsCodeApi();
 
+  //Chiamata all'estensione
+  vscode.postMessage({ type: "read_config" });
+
   const gif = document.getElementById("gif-btn");
   const save = document.getElementById("save-btn");
   const code_ta = document.getElementById("code");
@@ -79,6 +82,10 @@
       case "template-back":
         template_ta.value = message.value;
         break;
+      case "config_value":
+        let config = message.value;
+        check_config(config);
+        break;
     }
 
     if (message.type.endsWith("-back")) {
@@ -96,5 +103,36 @@
     res["img_dir"] = image_ta.value;
     res["chrome"] = chrome_ta.value;
     config_ta.value = JSON.stringify(res, null, 2);
+  }
+
+  function check_config(config) {
+    //print each key of the config json
+
+    for (var key in config) {
+      switch (key) {
+        case "sol_num":
+          break;
+        case "solver":
+          solver_ta.value = config[key];
+          break;
+        case "template":
+          template_ta.value = config[key];
+          break;
+        case "program":
+          program_ta.value = config[key];
+          break;
+        case "out_dir":
+          output_ta.value = config[key];
+          break;
+        case "img_dir":
+          image_ta.value = config[key];
+          break;
+        case "chrome":
+          chrome_ta.value = config[key];
+          break;
+      }
+
+      console.log(key, config[key]);
+    }
   }
 })();

@@ -1,10 +1,11 @@
 import * as vscode from "vscode";
 import { getHtmlForWebview } from "./svelte_build";
-
+import path = require("path");
+import { readFileSync } from "fs";
 export class WebviewView implements vscode.WebviewViewProvider {
   private _view?: vscode.WebviewView;
 
-  constructor(readonly _extensionUri: vscode.Uri) {}
+  constructor(readonly _extensionUri: vscode.Uri) { }
 
   resolveWebviewView(
     webviewView: vscode.WebviewView,
@@ -27,6 +28,27 @@ export class WebviewView implements vscode.WebviewViewProvider {
       let value: vscode.Uri[] | undefined;
 
       switch (data.type) {
+
+
+        case "read_config":
+          let config = JSON.parse("{}");
+
+          //Reading config json to setup the inputs as marked
+          if (vscode.workspace.workspaceFolders !== undefined) {
+            let folder = vscode.workspace.workspaceFolders[0];
+            let folder_path = folder.uri.fsPath;
+            let asp_vis_folder = path.join(folder_path, "asp-vis");
+            let config_file = path.join(asp_vis_folder, "config.json");
+            config = JSON.parse(readFileSync(config_file, "utf8"));
+          }
+
+          this._view?.webview.postMessage({
+            type: "config_value",
+            value: config,
+          });
+
+          break;
+
         case "gif":
           const wsf = vscode.workspace.workspaceFolders;
           if (!wsf) {
@@ -37,7 +59,7 @@ export class WebviewView implements vscode.WebviewViewProvider {
 
         case "save":
         case "config":
-          console.log(data.value);
+          console.log(data.value );
           vscode.commands.executeCommand("asp-vis." + data.type, data.value);
           break;
 
