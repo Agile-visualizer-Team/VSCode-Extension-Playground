@@ -112,5 +112,191 @@ It's possible to **check** the *Make image sequence* checkbox to prepare the fil
 ![Matrix images screen](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/matrix_image.png)
 
 
+
+
+# Graph template documentation and advanced usages
+For advanced usages, instead of using the UI you can create a JSON template to achieve a fine grained personalization. 
+## JSON template
+```json
+{
+    "template": "graph",
+    "layout": "string",
+    "nodes": [
+        {
+            "atom": {
+                "name": "string",
+                "variables": ["string"]
+            },
+            "style": {
+                "color": {
+                    "node_type": {
+                        "if": [
+                            {"variable": "string", "condition": "string" | number, "then": "string"}
+                        ],
+                        "else": "string"
+                    },
+                }
+            }
+        },
+    ],
+    "edges": [
+        {
+            "atom": {
+                "name": "string",
+                "variables": ["string"]
+            },
+            "style": {
+                "color": {
+                    "if": [
+                        {"variable": "string", "condition": "string" | number, "then": "string"},
+                    ],
+                    "else": "string"
+                },
+                "oriented": boolean
+            }
+        },
+    ]
+}
+```
+## JSON Parameters explaination
+* **layout**: 
+    * Specifies the layout of the nodes in the output image
+    * Can be **dagre** or **avsdf** 
+    * Required: True
+
+* **atom.name**:
+    * Name of the atom that we want to map as a nodes/edge of the graph
+    * Pattern: **"^[A-Za-z][A-Za-z0-9\_]{0,19}$"**
+    * Required: False, if omitted the atom **node** will be mapped by default
+
+* **nodes.atom.variables**:
+    * Represents the predicates of the atom
+    * Must contain at least **label**
+    * Can contain **color** to specify the color of the node
+    * Other user defined parameters can be referred inside **IF condition operators**
+    * Example: node(name,Y,color), we can map X as the node label using variables = ['label', 'param1','color'].
+    * Required: False, if omitted ['label'] is used
+* **style**:
+    * Required: False, the default style is used
+
+* **node_type**:
+    * Can be **root**, **non-root**, **leaf**, **all** and specify what type of node we want to target with this specific style
+
+* **edges.atom.variables**:
+    * Represents the predicates of the atom
+    * Must contain at least **from** and **to**
+    * Can contain **color** to specify the color of the edge
+    * Can contain **weight** to specify the weight of the edge
+    * Other user defined parameters can be referred inside **IF condition operators**
+    * Required: False, if omitted ['from', 'to'] is used
+
+* **oriented**:
+    * True if the graph is oriented, false otherwise 
+    * Required: False, if omitted the default value is True
+
+## IF condition operators
+Is it possible to specify colors of root, leaves and non-root by using simple if conditions. Only the first satisfied condition is applied, if none of the if conditions are met then the else is executed.
+| IF Condition operator | Description and example |
+|-----------------------|-------------------------|
+| `matches: foo` | True if the fact variable is exactly `foo` (case sensitive equal comparator) |
+| `imatches: foo` | True if the fact variable is `FOO` or `foo` (case insensitive equal comparator) |
+| `contains: bar` | True if the fact variable contains `bar`, example: `foobar` (case sensitive) |
+| `icontains: bar` | True if the fact variable contains `bar` or `BAR`, example: `fooBAR` (case insensitive) |
+| `lt: 25` | True if the fact variable is less than `25`, example: `24` |
+| `lte: 25` | True if the fact variable is less than `25` or equal to `25`, example: `25` or `24` |
+| `gt: 50` | True if the fact variable is greater than `50`, example: `51` |
+| `gte: 50` | True if the fact variable is greater than `50` or equal to `50`, example: `51` or `52` |
+## JSON template example
+```json
+{
+    "template": "graph",
+    "layout": "dagre",
+    "nodes": [
+        {
+            "atom": {
+                "name": "inNode",
+                "variables": ["label", "weight"]
+            },
+            "style": {
+                "color": {
+                    "root": {
+                        "if": [
+                            {"variable": "label", "matches": "a", "then": "green"}
+                        ],
+                        "else": "orange"
+                    },
+                    "nonRoot": {
+                        "if": [
+                            {"variable": "weight", "lte": 5, "then": "yellow"},
+                            {"variable": "weight", "gt": 6, "then": "red"}
+                        ],
+                        "else": "orange"
+                    }
+                }
+            }
+        },
+        {
+            "atom": {
+                "name": "outNode",
+                "variables": ["label"]
+            },
+            "style": {
+                "color": {
+                    "all": "grey"
+                }
+            }
+        }
+    ],
+    "edges": [
+        {
+            "atom": {
+                "name": "inEdge",
+                "variables": ["from", "to", "weight","my_predicate"]
+            },
+            "style": {
+                "color": {
+                    "if": [
+                        {"variable": "weight", "gte": 6, "then": "red"},
+                        {"variable": "weight", "gte": 4, "then": "orange"},
+                        {"variable": "weight", "gte": 2, "then": "yellow"},
+                        {"variable": "my_predicate", "icontains": "example", "then": "purple"}
+                    ],
+                    "else": "green"
+                },
+                "oriented": true
+            }
+        },
+        {
+            "atom": {
+                "name": "outEdge",
+                "variables": ["from", "to", "color"]
+            }
+        }
+    ]
+}
+```
+This template can be used to visualize this answer set
+```
+inNode(a)
+inNode(b)
+inNode(g)
+inNode(d)
+inNode(h)
+inEdge(a,b,2)
+inEdge(b,d,6)
+inEdge(d,g,4)
+inEdge(g,h,0)
+outNode(c)
+outNode(e)
+outEdge(b,e,7)
+outEdge(a,c,10)
+outEdge(c,d,4)
+outEdge(e,h,19)
+outEdge(b,g,8)
+```
+Resulting in this output image
+
+![Graph images examples](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/graph-example.png)
+
 # Common issues 
 Un poco
