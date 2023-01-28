@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-export function getHtmlForWebview(webview: vscode.Webview, _extensionUri: vscode.Uri): string {const global_css = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, 'global.css'));const _page_css = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'assets', '_page-84533126.css'));const start_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'start-4660361c.js'));const index_1_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', 'index-50beea79.js'));const singletons_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', 'singletons-0c0e9984.js'));const index_2_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', 'index-649b6df1.js'));const layout_svelte_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'components', 'layout.svelte-a7bb60d1.js'));const _layout_ts_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'modules', 'pages', '_layout.ts-070df6f0.js'));const _layout_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', '_layout-af12d980.js'));const _page_svelte_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'components', 'pages', '_page.svelte-a0937f7e.js'));const main_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, "main.js"));
+export function getHtmlForWebview(webview: vscode.Webview, _extensionUri: vscode.Uri): string {const global_css = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, 'global.css'));const _page_css = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'assets', '_page-84533126.css'));const start_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'start-d61bb5f4.js'));const index_1_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', 'index-50beea79.js'));const singletons_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', 'singletons-0c0e9984.js'));const index_2_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', 'index-649b6df1.js'));const layout_svelte_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'components', 'layout.svelte-a7bb60d1.js'));const _layout_ts_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'modules', 'pages', '_layout.ts-070df6f0.js'));const _layout_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', '_layout-af12d980.js'));const _page_svelte_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'components', 'pages', '_page.svelte-30725a21.js'));const main_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, "main.js"));
 return `<!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -21,14 +21,14 @@ return `<!DOCTYPE html>
 
 <select name="template" class="svelte-8ve48e"><option value="none">Settings</option><option value="graph">Graph</option><option value="table">Table</option><option value="matrix">Matrix</option><option value="images">Matrix (images)</option></select>
 
-<button id="save-btn" style="display:none">Save Template File</button>
+<button id="save-btn" title="Save the template file for the current visualization." style="display:none">Save Template File</button>
 
 <center class="svelte-14f43wj"><h1 class="svelte-14f43wj">Settings</h1></center>
-<div class="svelte-14f43wj"><button type="button" id="folder-btn" class="svelte-14f43wj">Create extension folder</button></div>
-<div class="svelte-14f43wj"><button type="button" id="run-btn" class="svelte-14f43wj">Run using config file</button></div>
-<div class="svelte-14f43wj"><button type="button" id="gif-btn" class="svelte-14f43wj">Convert image sequence to gif</button></div>
+<div class="svelte-14f43wj"><button title="Creates default folder for extension to work." type="button" id="folder-btn" class="svelte-14f43wj">Create extension folder</button></div>
+<div class="svelte-14f43wj"><button title="Run the extension using the parameters saved in config.json" type="button" id="run-btn" class="svelte-14f43wj">Run using config file</button></div>
+<div class="svelte-14f43wj"><button title="Create a gif using the images inside the GIF folder." type="button" id="gif-btn" class="svelte-14f43wj">Convert image sequence to gif</button></div>
 
-<form class="svelte-14f43wj"><div class="svelte-14f43wj"><button class=" svelte-14f43wj" id="config-btn" type="submit">Save Configuration File</button>
+<form class="svelte-14f43wj"><div class="svelte-14f43wj"><button title="Save configuration parameters inside config.json" class=" svelte-14f43wj" id="config-btn" type="submit">Save Configuration File</button>
 		<textarea id="config-ta" rows="10" class="svelte-14f43wj"></textarea></div>
 
 	<h2 class="svelte-14f43wj"># of Answer Sets</h2>
@@ -40,48 +40,48 @@ return `<!DOCTYPE html>
 	<h5 class="svelte-14f43wj">required</h5>
 
 	<div class="svelte-14f43wj"><textarea id="solver-ta" required class="svelte-14f43wj"></textarea>
-		<button type="button" id="solver-btn" class="svelte-14f43wj">Solver Executable</button></div>
+		<button title="The DLV Solver file path." type="button" id="solver-btn" class="svelte-14f43wj">Solver Executable</button></div>
 
 	<h2 class="svelte-14f43wj">Program file</h2>
 	<h5 class="svelte-14f43wj">required</h5>
 
 	<div class="svelte-14f43wj"><textarea id="program-ta" required class="svelte-14f43wj"></textarea>
-		<button type="button" id="program-btn" class="svelte-14f43wj">Program Path</button></div>
+		<button title="The ASP program file path." type="button" id="program-btn" class="svelte-14f43wj">Program Path</button></div>
 
 	<h2 class="svelte-14f43wj">Output Directory</h2>
 	<h5 class="svelte-14f43wj">required</h5>
 
 	<div class="svelte-14f43wj"><textarea id="output-ta" required class="svelte-14f43wj"></textarea>
-		<button type="button" id="output-btn" class="svelte-14f43wj">Output Directory</button></div>
+		<button title="The path in which output files will be saved." type="button" id="output-btn" class="svelte-14f43wj">Output Directory</button></div>
 
 	<h2 class="svelte-14f43wj">Chrome Executable</h2>
 	<h5 class="svelte-14f43wj">required</h5>
 
 	<div class="svelte-14f43wj"><textarea id="chrome-ta" required class="svelte-14f43wj"></textarea>
-		<button type="button" id="chrome-btn" class="svelte-14f43wj">Chromium Based Browser Executable</button></div>
+		<button title="The path for the Chromium Browser executable." type="button" id="chrome-btn" class="svelte-14f43wj">Chromium Based Browser Executable</button></div>
 
 	<h2 class="svelte-14f43wj">Template file</h2>
 	<h5 class="svelte-14f43wj">required</h5>
 
 	<div class="svelte-14f43wj"><textarea id="template-ta" required class="svelte-14f43wj"></textarea>
-		<button type="button" id="template-btn" class="svelte-14f43wj">Template File</button></div>
+		<button title="The path for the ASP Visualizer configuration file. (Tip: Generate it through the extension panel)" type="button" id="template-btn" class="svelte-14f43wj">Template File</button></div>
 
 	<h2 class="svelte-14f43wj">Image Directory</h2>
 	<h5 class="svelte-14f43wj">image matrix, optional</h5>
 
-	<div class="svelte-14f43wj"><button type="button" id="image-btn" class="svelte-14f43wj">Image Resources Directory</button>
+	<div class="svelte-14f43wj"><button title="The path for the images that will be used for the Matrix(Image) visualization." type="button" id="image-btn" class="svelte-14f43wj">Image Resources Directory</button>
 		<textarea id="image-ta" class="svelte-14f43wj"></textarea></div>
 </form>
 
 
-		<script type="module" data-sveltekit-hydrate="zhh27q">
+		<script type="module" data-sveltekit-hydrate="muhusi">
 			import { start } from "${start_js}";
 
 			start({
 				env: {},
 				paths: {"base":"","assets":""},
-				target: document.querySelector('[data-sveltekit-hydrate="zhh27q"]').parentNode,
-				version: "1674841603929",
+				target: document.querySelector('[data-sveltekit-hydrate="muhusi"]').parentNode,
+				version: "1674902504395",
 				hydrate: {
 					node_ids: [0, 2],
 					data: [null,null],
