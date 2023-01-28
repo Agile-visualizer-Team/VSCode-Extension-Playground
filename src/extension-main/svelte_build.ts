@@ -83,7 +83,7 @@ return `<!DOCTYPE html>
 				env: {},
 				paths: {"base":"","assets":""},
 				target: document.querySelector('[data-sveltekit-hydrate="1qv1kuq"]').parentNode,
-				version: "1674916436906",
+				version: "1674920576523",
 				hydrate: {
 					node_ids: [0, 2],
 					data: [null,null],
