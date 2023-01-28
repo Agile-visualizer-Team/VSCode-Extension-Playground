@@ -7,6 +7,7 @@
 
 	function saveConfig() {
 		document.getElementById('config-btn')?.classList.remove('changed');
+		
 	}
 
 </script>
