@@ -1,12 +1,12 @@
 <script lang="ts">
 	let changed = false;
 
-	function hasChanged() {
+	function hasChanged() {		
 		changed = true;
 	}
 
 	function saveConfig() {
-		changed = false;
+		document.getElementById('config-btn')?.classList.remove('changed');
 	}
 
 </script>
@@ -14,6 +14,8 @@
 <center>
 	<h1>Settings</h1>
 </center>
+
+
 <div>
 	<button title="Creates default folder for extension to work." type="button" id="folder-btn">Create extension folder</button>
 </div>
@@ -135,6 +137,14 @@
 		color: #aba671;
 		animation: blinking 1s infinite alternate;
 		border: 1px solid #aba671;
+	}
+
+	.invisible{
+		position: relative;
+		width: 50vw;
+		height: 1vh;
+		z-index: -1;
+		opacity: 1;
 	}
 
 	@keyframes blinking {

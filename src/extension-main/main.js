@@ -13,7 +13,7 @@
   const template_ta = document.getElementById("template-ta");
   const config_ta = document.getElementById("config-ta");
   const folder = document.getElementById("folder-btn");
-
+  const config_bt = document.getElementById("config-btn");
   gif.addEventListener("click", () => {
     vscode.postMessage({ type: "gif" });
   });
@@ -119,6 +119,7 @@
     res["img_dir"] = image_ta.value;
     res["chrome"] = chrome_ta.value;
     config_ta.value = JSON.stringify(res, null, 2);
+    config_bt.classList.add("changed");
   }
 
   function check_config(config) {
