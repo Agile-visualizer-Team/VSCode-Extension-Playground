@@ -81,7 +81,7 @@ return `<!DOCTYPE html>
 				env: {},
 				paths: {"base":"","assets":""},
 				target: document.querySelector('[data-sveltekit-hydrate="muhusi"]').parentNode,
-				version: "1674902504395",
+				version: "1674905867183",
 				hydrate: {
 					node_ids: [0, 2],
 					data: [null,null],

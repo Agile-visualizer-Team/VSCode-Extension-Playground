@@ -84,7 +84,15 @@ export class WebviewView implements vscode.WebviewViewProvider {
           break;
 
         case "run":
-          vscode.commands.executeCommand("asp-vis.execute");
+          //handle errors
+          try {
+            await vscode.commands.executeCommand("asp-vis.execute");
+          } catch (error: any) {
+            vscode.window.showErrorMessage(error.message);
+          }
+
+          //Alex code I do not remove it because I don't want to get in fight with him
+          //vscode.commands.executeCommand("asp-vis.execute");
           break;
 
         case "output":
