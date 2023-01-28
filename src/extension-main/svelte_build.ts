@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-export function getHtmlForWebview(webview: vscode.Webview, _extensionUri: vscode.Uri): string {const global_css = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, 'global.css'));const _page_css = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'assets', '_page-84533126.css'));const start_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'start-d61bb5f4.js'));const index_1_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', 'index-50beea79.js'));const singletons_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', 'singletons-0c0e9984.js'));const index_2_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', 'index-649b6df1.js'));const layout_svelte_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'components', 'layout.svelte-a7bb60d1.js'));const _layout_ts_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'modules', 'pages', '_layout.ts-070df6f0.js'));const _layout_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', '_layout-af12d980.js'));const _page_svelte_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'components', 'pages', '_page.svelte-30725a21.js'));const main_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, "main.js"));
+export function getHtmlForWebview(webview: vscode.Webview, _extensionUri: vscode.Uri): string {const global_css = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, 'global.css'));const _page_css = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'assets', '_page-84533126.css'));const start_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'start-a5324707.js'));const index_1_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', 'index-50beea79.js'));const singletons_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', 'singletons-0c0e9984.js'));const index_2_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', 'index-649b6df1.js'));const layout_svelte_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'components', 'layout.svelte-a7bb60d1.js'));const _layout_ts_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'modules', 'pages', '_layout.ts-070df6f0.js'));const _layout_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', '_layout-af12d980.js'));const _page_svelte_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'components', 'pages', '_page.svelte-1f250c29.js'));const main_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, "main.js"));
 return `<!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -28,7 +28,7 @@ return `<!DOCTYPE html>
 <div class="svelte-14f43wj"><button title="Run the extension using the parameters saved in config.json" type="button" id="run-btn" class="svelte-14f43wj">Run using config file</button></div>
 <div class="svelte-14f43wj"><button title="Create a gif using the images inside the GIF folder." type="button" id="gif-btn" class="svelte-14f43wj">Convert image sequence to gif</button></div>
 
-<form class="svelte-14f43wj"><div class="svelte-14f43wj"><button title="Save configuration parameters inside config.json" class=" svelte-14f43wj" id="config-btn" type="submit">Save Configuration File</button>
+<form id="form-div" class="svelte-14f43wj"><div class="svelte-14f43wj"><button title="Save configuration parameters inside config.json" class=" svelte-14f43wj" id="config-btn" type="submit">Save Configuration File</button>
 		<textarea id="config-ta" rows="10" class="svelte-14f43wj"></textarea></div>
 
 	<h2 class="svelte-14f43wj"># of Answer Sets</h2>
@@ -74,14 +74,14 @@ return `<!DOCTYPE html>
 </form>
 
 
-		<script type="module" data-sveltekit-hydrate="muhusi">
+		<script type="module" data-sveltekit-hydrate="10ok56a">
 			import { start } from "${start_js}";
 
 			start({
 				env: {},
 				paths: {"base":"","assets":""},
-				target: document.querySelector('[data-sveltekit-hydrate="muhusi"]').parentNode,
-				version: "1674905867183",
+				target: document.querySelector('[data-sveltekit-hydrate="10ok56a"]').parentNode,
+				version: "1674914383281",
 				hydrate: {
 					node_ids: [0, 2],
 					data: [null,null],

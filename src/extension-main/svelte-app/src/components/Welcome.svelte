@@ -24,7 +24,7 @@
 	<button title="Create a gif using the images inside the GIF folder." type="button" id="gif-btn">Convert image sequence to gif</button>
 </div>
 
-<form on:change={() => hasChanged()} on:submit|preventDefault={() => saveConfig()}>
+<form id="form-div" on:change={() => hasChanged()} on:submit|preventDefault={() => saveConfig()}>
 	<div>
 		<button title="Save configuration parameters inside config.json" class={changed ? 'changed' : ''} id="config-btn" type="submit"
 			>Save Configuration File</button

@@ -78,9 +78,9 @@ export class WebviewView implements vscode.WebviewViewProvider {
           return;
 
         case "save":
-        case "config":
-          console.log(data.value);
+        case "config":   
           vscode.commands.executeCommand("asp-vis." + data.type, data.value);
+        
           break;
 
         case "run":
