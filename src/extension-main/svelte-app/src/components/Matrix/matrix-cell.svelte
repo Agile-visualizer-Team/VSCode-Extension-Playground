@@ -28,7 +28,7 @@
 	}
 </script>
 
-<button class="add" on:click={addCell}>Add new Cell</button>
+<button title="Add a new cell to map." class="add" on:click={addCell}>Add new Cell</button>
 {#if cells.length > 0}
 	{#each cells as arg, index}
 		<div class="arg">

@@ -32,7 +32,7 @@
 </script>
 
 <h2>Images Mapping</h2>
-<button on:click={addEntry}>Add Entry</button>
+<button title="Add new entry to map" on:click={addEntry}>Add Entry</button>
 
 {#each img_name as name, index}
 	<div class="entry">

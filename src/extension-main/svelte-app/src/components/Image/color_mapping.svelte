@@ -32,7 +32,7 @@
 </script>
 
 <h2>Colors Mapping</h2>
-<button on:click={addEntry}>Add Entry</button>
+<button title="Add a new entry to map." on:click={addEntry}>Add Entry</button>
 
 {#each atom_name as name, index}
 	<div class="entry">

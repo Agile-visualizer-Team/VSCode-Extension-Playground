@@ -22,6 +22,9 @@ export function activate(context: vscode.ExtensionContext) {
       const path = vscode.Uri.joinPath(folder.uri, "asp-vis", "config.json");
       const data = Buffer.from(arg, "utf8");
 
+      console.log(data);
+      
+
       vscode.workspace.fs.writeFile(path, data).then(() => {
         vscode.window.showInformationMessage(
           "Config file saved at " + path.fsPath

@@ -62,6 +62,7 @@
 
 <button
 	id="save-btn"
+	title="Save the template file for the current visualization."
 	on:click={() => compile(true)}
 	style="display:{template !== 'none' ? 'block' : 'none'}">Save Template File</button
 >

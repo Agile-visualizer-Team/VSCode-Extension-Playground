@@ -14,13 +14,13 @@
 		write();
 	});
 
-	$: if (maxNumOfAnswerSetToConvert  || gif || useImages) {
+	$: if (maxNumOfAnswerSetToConvert || gif || useImages) {
 		write();
 	}
 
 	function write() {
 		matrix.update((cell) => {
-			cell.template = gif ? "matrix_images": "gif";
+			cell.template = gif ? 'gif' : 'matrix_images';
 			cell.maxNumOfAnswerSetToConvert = maxNumOfAnswerSetToConvert;
 			cell.useImages = useImages;
 			return cell;
@@ -42,14 +42,24 @@
 
 <div class="use-img">
 	<label for="useimg">use images?</label>
-	<input type="checkbox" name="useimg" bind:checked={useImages} />
+	<input
+		title="Activated: Use imags to show the answer sets solutions. Deactivated: Use colors to show answer sets solutions."
+		type="checkbox"
+		name="useimg"
+		bind:checked={useImages}
+	/>
 	<label for="gif">make image sequence?</label>
-	<input type="checkbox" name="gif" bind:checked={gif} />
+	<input
+		title="Activated: Create multiple images for the answers sets solutions including timing. Deactivated: Create a static image for the answer set solution."
+		type="checkbox"
+		name="gif"
+		bind:checked={gif}
+	/>
 </div>
 
 {#if useImages}
 	<ImagesMapping />
-	{:else}
+{:else}
 	<ColorMapping />
 {/if}
 

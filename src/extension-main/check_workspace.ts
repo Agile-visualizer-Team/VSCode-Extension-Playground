@@ -35,18 +35,7 @@ function handle_folder_creation(asp_vis_folder: string) {
     .then((val) => {
       switch (val) {
         case "create folder":
-          fs.mkdirSync(asp_vis_folder);
-          fs.writeFileSync(
-            path.join(asp_vis_folder, "/gif.ps1"),
-            '$files = Get-ChildItem -Filter "*.png"\n$index = 0\nforeach ($file in $files) {\n$newName = "$index.png"\nRename-Item -Path $file.FullName -NewName $newName\n$index++\n}\nStart-Process -FilePath "ffmpeg.exe" -ArgumentList "-r 1 -start_number 0 -i %d.png answer_sets.gif -y"\n',
-            "utf8"
-          );
-          fs.writeFileSync(
-            path.join(asp_vis_folder, "/gif.sh"),
-            '#!/bin/bash\nfiles=$(ls *.png)\nindex=0\nfor file in $files\ndo\nnewName="$index.png"\nmv $file $newName\nindex=$((index+1))\ndone\nffmpeg -r 1 -start_number 0 -i "%d.png" answer_sets.gif -y',
-            "utf8"
-          );
-          read_config();
+          createFolder(asp_vis_folder);
           break;
         case "ignore":
           vscode.window.showErrorMessage(
@@ -55,6 +44,26 @@ function handle_folder_creation(asp_vis_folder: string) {
           break;
       }
     });
+}
+
+export function createFolder(asp_vis_folder: string) {
+  if (fs.existsSync(asp_vis_folder)){
+    return;
+  }
+
+
+  fs.mkdirSync(asp_vis_folder);
+  fs.writeFileSync(
+    path.join(asp_vis_folder, "/gif.ps1"),
+    '$files = Get-ChildItem -Filter "*.png"\n$index = 0\nforeach ($file in $files) {\n$newName = "$index.png"\nRename-Item -Path $file.FullName -NewName $newName\n$index++\n}\nStart-Process -FilePath "ffmpeg.exe" -ArgumentList "-r 1 -start_number 0 -i %d.png answer_sets.gif -y"\n',
+    "utf8"
+  );
+  fs.writeFileSync(
+    path.join(asp_vis_folder, "/gif.sh"),
+    '#!/bin/bash\nfiles=$(ls *.png)\nindex=0\nfor file in $files\ndo\nnewName="$index.png"\nmv $file $newName\nindex=$((index+1))\ndone\nffmpeg -r 1 -start_number 0 -i "%d.png" answer_sets.gif -y',
+    "utf8"
+  );
+  read_config();
 }
 
 export function check_folder() {
