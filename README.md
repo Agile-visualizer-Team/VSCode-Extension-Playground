@@ -24,8 +24,9 @@ At the start of the extension, you will be required to **create a folder for the
 After creating the folder for the extension's files, the extension will look like this:
 ![initial](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/Initial%20setup.png)
 
-### Linux 
-Devi fare chmod poi per favore qualcuno lo scriva in linuxese perché non so come si fa
+### Linux Gif
+In order to allow the gif creation you need to set execute permission on gif.sh script contained in the extension forler (the one that the extension creates when you start it), the execute permission can be setted in this way:
+chmod +x gif.sh
 
 All the **mandatory** settings are marked with the *required* keyword. In particular, you need to set the following:
 
