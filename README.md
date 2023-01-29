@@ -281,34 +281,416 @@ Is it possible to specify colors of root, leaves and non-root by using simple if
 ```
 This template can be used to visualize this answer set
 ```
-inNode(a)
-inNode(b)
-inNode(g)
-inNode(d)
-inNode(h)
-inEdge(a,b,2)
-inEdge(b,d,6)
-inEdge(d,g,4)
-inEdge(g,h,0)
-outNode(c)
-outNode(e)
-outEdge(b,e,7)
-outEdge(a,c,10)
-outEdge(c,d,4)
-outEdge(e,h,19)
-outEdge(b,g,8)
+inNode(a).
+inNode(b).
+inNode(g).
+inNode(d).
+inNode(h).
+inEdge(a,b,2).
+inEdge(b,d,6).
+inEdge(d,g,4).
+inEdge(g,h,0).
+outNode(c).
+outNode(e).
+outEdge(b,e,7).
+outEdge(a,c,10).
+outEdge(c,d,4).
+outEdge(e,h,19).
+outEdge(b,g,8).
 ```
 Resulting in this output image
 
 ![Graph images examples](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/graph-example.png)
 
-# Common issues 
-Un poco
+# Matrix, Table and Images visualization template documentation
+## Matrix visualization template
+```json
+{
+    "template" : "matrix",
+    "cell" : ["string"],
+    "maxNumOfAnswerSetToConvert" : number,
+    "style": {
+        "header_color": "string",
+        "header_font_size": number,
+        "header_font_family": "string",
+        "header_font_weight": "string",
+        "dark_mode": boolean
+    }
+}
+```
+### Matrix template parameters explaination
+* **cell**: 
+    * Array of atom names that will be mapped into a matrix, every atom will be mapped in a different matrix. All the mapped atoms must be of arity 3, having fields row, column, value.
+    * Required: True
 
-# Advanced users
-You can customize more but you need to know what you are doing.
+* **maxNumOfAnswerSetToConvert**:
+    * Number of maximum answer set mapped into an image
+    * Required: True
 
-Write everything here for the json customization
+* **style.header_color**:
+    * Color of the matrix header
+    * Required: False
 
-# Credits
-Io
+* **style.header_font_size**:
+    * Font size of the matrix header
+    * Required: False
+    
+* **style.header_font_family**:
+    * Font family of the matrix header
+    * Required: False
+
+* **style.header_font_weight**:
+    * Font weight of the matrix header
+    * Required: False
+    
+* **style.dark_mode**:
+    * True if we want dark theme, false otherwise
+    * Required: True
+## Matrix template example
+```json
+{
+    "template" : "matrix",
+    "cell" : ["cell", "cell2"],
+    "maxNumOfAnswerSetToConvert" : 4,
+    "style": {
+        "header_color": "#b41b22",
+        "header_font_size": 20,
+        "header_font_family": "Arial",
+        "header_font_weight": "bold",
+        "dark_mode": true
+      }
+}
+```
+We can use this template to map the following answer set
+```
+cell(0,0, hello_cell1).
+cell(0,1,hello_cell2).
+cell(0,2,hello_cell3).
+cell(1,0,hello_cell4).
+cell(1,1,hello_cell5).
+cell(1,2,hello_cell6).
+cell2(0,0,hello_cell2_0).
+cell2(0,1,hello_cell2_1).
+cell2(0,2,hello_cell2_2).
+cell2(1,0,hello_cell2_3).
+cell2(1,1,hello_cell2_4).
+cell2(1,2,hello_cell2_5).
+```
+Resulting in the following image
+![Matrix images examples](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/matrix_example.png)
+
+## Table visualization template
+```json
+{
+    "template": "table",
+    "cell": ["string"],
+    "maxNumOfAnswerSetToConvert": number,
+    "style": {
+        "header_color": "string",
+        "header_font_size": number,
+        "header_font_family": "string",
+        "header_font_weight": "string",
+        "dark_mode": boolean
+    },
+    "table_field_mapping": {
+        "0": "string",
+        "1": "string",
+        ...
+    }
+}
+```
+### Matrix template parameters explaination
+* **cell**: 
+    * Array of atom names that will be mapped into a table, every atom will be mapped in a different table
+    * Required: True
+
+* **maxNumOfAnswerSetToConvert**:
+    * Number of maximum answer set mapped into an image
+    * Required: True
+
+* **style.header_color**:
+    * Color of the table header
+    * Required: False
+
+* **style.header_font_size**:
+    * Font size of the table header
+    * Required: False
+    
+* **style.header_font_family**:
+    * Font family of the table header
+    * Required: False
+
+* **style.header_font_weight**:
+    * Font weight of the table header
+    * Required: False
+    
+* **style.dark_mode**:
+    * True if we want dark theme, false otherwise
+    * Required: True
+* **table_field_mapping**:
+    * Dictionary of indexes and corresponding names that we want to give to each column
+    * Required: True (but could be empty)
+## Table template example
+```json
+{
+    "template": "table",
+    "maxNumOfAnswerSetToConvert": 4,
+    "cell": [
+        "cell",
+        "cell2"
+    ],
+    "style": {
+        "header_color": "#b41b22",
+        "header_font_size": 20,
+        "header_font_family": "Arial",
+        "header_font_weight": "bold",
+        "dark_mode": true
+    },
+    "table_field_mapping": {
+        "0": "column 1",
+        "1": "column 2",
+        "2": "column 3"
+    }
+}
+```
+We can use this template to map the following answer set
+```
+cell(0,0, hello_cell1).
+cell(0,1,hello_cell2).
+cell(0,2,hello_cell3).
+cell(1,0,hello_cell4).
+cell(1,1,hello_cell5).
+cell(1,2,hello_cell6).
+cell2(0,0,hello_cell2_0).
+cell2(0,1,hello_cell2_1).
+cell2(0,2,hello_cell2_2).
+cell2(1,0,hello_cell2_3).
+cell2(1,1,hello_cell2_4).
+cell2(1,2,hello_cell2_5).
+```
+Resulting in the following image
+![Table images examples](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/table_example.png)
+
+## Image/GIF visualization template
+```json
+{
+    "template": "matrix_images | gif",
+    "maxNumOfAnswerSetToConvert": number,
+    "cell": [
+        "string"
+    ],
+    "style": {
+        "header_color": "string",
+        "header_font_size": number,
+        "header_font_family": "string",
+        "header_font_weight": "string",
+        "dark_mode": boolean
+    },
+    "useImages": boolean,
+    "colors_binding": {
+        "string": "string",
+    },
+    "images_binding": {
+        "string": "string",
+    }
+}
+```
+### Image/GIF template parameters explaination
+* **cell**: 
+    * Array of atom names that will be mapped into an image, every atom will be mapped in a different image. All mapped atoms must be of arity 3 having row, column, value order if matrix_images is used, otherwise if gif is used then they must be of arity 4 having on fourth place also the "time" to build the image sequence, like time 1, 2 and so on.
+    * Required: True
+
+* **maxNumOfAnswerSetToConvert**:
+    * Number of maximum answer set mapped into an image
+    * Required: True
+
+* **style.header_color**:
+    * Color of the image header
+    * Required: False
+
+* **style.header_font_size**:
+    * Font size of the image header
+    * Required: False
+    
+* **style.header_font_family**:
+    * Font family of the image header
+    * Required: False
+
+* **style.header_font_weight**:
+    * Font weight of the image header
+    * Required: False
+    
+* **style.dark_mode**:
+    * True if we want dark theme, false otherwise
+    * Required: True
+* **useImages**:
+    * If true, colors_binding is skipped and images_binding is used
+    * Required: False, colors_binding will be used by default
+* **color_binding**:
+    * If useImages is False, we can map an atom value to a color, so, if we have cell(X,Y,wall), we can specify "wall": "#FFFFFF" to visualize all mapped atoms that contains wall with the specified color
+    * Required: False if useImages is True
+* **images_binding**:
+    * If useImages is True, we can map an atom value to an image, so, if we have cell(X,Y,wall), we can specify "wall": "wall.png" to visualize all mapped atoms that contains wall as the specified image. NB: the images directory path is given inside the config file of the extension.
+    * Required: False if useImages is False
+
+## Images/GIF template example
+```json
+{
+    "template": "matrix_images",
+    "maxNumOfAnswerSetToConvert": 4,
+    "cell": [
+        "cell"
+    ],
+    "style": {
+        "header_color": "#b41b22",
+        "header_font_size": 20,
+        "header_font_family": "Arial",
+        "header_font_weight": "bold",
+        "dark_mode": true
+    },
+    "useImages": true,
+    "images_binding": {
+        "wall": "wall.png",
+        "floor": "floor.png",
+        "man": "hero.png"
+    }
+}
+```
+We can use this template to map the following answer set
+```
+cell(0,0,wall).
+cell(0,1,wall).
+cell(0,2,wall).
+cell(0,3,wall).
+cell(0,4,wall).
+cell(0,5,wall).
+cell(1,0,wall).
+cell(1,1,floor).
+cell(1,2,floor).
+cell(1,3,floor).
+cell(1,4,floor).
+cell(1,5,wall).
+cell(2,0,wall).
+cell(2,1,floor).
+cell(2,2,floor).
+cell(2,3,floor).
+cell(2,4,floor).
+cell(2,5,wall).
+cell(3,0,wall).
+cell(3,1,wall).
+cell(3,2,wall).
+cell(3,3,wall).
+cell(3,4,man).
+cell(3,5,wall).
+cell(4,0,wall).
+cell(4,1,wall).
+cell(4,2,wall).
+cell(4,3,wall).
+cell(4,4,floor).
+cell(4,5,wall).
+cell(5,0,wall).
+cell(5,1,wall).
+cell(5,2,wall).
+cell(5,3,wall).
+cell(5,4,floor).
+cell(5,5,wall).
+cell(6,0,wall).
+cell(6,1,floor).
+cell(6,2,floor).
+cell(6,3,floor).
+cell(6,4,floor).
+cell(6,5,wall).
+```
+Resulting in the following image
+![Image images examples](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/image_example.png)
+
+Instead, if we use
+```json
+{
+    "template": "matrix_images",
+    "maxNumOfAnswerSetToConvert": 4,
+    "cell": [
+        "cell"
+    ],
+    "style": {
+        "header_color": "#b41b22",
+        "header_font_size": 20,
+        "header_font_family": "Arial",
+        "header_font_weight": "bold",
+        "dark_mode": true
+    },
+    "useImages": false,
+    "colors_binding": {
+        "wall": "#b41b22",
+        "floor": "#FFFFFF",
+        "man": "#000000"
+    },
+}
+```
+We get the following output
+![Color images examples](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/color_example.png)
+If we want to use GIFs we can build the template as follows:
+```json
+{
+    "template": "gif",
+    "maxNumOfAnswerSetToConvert": 4,
+    "cell": [
+        "cell"
+    ],
+    "style": {
+        "header_color": "#b41b22",
+        "header_font_size": 20,
+        "header_font_family": "Arial",
+        "header_font_weight": "bold",
+        "dark_mode": true
+    },
+    "useImages": false,
+    "colors_binding": {
+        "wall": "#b41b22",
+        "floor": "#FFFFFF",
+        "man": "#000000"
+    },
+}
+```
+And using this answer set:
+```
+cell(0,0,wall,1).
+cell(0,1,wall,1).
+cell(0,2,floor,1).
+cell(0,3,floor,1).
+cell(1,0,wall,1).
+cell(1,1,man,1).
+cell(1,2,floor,1).
+cell(1,3,wall,1).
+cell(2,0,wall,1).
+cell(2,1,floor,1).
+cell(2,2,floor,1).
+cell(2,3,wall,1).
+cell(0,0,wall,2).
+cell(0,1,wall,2).
+cell(0,2,floor,2).
+cell(0,3,floor,2).
+cell(1,0,wall,2).
+cell(1,1,floor,2).
+cell(1,2,man,2).
+cell(1,3,wall,2).
+cell(2,0,wall,2).
+cell(2,1,floor,2).
+cell(2,2,floor,2).
+cell(2,3,wall,2).
+cell(0,0,wall,3).
+cell(0,1,wall,3).
+cell(0,2,floor,3).
+cell(0,3,floor,3).
+cell(1,0,wall,3).
+cell(1,1,floor,3).
+cell(1,2,floor,3).
+cell(1,3,wall,3).
+cell(2,0,wall,3).
+cell(2,1,floor,3).
+cell(2,2,man,3).
+cell(2,3,wall,3).
+```
+We will have this result
+![Gif images examples](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/gif_example.gif)
+The images binding can be used as explained before.
