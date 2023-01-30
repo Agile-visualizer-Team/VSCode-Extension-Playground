@@ -4,12 +4,12 @@
 	import Table from '../components/Table/Table.svelte';
 	import Images from '../components/Image/Images.svelte';
 	import Welcome from '../components/Welcome.svelte';
-	import { graph, matrix } from '../store';
+	import { edgeArgsUnique, graph, matrix, nodeArgsUnique } from '../store';
 
 	let template = 'none';
 	let ta: string = '';
 	let showBlink = false;
-	
+
 	$: if (template) {
 		graph.set({
 			template: 'graph',
@@ -32,7 +32,7 @@
 
 	function blink() {
 		showBlink = true;
-		setTimeout(() => showBlink = false, 1500);
+		setTimeout(() => (showBlink = false), 1500);
 	}
 
 	$: if ($graph || $matrix) compile();
@@ -47,7 +47,20 @@
 		}
 
 		console.log(ta);
-		if (change) template = 'none';
+		let isUniqueRespected = true;
+
+		//Check if at least one value in the map $edgeArgsUnique is false
+		//If so, then the template is not valid
+		$edgeArgsUnique.forEach((value, key) => {
+			if (!value) isUniqueRespected = false;
+		});
+
+		//Check if at least one value in the map $nodeArgsUnique is false
+		$nodeArgsUnique.forEach((value, key) => {
+			if (!value) isUniqueRespected = false;
+		});
+
+		if (change && isUniqueRespected) template = 'none';
 	}
 
 	function mapExtractor(key: string, value: any) {
@@ -58,7 +71,7 @@
 
 <textarea id="code" bind:value={ta} />
 
-<select class="{showBlink ? 'blinker':''}" name="template" bind:value={template}>
+<select class={showBlink ? 'blinker' : ''} name="template" bind:value={template}>
 	<option value="none">Settings</option>
 	<option value="graph">Graph</option>
 	<option value="table">Table</option>
@@ -108,7 +121,7 @@
 		color: #aba671;
 		border: 2px solid transparent;
 		background-color: #242830;
-		animation: blinking .25s linear infinite;
+		animation: blinking 0.25s linear infinite;
 	}
 
 	@keyframes blinking {

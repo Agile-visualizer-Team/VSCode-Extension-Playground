@@ -80,7 +80,6 @@ export class WebviewView implements vscode.WebviewViewProvider {
         case "save":
         case "config":   
           vscode.commands.executeCommand("asp-vis." + data.type, data.value);
-        
           break;
 
         case "run":

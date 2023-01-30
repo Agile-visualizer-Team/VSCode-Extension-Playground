@@ -143,3 +143,9 @@ input[type='color'] {
 	z-index: -1;
 	opacity: 1;
 }
+
+.warn{
+	color: red;
+	font-weight: bold;
+	text-align: center;
+}

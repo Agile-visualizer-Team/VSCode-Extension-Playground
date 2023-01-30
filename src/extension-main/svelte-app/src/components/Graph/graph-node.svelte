@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { COLORS, graph } from '../../store';
+	import { COLORS, graph, nodeArgsUnique } from '../../store';
 	import Help from '../Help.svelte';
 
 	export let idx: number;
+
+	let areArgsUnique = false;
 
 	onMount(() => {
 		write();
@@ -24,12 +26,29 @@
 	}
 
 	function remove(elem: number) {
-		if (variables.at(elem) === 'label') return;
+		if (variables.at(elem) === 'label' && elem === 0) return;
 		variables.splice(elem, 1);
 		variables = [...variables];
 	}
 
 	function write() {
+		areArgsUnique = true;
+		nodeArgsUnique.update((nodeArgsUnique: Map<number, boolean>) => {
+			nodeArgsUnique.set(idx, areArgsUnique);
+			return nodeArgsUnique;
+		});
+		//Check if variables has only unique values
+		let uniques = variables.filter((v, i, a) => a.indexOf(v) === i);
+		if (uniques.length !== variables.length) {
+			areArgsUnique = false;
+			nodeArgsUnique.update((nodeArgsUnique: Map<number, boolean>) => {
+				nodeArgsUnique.set(idx, areArgsUnique);
+				return nodeArgsUnique;
+			});
+		}
+		console.log($nodeArgsUnique, idx);
+		
+
 		graph.update((graph) => {
 			if (graph.nodes[idx]) {
 				graph.nodes[idx].atom.name = name;
@@ -44,8 +63,6 @@
 				return graph;
 			}
 		});
-
-		// console.log($graph);
 	}
 </script>
 
@@ -57,11 +74,16 @@
 {#if variables.length > 0}
 	<div class="header">
 		<h3>Arguments</h3>
-		<Help content="Note: If color is specified in the argouments, it will have the maximum priority and override all other color properties." />
+		<Help
+			content="Note: If color is specified in the argouments, it will have the maximum priority and override all other color properties."
+		/>
 	</div>
+	{#if !areArgsUnique}
+		<p class="warn">Arguments must be unique</p>
+	{/if}
 	{#each variables as arg, index}
 		<div class="arg">
-			{#if arg === 'label'}
+			{#if arg === 'label' && index === 0}
 				<input type="text" name="variable" disabled bind:value={arg} />
 			{:else}
 				<input type="text" name="variable" bind:value={arg} />

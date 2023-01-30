@@ -2,7 +2,7 @@ import path = require("path");
 import process = require("process");
 import * as vscode from "vscode";
 import { callNode } from "../visualizer-integrator/visualizer";
-import { check_workspace, check_folder, read_config } from "./check_workspace";
+import { check_folder, check_workspace, read_config } from "./check_workspace";
 import { WebviewView } from "./webview";
 
 export function activate(context: vscode.ExtensionContext) {
@@ -23,7 +23,7 @@ export function activate(context: vscode.ExtensionContext) {
       const data = Buffer.from(arg, "utf8");
 
       console.log(data);
-      
+
 
       vscode.workspace.fs.writeFile(path, data).then(() => {
         vscode.window.showInformationMessage(
@@ -35,24 +35,46 @@ export function activate(context: vscode.ExtensionContext) {
 
   let save = vscode.commands.registerCommand("asp-vis.save", (arg) => {
     let template: string = "";
-    template = JSON.parse(arg)["template"];
+    let config = JSON.parse(arg);
+    template = config["template"];
 
-    vscode.window
-      .showInputBox({
-        prompt: "Enter the filename of the template file",
-        placeHolder: template + ".json",
-        value: template + ".json",
-      })
-      .then((value) => {
-        if (value && vscode.workspace.workspaceFolders) {
-          const folder = vscode.workspace.workspaceFolders[0];
-          const path = vscode.Uri.joinPath(folder.uri, "asp-vis", value);
-          const data = Buffer.from(arg, "utf8");
+    let validArgs = true;
 
-          vscode.workspace.fs.writeFile(path, data);
+    if (template === "graph") {
+      config.nodes.forEach((node: any) => {
+        if (!checkUniqueness(node!.atom.variables)) {
+          vscode.window.showErrorMessage("The variables of the nodes must be unique");
+          validArgs = false;
         }
-        vscode.commands.executeCommand("workbench.view.explorer");
       });
+      config.edges.forEach((edge: any) => {
+        if (!checkUniqueness(edge!.atom.variables)) {
+          vscode.window.showErrorMessage("The variables of the edges must be unique");
+          validArgs = false;
+        }
+      });
+    }
+
+    if (validArgs) {
+
+      vscode.window
+        .showInputBox({
+          prompt: "Enter the filename of the template file",
+          placeHolder: template + ".json",
+          value: template + ".json",
+        })
+        .then((value) => {
+          if (value && vscode.workspace.workspaceFolders) {
+            const folder = vscode.workspace.workspaceFolders[0];
+            const path = vscode.Uri.joinPath(folder.uri, "asp-vis", value);
+            const data = Buffer.from(arg, "utf8");
+
+            vscode.workspace.fs.writeFile(path, data);
+          }
+          vscode.commands.executeCommand("workbench.view.explorer");
+        });
+    }
+
   });
 
   let exec = vscode.commands.registerCommand("asp-vis.execute", () => {
@@ -174,4 +196,16 @@ export function activate(context: vscode.ExtensionContext) {
 
 export function deactivate() {
   console.log("deactivated");
+}
+
+function checkUniqueness(args: string[]) {
+  let uniques: string[] = [];
+  for (let i = 0; i < args.length; i++) {
+    if (!uniques.includes(args[i])) {
+      uniques.push(args[i]);
+    }
+  }
+  console.log(uniques, args);
+  
+  return args.length === uniques.length;
 }
