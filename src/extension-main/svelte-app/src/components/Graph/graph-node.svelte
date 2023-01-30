@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { graph, COLORS } from '../../store';
 	import { onMount } from 'svelte';
+	import { COLORS, graph } from '../../store';
+	import Help from '../Help.svelte';
 
 	export let idx: number;
 
@@ -54,7 +55,10 @@
 </div>
 <button on:click={addArg}>Increment Arity</button>
 {#if variables.length > 0}
-	<h3>Arguments</h3>
+	<div class="header">
+		<h3>Arguments</h3>
+		<Help content="Note: If color is specified in the argouments, it will have the maximum priority and override all other color properties." />
+	</div>
 	{#each variables as arg, index}
 		<div class="arg">
 			{#if arg === 'label'}
