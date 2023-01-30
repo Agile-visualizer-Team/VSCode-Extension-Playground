@@ -10,6 +10,7 @@
 	--input-padding-horizontal: 4px;
 	--input-margin-vertical: 4px;
 	--input-margin-horizontal: 0;
+	scroll-behavior: smooth;
 }
 
 body {
@@ -50,7 +51,8 @@ code {
 	font-family: var(--vscode-editor-font-family);
 }
 
-button, select {
+button,
+select {
 	border: none;
 	padding: var(--input-padding-vertical) var(--input-padding-horizontal);
 	width: 100%;
@@ -61,7 +63,8 @@ button, select {
 	background: var(--vscode-button-background);
 }
 
-button:hover, select:hover {
+button:hover,
+select:hover {
 	cursor: pointer;
 	background: var(--vscode-button-hoverBackground);
 }
@@ -97,11 +100,16 @@ textarea::placeholder {
 	color: var(--vscode-input-placeholderForeground);
 }
 
-h1,h2,h3,h4,h5,h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
 	width: fit-content;
 }
 
-body{
+body {
 	min-width: 320px;
 }
 
