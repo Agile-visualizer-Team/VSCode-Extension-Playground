@@ -47,6 +47,7 @@
 {#each nodes as node, idx}
 	<div class="item-ctrl">
 		<h2>Rendered Node</h2>
+		
 		{#if nodes.length > 1}
 			<button on:click={() => removeNode(idx)}>Remove Node</button>
 		{:else}

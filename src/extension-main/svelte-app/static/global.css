@@ -129,8 +129,15 @@ input[type='color'] {
 	width: 40px;
 }
 
+.header{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+}
+
 .invisible {
-	position: relative;
+  position: relative;
 	width: 50vw;
 	height: 1vh;
 	z-index: -1;
