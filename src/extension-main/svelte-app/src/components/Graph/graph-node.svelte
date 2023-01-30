@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { graph, COLORS } from '../../store';
 	import { onMount } from 'svelte';
-	import { each } from 'svelte/internal';
 
 	export let idx: number;
 
@@ -12,7 +11,7 @@
 	$: if (name || variables || color) write();
 
 	let name: string = 'node';
-	let variables: string[] = ['arg1'];
+	let variables: string[] = ['label', 'arg1'];
 	let color: { root: string; leaves: string; nonRoot: string } = {
 		root: 'yellow',
 		leaves: 'fuchsia',
@@ -24,6 +23,7 @@
 	}
 
 	function remove(elem: number) {
+		if (variables.at(elem) === 'label') return;
 		variables.splice(elem, 1);
 		variables = [...variables];
 	}
@@ -57,8 +57,12 @@
 	<h3>Arguments</h3>
 	{#each variables as arg, index}
 		<div class="arg">
-			<input type="text" name="variable" bind:value={arg} />
-			<button on:click={() => remove(index)}>remove</button>
+			{#if arg === 'label'}
+				<input type="text" name="variable" disabled bind:value={arg} />
+			{:else}
+				<input type="text" name="variable" bind:value={arg} />
+				<button on:click={() => remove(index)}>remove</button>
+			{/if}
 		</div>
 	{/each}
 {/if}
