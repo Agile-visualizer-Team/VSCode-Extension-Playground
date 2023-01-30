@@ -3,6 +3,7 @@
 	import { onMount } from 'svelte';
 	import MatrixCell from './matrix-cell.svelte';
 	import MatrixStyle from './matrix-style.svelte';
+	import Help from "../Help.svelte";
 	
 	let maxNumOfAnswerSetToConvert: number = 4;
 
@@ -32,7 +33,11 @@
 	<input type="number" name="maxas" id="maxAS" bind:value={maxNumOfAnswerSetToConvert} min="0" />
 </div>
 
-<h2>Rendered Cells</h2>
+<div class="header">
+	<h2>Rendered Cells</h2>
+	<Help content="Note: Atoms should have an arity of 3."/>
+</div>
+
 <MatrixCell />
 <MatrixStyle />
 
@@ -45,5 +50,12 @@
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		align-items: baseline;
+	}
+
+	.header{
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
 	}
 </style>

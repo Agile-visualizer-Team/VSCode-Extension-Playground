@@ -10,7 +10,7 @@
 		
 	}
 
-</script>
+	</script>
 
 <center>
 	<h1>Settings</h1>

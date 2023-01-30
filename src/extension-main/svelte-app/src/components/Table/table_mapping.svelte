@@ -32,7 +32,8 @@
 	}
 
 	function removeColumn(idx: number) {
-		if (col_name.length == 1) return;
+		//We do not have this constraint
+		/* if (col_name.length == 1) return; */
 
 		col_name.splice(idx, 1);
 		col_name = [...col_name];
