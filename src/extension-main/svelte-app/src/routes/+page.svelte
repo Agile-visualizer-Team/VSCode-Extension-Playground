@@ -8,7 +8,8 @@
 
 	let template = 'none';
 	let ta: string = '';
-
+	let showBlink = false;
+	
 	$: if (template) {
 		graph.set({
 			template: 'graph',
@@ -27,6 +28,11 @@
 				dark_mode: true
 			}
 		});
+	}
+
+	function blink() {
+		showBlink = true;
+		setTimeout(() => showBlink = false, 1500);
 	}
 
 	$: if ($graph || $matrix) compile();
@@ -52,7 +58,7 @@
 
 <textarea id="code" bind:value={ta} />
 
-<select name="template" bind:value={template}>
+<select class="{showBlink ? 'blinker':''}" name="template" bind:value={template}>
 	<option value="none">Settings</option>
 	<option value="graph">Graph</option>
 	<option value="table">Table</option>
@@ -75,11 +81,17 @@
 	<Matrix />
 {:else if template === 'images'}
 	<Images />
-{:else}
-	<Welcome />
 {/if}
 
+<div class={template == 'none' ? '' : 'hidden'}>
+	<Welcome on:blink={blink} />
+</div>
+
 <style>
+	.hidden {
+		display: none;
+	}
+
 	#code {
 		position: absolute;
 		top: -200%;
@@ -90,5 +102,27 @@
 		height: 2rem;
 		text-align: center;
 		margin-bottom: 10px;
+	}
+
+	.blinker {
+		color: #aba671;
+		border: 2px solid transparent;
+		background-color: #242830;
+		animation: blinking .25s linear infinite;
+	}
+
+	@keyframes blinking {
+		0% {
+			border-color: #aba671;
+			box-shadow: 0 0 10px #aba671;
+		}
+		50% {
+			border-color: #aba671;
+			box-shadow: 0 0 20px #aba671;
+		}
+		100% {
+			border-color: #aba671;
+			box-shadow: 0 0 10px #aba671;
+		}
 	}
 </style>
