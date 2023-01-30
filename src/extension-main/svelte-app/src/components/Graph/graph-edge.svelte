@@ -1,8 +1,10 @@
 <script lang="ts">
-	import { graph, COLORS } from '../../store';
+	import { graph, COLORS, edgeArgsUnique } from '../../store';
 	import { onMount } from 'svelte';
 	import Help from '../Help.svelte';
 	export let idx: number;
+
+	let areArgsUnique = false;
 
 	onMount(() => {
 		write();
@@ -20,12 +22,26 @@
 	}
 
 	function remove(elem: number) {
-		if (variables.at(elem) == 'from' || variables.at(elem) == 'to') return;
+		if ((variables.at(elem) == 'from' || variables.at(elem) == 'to') && elem <= 1) return;
 		variables.splice(elem, 1);
 		variables = [...variables];
 	}
 
 	function write() {
+		areArgsUnique = true;
+		edgeArgsUnique.update((nodeArgsUnique: Map<number, boolean>) => {
+			nodeArgsUnique.set(idx, areArgsUnique);
+			return nodeArgsUnique;
+		});
+		let uniques = variables.filter((v, i, a) => a.indexOf(v) === i);
+		if (uniques.length !== variables.length) {
+			areArgsUnique = false;
+			edgeArgsUnique.update((nodeArgsUnique: Map<number, boolean>) => {
+				nodeArgsUnique.set(idx, areArgsUnique);
+				return nodeArgsUnique;
+			});
+		}
+
 		graph.update((graph) => {
 			if (graph.edges[idx]) {
 				graph.edges[idx].atom.name = name;
@@ -58,8 +74,11 @@
 			content="Note: If color is specified in the argouments, it will have the maximum priority and override all other color properties."
 		/>
 	</div>
+	{#if !areArgsUnique}
+		<p class="warn">Arguments must be unique</p>
+	{/if}
 	{#each variables as arg, index}
-		{#if arg == 'from' || arg == 'to'}
+		{#if (arg == 'from' || arg == 'to') && index <= 1}
 			<div class="arg">
 				<input type="text" name="variable" bind:value={arg} disabled />
 			</div>

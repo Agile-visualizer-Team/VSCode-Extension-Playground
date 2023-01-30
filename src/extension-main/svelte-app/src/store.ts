@@ -34,6 +34,9 @@ export const graph: Writable<Graph> = writable({
 	edges: []
 });
 
+export const nodeArgsUnique: Writable<Map<number,boolean>> = writable(new Map());
+export const edgeArgsUnique: Writable<Map<number,boolean>> = writable(new Map());
+
 export const matrix: Writable<Matrix> = writable({
 	template: 'matrix',
 	maxNumOfAnswerSetToConvert: 4,

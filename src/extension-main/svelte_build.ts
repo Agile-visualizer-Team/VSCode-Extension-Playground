@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-export function getHtmlForWebview(webview: vscode.Webview, _extensionUri: vscode.Uri): string {const global_css = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, 'global.css'));const _page_css = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'assets', '_page-f4f06fce.css'));const start_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'start-941639b3.js'));const index_1_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', 'index-9b7371d4.js'));const singletons_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', 'singletons-8c8d1352.js'));const index_2_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', 'index-d2d7f66d.js'));const layout_svelte_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'components', 'layout.svelte-f870a7ba.js'));const _layout_ts_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'modules', 'pages', '_layout.ts-070df6f0.js'));const _layout_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', '_layout-af12d980.js'));const _page_svelte_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'components', 'pages', '_page.svelte-55466f40.js'));const main_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, "main.js"));
+export function getHtmlForWebview(webview: vscode.Webview, _extensionUri: vscode.Uri): string {const global_css = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, 'global.css'));const _page_css = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'assets', '_page-40af49c4.css'));const start_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'start-e8e31de9.js'));const index_1_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', 'index-850eff1f.js'));const singletons_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', 'singletons-426c3c67.js'));const index_2_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', 'index-6b05df8a.js'));const layout_svelte_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'components', 'layout.svelte-702e175c.js'));const _layout_ts_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'modules', 'pages', '_layout.ts-070df6f0.js'));const _layout_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', '_layout-af12d980.js'));const _page_svelte_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'components', 'pages', '_page.svelte-7acfd14f.js'));const main_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, "main.js"));
 return `<!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -17,15 +17,15 @@ return `<!DOCTYPE html>
 		<div style="display: contents">
 
 
-<textarea id="code" class="svelte-1v19vqs"></textarea>
+<textarea id="code" class="svelte-1dimsne"></textarea>
 
-<select class=" svelte-1v19vqs" name="template"><option value="none">Settings</option><option value="graph">Graph</option><option value="table">Table</option><option value="matrix">Matrix</option><option value="images">Matrix (images)</option></select>
+<select class=" svelte-1dimsne" name="template"><option value="none">Settings</option><option value="graph">Graph</option><option value="table">Table</option><option value="matrix">Matrix</option><option value="images">Matrix (images)</option></select>
 
 <button id="save-btn" title="Save the template file for the current visualization." style="display:none">Save Template File</button>
 
 
 
-<div class=" svelte-1v19vqs"><center class="svelte-slyfrv"><h1 class="svelte-slyfrv">Settings</h1></center>
+<div class=" svelte-1dimsne"><center class="svelte-slyfrv"><h1 class="svelte-slyfrv">Settings</h1></center>
 
 <div class="svelte-slyfrv"><button title="Creates default folder for extension to work." type="button" id="folder-btn" class="svelte-slyfrv">Create extension folder</button></div>
 <div class="svelte-slyfrv"><button title="Run the extension using the parameters saved in config.json" type="button" id="run-btn" class="svelte-slyfrv">Run using config file</button></div>
@@ -81,14 +81,14 @@ return `<!DOCTYPE html>
 </div>
 
 
-		<script type="module" data-sveltekit-hydrate="jldqyb">
+		<script type="module" data-sveltekit-hydrate="1rwzqv5">
 			import { start } from "${start_js}";
 
 			start({
 				env: {},
 				paths: {"base":"","assets":""},
-				target: document.querySelector('[data-sveltekit-hydrate="jldqyb"]').parentNode,
-				version: "1675090180573",
+				target: document.querySelector('[data-sveltekit-hydrate="1rwzqv5"]').parentNode,
+				version: "1675099110833",
 				hydrate: {
 					node_ids: [0, 2],
 					data: [null,null],
