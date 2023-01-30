@@ -52,10 +52,5 @@
 		align-items: baseline;
 	}
 
-	.header{
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: space-between;
-	}
+	
 </style>
