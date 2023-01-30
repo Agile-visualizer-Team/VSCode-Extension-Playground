@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"dev": "vite dev -- --open",
+		"dev": "vite dev --open",
 		"build": "vite build && py ../builder.py",
 		"build:l": "vite build && python3 ../builder.py",
 		"preview": "vite preview",

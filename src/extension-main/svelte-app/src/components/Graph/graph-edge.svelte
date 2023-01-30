@@ -11,7 +11,7 @@
 	$: if (name || variables || color || oriented) write();
 
 	let name: string = 'edge';
-	let variables: string[] = ['arg1'];
+	let variables: string[] = ['from', 'to', 'arg1'];
 	let color: string = 'yellow';
 	let oriented: boolean = false;
 
@@ -20,6 +20,7 @@
 	}
 
 	function remove(elem: number) {
+		if (variables.at(elem) == 'from' || variables.at(elem) == 'to') return;
 		variables.splice(elem, 1);
 		variables = [...variables];
 	}
@@ -58,10 +59,16 @@
 		/>
 	</div>
 	{#each variables as arg, index}
-		<div class="arg">
-			<input type="text" name="variable" bind:value={arg} />
-			<button on:click={() => remove(index)}>remove</button>
-		</div>
+		{#if arg == 'from' || arg == 'to'}
+			<div class="arg">
+				<input type="text" name="variable" bind:value={arg} disabled />
+			</div>
+		{:else}
+			<div class="arg">
+				<input type="text" name="variable" bind:value={arg} />
+				<button on:click={() => remove(index)}>remove</button>
+			</div>
+		{/if}
 	{/each}
 {/if}
 
