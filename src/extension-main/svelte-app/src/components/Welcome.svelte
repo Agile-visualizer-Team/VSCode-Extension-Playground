@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	
+
 	let changed = false;
 	const dispatch = createEventDispatcher();
 
@@ -105,13 +105,15 @@
 			type="button"
 			id="template-btn">Template File</button
 		>
-		<button
-			type="button"
+		<!-- svelte-ignore a11y-click-events-have-key-events -->
+		<button type="button"
 			on:click={() => {
 				window.scrollTo(0, 0);
-				blinkSelect()
-			}}>Create a Template</button
+				blinkSelect();
+			}}
 		>
+			Create a Template
+		</button>
 	</div>
 
 	<h2>Image Directory</h2>
@@ -160,13 +162,15 @@
 	}
 
 	input:valid {
-		background-color: green;
-		color: white;
+		border: 1px solid green;
+		background-color: #242830;
+		color: green;
 	}
 
-	textarea:valid ~ button {
-		background-color: green;
-		color: white;
+	textarea:valid ~ button:first-of-type {
+		border: 1px solid green;
+		background-color: #242830;
+		color: green;
 	}
 
 	.changed {
@@ -174,14 +178,6 @@
 		color: #aba671;
 		animation: blinking 1s infinite alternate;
 		border: 1px solid #aba671;
-	}
-
-	.invisible {
-		position: relative;
-		width: 50vw;
-		height: 1vh;
-		z-index: -1;
-		opacity: 1;
 	}
 
 	@keyframes blinking {
