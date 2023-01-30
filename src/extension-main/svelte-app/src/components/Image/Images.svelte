@@ -5,6 +5,7 @@
 	import MatrixStyle from '../Matrix/matrix-style.svelte';
 	import ImagesMapping from './images_mapping.svelte';
 	import ColorMapping from './color_mapping.svelte';
+	import Help from '../Help.svelte';
 
 	let maxNumOfAnswerSetToConvert: number = 4;
 	let useImages: boolean = false;
@@ -37,7 +38,11 @@
 	<input type="number" name="maxas" id="maxAS" bind:value={maxNumOfAnswerSetToConvert} min="1" />
 </div>
 
-<h2>Rendered Cells</h2>
+<div class="header">
+	<h2>Rendered Cells</h2>
+	<Help content="Note: If 'Make image sequence?' is checked, atoms should have arity 4."/>
+</div>
+
 <Cells />
 
 <div class="use-img">
@@ -81,5 +86,11 @@
 		align-items: center;
 		justify-content: center;
 		gap: 1rem;
+	}
+	.header{
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
 	}
 </style>

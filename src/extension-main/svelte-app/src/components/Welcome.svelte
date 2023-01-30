@@ -1,9 +1,7 @@
 <script lang="ts">
-	let changed = false;
-
 	import { createEventDispatcher } from 'svelte';
-
-	// a function that dispatches an event to the parent component
+	
+	let changed = false;
 	const dispatch = createEventDispatcher();
 
 	function blinkSelect() {
