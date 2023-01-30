@@ -128,3 +128,11 @@ input[type='color'] {
 	height: 40px;
 	width: 40px;
 }
+
+.invisible {
+	position: relative;
+	width: 50vw;
+	height: 1vh;
+	z-index: -1;
+	opacity: 1;
+}

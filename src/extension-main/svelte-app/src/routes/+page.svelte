@@ -107,6 +107,7 @@
 	.blinker {
 		color: #aba671;
 		border: 2px solid transparent;
+		background-color: #242830;
 		animation: blinking .25s linear infinite;
 	}
 
