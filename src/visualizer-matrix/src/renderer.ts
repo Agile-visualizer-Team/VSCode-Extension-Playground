@@ -23,8 +23,10 @@ export const render = async (
   const browser = await puppeteer.launch({ executablePath: chrome_exe });
   const page = await browser.newPage();
   const uri = path.join(output_dir, vis_type + "_" + as_index + ".html");
-  const URL =
-    "file:///" + (os.platform() === "win32") ? uri.replace(/\\/g, "/") : uri;
+  let URL =  "file:///"
+  URL +=
+     (os.platform() === "win32") ? uri.replace(/\\/g, "/") : uri;
+  console.log(URL)
   await page.goto(URL);
   await page.screenshot({
     path: path.join(
