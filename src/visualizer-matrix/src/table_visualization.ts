@@ -8,7 +8,6 @@ export class TableCreator {
   answer_sets = require("./answers_sets.json");
   config_file = require("./config_table.json");
   table = require("table");
-  node_html_to_image = require("node-html-to-image");
   undefined_error_string: string = "this data cannot be undefined";
   style = this.get_config_style();
   base_styling = this.get_base_styling();

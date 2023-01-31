@@ -33,7 +33,8 @@ export const render = async (
       output_dir,
       vis_type + "_" + as_index + "_" + Date.now() + ".png"
     ),
-  });
+    fullPage: true
+  },);
   await browser.close();
 
   fs.rmSync(path.join(output_dir, vis_type + "_" + as_index + ".html"));
@@ -70,6 +71,7 @@ export const render_gif = async (
       "gif",
       as + "_" + time + ".png"
     ),
+    fullPage: true
   });
   await browser.close();
 

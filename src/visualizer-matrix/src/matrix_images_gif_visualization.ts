@@ -12,69 +12,13 @@ export class MatrixImagesCreatorGIF {
   base_styling = this.get_base_styling();
 
   table = require("table");
-  node_html_to_image = require("node-html-to-image");
   undefined_error_string: string = "this data cannot be undefined";
   images_directory_path: string = "";
   almost_one_image_printed: boolean = false;
   output_dir: string = "";
   time_array: Array<string> = [];
 
-  /**
-   Converting all the images in the output_files folder into a gif. 
-  */
-  convert_output_to_gif = async (as: number) => {
-    //get witdh and height of image 1 in images
-    let width = 0;
-    let height = 0;
 
-    //read all the file names from output_files
-    let files = fs.readdirSync(__dirname + "/output_files");
-
-    //create a list of all the images
-    let pics: any = [];
-    for (var i = 0; i < files.length; i++) {
-      let filename: string = files[i];
-
-      if (filename !== undefined && filename.includes(as + "_")) {
-        console.log(filename.includes(as + "_"));
-        console.log(as + "_");
-        pics.push(__dirname + "/output_files/" + files[i]);
-        console.log(files[i]);
-      }
-    }
-
-    //call the method to get pixels
-    await get_pixels(pics[0], (err: any, pixels: any) => {
-      //get width and height of image 1
-      width = pixels.shape[0];
-      height = pixels.shape[1];
-
-      //create gif
-      let gif = new gif_encoder(width, height);
-      let file = require("fs").createWriteStream(as + "_img.gif");
-
-      //create the base for gif
-      gif.pipe(file);
-      gif.setQuality(100);
-      gif.setDelay(500);
-      gif.setRepeat(0);
-      gif.writeHeader();
-
-      //add all the images to the gif
-      const addToGif = (images: any, counter = 0) => {
-        get_pixels(images[counter], function (err: any, pixels: any) {
-          gif.addFrame(pixels.data);
-          gif.read();
-          if (counter === images.length - 1) {
-            gif.finish();
-          } else {
-            addToGif(images, ++counter);
-          }
-        });
-      };
-      addToGif(pics);
-    });
-  };
 
   /**
    * It takes a list of atoms, a mapped_atom (the atom choosen by user to be mapped on the table), and a table_html string

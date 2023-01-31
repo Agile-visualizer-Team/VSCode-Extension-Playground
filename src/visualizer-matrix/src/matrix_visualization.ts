@@ -11,7 +11,6 @@ export class MatrixCreator {
   base_styling = this.get_base_styling();
 
   table = require("table");
-  node_html_to_image = require("node-html-to-image");
   undefined_error_string: string = "this data cannot be undefined";
   output_dir: string = "";
 
