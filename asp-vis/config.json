@@ -1,9 +1,0 @@
-{
-  "sol_num": "1",
-  "solver": "/home/cristian/Scrivania/Agile/visualizer-asp/src/sample-files/dlv2_linux",
-  "template": "/home/cristian/Scrivania/Agile/matrix_images.json",
-  "program": "/home/cristian/Scrivania/Agile/visualizer-asp/src/sample-files/image.asp",
-  "out_dir": "/home/cristian/Scrivania",
-  "img_dir": "/home/cristian/Scrivania/Agile/visualizer-asp/src/sample-files/images",
-  "chrome": "/usr/bin/google-chrome"
-}

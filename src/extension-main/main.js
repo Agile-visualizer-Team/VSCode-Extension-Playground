@@ -53,11 +53,7 @@
   document.getElementById("template-btn").addEventListener("click", () => {
     vscode.postMessage({ type: "template" });
   });
-  /* 
-  document.getElementById("config-btn").addEventListener("click", () => {
-    vscode.postMessage({ type: "config", value: config_ta.value });
-  });
- */
+  
   document.getElementById("form-div").addEventListener("submit", (_e) => {
     vscode.postMessage({ type: "config", value: config_ta.value });
   });

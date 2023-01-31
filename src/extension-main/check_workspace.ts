@@ -47,10 +47,9 @@ function handle_folder_creation(asp_vis_folder: string) {
 }
 
 export function createFolder(asp_vis_folder: string) {
-  if (fs.existsSync(asp_vis_folder)){
+  if (fs.existsSync(asp_vis_folder)) {
     return;
   }
-
 
   fs.mkdirSync(asp_vis_folder);
   fs.writeFileSync(
