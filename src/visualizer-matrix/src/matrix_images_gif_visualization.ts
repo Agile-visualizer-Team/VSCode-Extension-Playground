@@ -1,3 +1,5 @@
+import { render_gif } from "./renderer";
+
 const path = require("path");
 const fs = require("fs");
 const get_pixels = require("get-pixels");
@@ -185,16 +187,7 @@ export class MatrixImagesCreatorGIF {
     if (!fs.existsSync(path.join(this.output_dir, "gif"))) {
       fs.mkdirSync(path.join(this.output_dir, "gif"), { recursive: true });
     }
-    this.node_html_to_image({
-      output: path.join(this.output_dir, "gif", as + "_" + index + ".png"),
-      html: html_to_convert_in_image,
-      puppeteerArgs: { executablePath: process.env.CHROME_PATH },
-    }).then(() => {
-      // this.convert_output_to_gif(as);
-      return true;
-    });
-
-    return false;
+    render_gif(this.output_dir, as, index, html_to_convert_in_image, process.env.CHROME_PATH);
   }
 
   /**
@@ -571,7 +564,7 @@ export class MatrixImagesCreatorGIF {
     console.log("Mapped atoms: " + mapping_list);
     console.log(
       "Maximum number answer set to convert in image: " +
-        max_num_of_as_to_convert
+      max_num_of_as_to_convert
     );
 
     let i: number = 0;

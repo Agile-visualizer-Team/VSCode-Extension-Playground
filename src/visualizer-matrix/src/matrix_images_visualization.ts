@@ -1,3 +1,5 @@
+import { render } from "./renderer";
+
 const path = require("path");
 const fs = require("fs");
 const get_pixels = require("get-pixels");
@@ -164,18 +166,14 @@ export class MatrixImagesCreator {
     if (!fs.existsSync(this.output_dir)) {
       fs.mkdirSync(this.output_dir, { recursive: true });
     }
-    this.node_html_to_image({
-      output: path.join(
-        this.output_dir,
-        "img_matrix_" + index + "_" + Date.now() + ".png"
-      ),
-      html: html_to_convert_in_image,
-      puppeteerArgs: { executablePath: process.env.CHROME_PATH },
-    }).then(() => {
-      return true;
-    });
-
-    return false;
+   
+    render(
+      this.output_dir,
+      "img_matrix_",
+      index,
+      html_to_convert_in_image,
+      process.env.CHROME_PATH
+    );
   }
 
   /**
