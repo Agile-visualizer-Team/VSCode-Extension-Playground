@@ -1,4 +1,5 @@
 import * as yargs from "yargs";
+import { render } from "./renderer";
 const readline = require("readline");
 const path = require("path");
 const fs = require("fs");
@@ -7,7 +8,6 @@ export class TableCreator {
   answer_sets = require("./answers_sets.json");
   config_file = require("./config_table.json");
   table = require("table");
-  node_html_to_image = require("node-html-to-image");
   undefined_error_string: string = "this data cannot be undefined";
   style = this.get_config_style();
   base_styling = this.get_base_styling();
@@ -100,25 +100,18 @@ export class TableCreator {
    * @returns false.
    */
   create_image_from_html(index: number, html_to_convert_in_image: string) {
-    try {
       if (!fs.existsSync(this.output_dir)) {
         fs.mkdirSync(this.output_dir, { recursive: true });
       }
-      this.node_html_to_image({
-        output: path.join(
-          this.output_dir,
-          "table_" + index + "_" + Date.now() + ".png"
-        ),
-        html: html_to_convert_in_image,
-        puppeteerArgs: { executablePath: process.env.CHROME_PATH},
-      }).then(() => {
-        return true;
-      });
-    } catch (e) {
-      return false;
-    }
 
-    return false;
+      render(
+        this.output_dir,
+        "table",
+        index,
+        html_to_convert_in_image,
+        process.env.CHROME_PATH
+      );
+      
   }
 
   /**
