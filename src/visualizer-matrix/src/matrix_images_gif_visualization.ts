@@ -503,7 +503,7 @@ export class MatrixImagesCreatorGIF {
     if (cell_name === undefined || cell_name === "") {
       return "";
     }
-
+    let is_valid_image_directory: boolean = true;
     let html_table: string = `<table><thead><tr class="titolo"><th>Visualization</th></tr></thead><tbody>`;
 
     html_table += "";
@@ -513,23 +513,28 @@ export class MatrixImagesCreatorGIF {
         if (matrix[i][j] !== "undefined") {
           this.almost_one_image_printed = true;
           if (this.config_file.useImages) {
-            if (
-              fs.existsSync(path.join(this.images_directory_path, matrix[i][j]))
-            ) {
-              const image = fs.readFileSync(
-                path.join(this.images_directory_path, matrix[i][j])
-              );
+            if (fs.existsSync(this.images_directory_path)) {
+              if (
+                fs.existsSync(path.join(this.images_directory_path, matrix[i][j]))
+              ) {
+                const image = fs.readFileSync(
+                  path.join(this.images_directory_path, matrix[i][j])
+                );
 
-              const base64Image: any = new (Buffer as any).from(image).toString(
-                "base64"
-              );
-              const dataURI = "data:image/jpeg;base64," + base64Image;
+                const base64Image: any = new (Buffer as any).from(image).toString(
+                  "base64"
+                );
+                const dataURI = "data:image/jpeg;base64," + base64Image;
 
-              html_table +=
-                `<td><img src="` +
-                dataURI +
-                `" style='height: 60px; width: 60px; object-fit: fill;'></img></td>`;
+                html_table +=
+                  `<td><img src="` +
+                  dataURI +
+                  `" style='height: 60px; width: 60px; object-fit: fill;'></img></td>`;
+              }
+            } else {
+              is_valid_image_directory = false;
             }
+
           } else {
             html_table += `<td><div style='height: 60px; width: 60px; background-color:${matrix[i][j]}; border: 1px solid #307182'></img></td>`;
           }
@@ -542,6 +547,9 @@ export class MatrixImagesCreatorGIF {
     if (!this.almost_one_image_printed) {
       html_table +=
         "<strong>There aren not atoms with values you mapped as images</strong>";
+    }
+    if (!is_valid_image_directory) {
+      html_table += `<strong> If you want to use images in visuaization you have to choose a valid image directory <strong>`;
     }
     return html_table;
   }
@@ -571,7 +579,7 @@ export class MatrixImagesCreatorGIF {
     console.log("Mapped atoms: " + mapping_list);
     console.log(
       "Maximum number answer set to convert in image: " +
-        max_num_of_as_to_convert
+      max_num_of_as_to_convert
     );
 
     let i: number = 0;
@@ -608,11 +616,9 @@ export class MatrixImagesCreatorGIF {
     this.base_styling = this.get_base_styling();
 
 
-    if (fs.existsSync(this.images_directory_path)) {
-      this.run_script(answer_set);
-    } else {
-      console.log("The image directory does not exists, please check the path");
-    }
+
+    this.run_script(answer_set);
+
   }
 }
 

@@ -64,7 +64,7 @@ describe('[matrix gif images creator] create_table_html method tests', () => { /
         let matrix: string[][] = [['pos00', 'pos01'], ['pos10', 'pos11']];
         //given a mapped atom 'cell'
         let mapped_atom: string = 'cell';
-        let expected_value: string = `<table><thead><tr class="titolo"><th>Visualization</th></tr></thead><tbody><tr></tr><tr></tr></tbody></table>`;
+        let expected_value: string = `<table><thead><tr class="titolo"><th>Visualization</th></tr></thead><tbody><tr></tr><tr></tr></tbody></table><strong> If you want to use images in visuaization you have to choose a valid image directory <strong>`;
         //when we call the function create_table_html
         let result = matrix_images_creator.create_table_html(matrix, mapped_atom);
         //then we expect the result to be equal to the expected value
