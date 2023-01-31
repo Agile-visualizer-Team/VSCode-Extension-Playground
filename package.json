@@ -1,5 +1,5 @@
 {
-  "name": "visualizer-asp",
+  "name": "@agile-visualizer-team/visualizer-asp",
   "displayName": "ASP Visualizer",
   "publisher": "ASP-VISTeam1",
   "repository": {
@@ -12,7 +12,11 @@
     "vscode": "^1.73.0"
   },
   "categories": [
-    "Other"
+    "Programming Languages",
+    "Other",
+    "Data Science",
+    "Visualization",
+    "Education"
   ],
   "activationEvents": [
     "onStartupFinished"
@@ -39,24 +43,12 @@
     },
     "commands": [
       {
-        "command": "asp-vis.helloWorld",
-        "title": "Hello World"
+        "title": "ASP Visualizer: Render using configuration file",
+        "command": "asp-vis.execute"
       },
       {
-        "command": "asp-vis.wrapper",
-        "title": "Wrapper"
-      },
-      {
-        "command": "asp-vis.save",
-        "title": "Template"
-      },
-      {
-        "command": "asp-vis.execute",
-        "title": "ASP Visualizer: Run with config file"
-      },
-      {
-        "command": "asp-vis.ffmpeg",
-        "title": "ASP Visualizer: Convert to gif"
+        "title": "ASP Visualizer: Convert image sequence to GIF",
+        "command": "asp-vis.ffmpeg"
       }
     ]
   },
@@ -74,7 +66,7 @@
     "b:webview": "echo ##### [BUILDING WEBVIEW] ##### && cd ./src/extension-main/svelte-app && npm run build",
     "build:all": "npm run b:graph && npm run b:matrix && npm run b:integrator && npm run b:wrapper",
     "compile": "npm run b:webview && py builder.py && webpack",
-    "vsix": "npm run b:webview && py builder.py && webpack && vsce package",
+    "vsix": "npm run b:webview && py builder.py && webpack --mode production --devtool hidden-source-map && vsce package",
     "compile:p": "npm run b:webview && py builder.py && webpack --mode production --devtool hidden-source-map",
     "compile:l": "python3 builder.py && webpack",
     "watch": "py builder.py && webpack --watch",
