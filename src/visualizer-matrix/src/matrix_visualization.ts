@@ -1,3 +1,5 @@
+import { render } from "./renderer";
+
 const path = require("path");
 const fs = require("fs");
 
@@ -110,18 +112,14 @@ export class MatrixCreator {
     if (!fs.existsSync(this.output_dir)) {
       fs.mkdirSync(this.output_dir, { recursive: true });
     }
-    this.node_html_to_image({
-      output: path.join(
-        this.output_dir,
-        "matrix_" + index + "_" + Date.now() + ".png"
-      ),
-      html: html_to_convert_in_image,
-      puppeteerArgs: { executablePath: process.env.CHROME_PATH },
-    }).then(() => {
-      return true;
-    });
 
-    return false;
+    render(
+      this.output_dir,
+      "matrix",
+      index,
+      html_to_convert_in_image,
+      process.env.CHROME_PATH
+    );
   }
 
   /**
@@ -432,7 +430,7 @@ export class MatrixCreator {
   ) {
     this.output_dir = output_directory;
     this.config_file = config_file;
-    this.style = this.get_config_style()
+    this.style = this.get_config_style();
     this.base_styling = this.get_base_styling();
     this.run_script(answer_set);
   }
