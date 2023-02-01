@@ -83,7 +83,7 @@ You can select this file in the dropdown menu to use it as a template for the ex
 
 After filling all the required fields (they should show up as green) you are ready to run the extension by using the **Run with config file** button.
 
-## Features:
+## Features
 
 The extension is capable of generating various visualizations, each with its own features.
 
