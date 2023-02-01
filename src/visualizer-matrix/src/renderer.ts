@@ -1,3 +1,4 @@
+import * as vscode from "vscode";
 const puppeteer = require("puppeteer-core");
 import * as os from "os";
 import * as path from "path";
@@ -11,7 +12,7 @@ export const render = async (
   chrome_exe: string | undefined
 ) => {
   if (!chrome_exe) {
-    console.log("Chrome executable path not set");
+    vscode.window.showErrorMessage("Chrome executable path not set");
     return;
   }
 
@@ -27,13 +28,17 @@ export const render = async (
   URL += os.platform() === "win32" ? uri.replace(/\\/g, "/") : uri;
 
   await page.goto(URL);
+  const timestamp = Date.now();
   await page.screenshot({
     path: path.join(
       output_dir,
-      vis_type + "_" + as_index + "_" + Date.now() + ".png"
+      vis_type + "-" + as_index + "-" + timestamp + ".png"
     ),
     fullPage: true,
   });
+  vscode.window.showInformationMessage(
+    vis_type + "-" + as_index + "-" + timestamp + ".png" + " saved"
+  );
   await browser.close();
 
   fs.rmSync(path.join(output_dir, vis_type + "_" + as_index + ".html"));
@@ -47,7 +52,7 @@ export const render_gif = async (
   chrome_exe: string | undefined
 ) => {
   if (!chrome_exe) {
-    console.log("Chrome executable path not set");
+    vscode.window.showErrorMessage("Chrome executable path not set");
     return;
   }
 

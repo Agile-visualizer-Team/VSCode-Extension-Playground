@@ -25,25 +25,20 @@ export function check_workspace() {
   }
 }
 
-function handle_folder_creation(asp_vis_folder: string) {
-  vscode.window
-    .showInformationMessage(
-      "ASP Visualizer folder not found",
-      "create folder",
-      "ignore"
-    )
-    .then((val) => {
-      switch (val) {
-        case "create folder":
-          createFolder(asp_vis_folder);
-          break;
-        case "ignore":
-          vscode.window.showErrorMessage(
-            "ASP Visualizer will not work without a local folder"
-          );
-          break;
-      }
-    });
+export function create_gif_script(asp_vis_folder: string) {
+  if (process.platform === "win32") {
+    fs.writeFileSync(
+      path.join(asp_vis_folder, "/gif.ps1"),
+      '$files = Get-ChildItem -Filter "*.png"\n$index = 0\nforeach ($file in $files) {\n$newName = "$index.png"\nRename-Item -Path $file.FullName -NewName $newName\n$index++\n}\nStart-Process -FilePath "ffmpeg.exe" -ArgumentList "-r 1 -start_number 0 -i %d.png ../answer_sets.gif -y"\n',
+      "utf8"
+    );
+  } else {
+    fs.writeFileSync(
+      path.join(asp_vis_folder, "/gif.sh"),
+      '#!/bin/bash\nfiles=$(ls *.png)\nindex=0\nfor file in $files\ndo\nnewName="$index.png"\nmv $file $newName\nindex=$((index+1))\ndone\nffmpeg -r 1 -start_number 0 -i "%d.png" ../answer_sets.gif -y',
+      "utf8"
+    );
+  }
 }
 
 export function createFolder(asp_vis_folder: string) {
@@ -51,18 +46,27 @@ export function createFolder(asp_vis_folder: string) {
     return;
   }
 
-  fs.mkdirSync(asp_vis_folder);
-  fs.writeFileSync(
-    path.join(asp_vis_folder, "/gif.ps1"),
-    '$files = Get-ChildItem -Filter "*.png"\n$index = 0\nforeach ($file in $files) {\n$newName = "$index.png"\nRename-Item -Path $file.FullName -NewName $newName\n$index++\n}\nStart-Process -FilePath "ffmpeg.exe" -ArgumentList "-r 1 -start_number 0 -i %d.png answer_sets.gif -y"\n',
-    "utf8"
-  );
-  fs.writeFileSync(
-    path.join(asp_vis_folder, "/gif.sh"),
-    '#!/bin/bash\nfiles=$(ls *.png)\nindex=0\nfor file in $files\ndo\nnewName="$index.png"\nmv $file $newName\nindex=$((index+1))\ndone\nffmpeg -r 1 -start_number 0 -i "%d.png" answer_sets.gif -y',
-    "utf8"
-  );
-  read_config();
+  vscode.window
+    .showErrorMessage(
+      "asp-vis folder not detected in the current workspace. Do you want to create it?",
+      "Create Folder",
+      "ignore"
+    )
+    .then((val) => {
+      if (val === "Create Folder") {
+        fs.mkdirSync(asp_vis_folder);
+        create_gif_script(asp_vis_folder);
+        read_config();
+      }
+
+      if (val === "ignore") {
+        vscode.window.showErrorMessage(
+          "ASP Visualizer will not work without a local folder"
+        );
+      }
+
+      return;
+    });
 }
 
 export function check_folder() {
@@ -72,7 +76,7 @@ export function check_folder() {
     let asp_vis_folder = path.join(folder_path, "asp-vis");
 
     if (!fs.existsSync(asp_vis_folder)) {
-      handle_folder_creation(asp_vis_folder);
+      createFolder(asp_vis_folder);
     }
   }
 }
@@ -116,6 +120,6 @@ export function read_config() {
         "chrome.exe"
       ),
     };
-    fs.writeFileSync(config_file, JSON.stringify(default_config));
+    fs.writeFileSync(config_file, JSON.stringify(default_config, null, 2));
   }
 }

@@ -19,7 +19,7 @@
     "Education"
   ],
   "activationEvents": [
-    "onStartupFinished"
+    "onView:viewId.asp-vis.webview"
   ],
   "main": "./dist/main.js",
   "contributes": {

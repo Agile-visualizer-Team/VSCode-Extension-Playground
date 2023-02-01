@@ -106,7 +106,8 @@
 			id="template-btn">Template File</button
 		>
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
-		<button type="button"
+		<button
+			type="button"
 			on:click={() => {
 				window.scrollTo(0, 0);
 				blinkSelect();
@@ -190,11 +191,16 @@
 	}
 
 	:disabled {
+		color: #555555;
+		border: 1px solid #555555;
 		cursor: not-allowed;
 		background-color: unset;
 	}
 
 	:disabled:hover {
+		color: #555555;
+		border: 1px solid #555555;
+		cursor: not-allowed;
 		background-color: unset;
 	}
 </style>

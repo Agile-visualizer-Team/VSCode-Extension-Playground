@@ -6,15 +6,6 @@ export class DLVWrapper {
     return "" + execSync(`"${dlv_path}" -n ${as_num} "${asp_file}"`);
   }
 
-  /**
-   * It takes dlv output as input, splits it into lines, then for each line it checks if there's a match
-   * for an answer set or an answer set cost, and if there is, it extracts the answer set or the cost and
-   * puts it into the result object
-   * @param {string} dlv_output - string
-   * @returns an object with two properties:
-   * - as: an array of strings, each string is an answer set
-   * - cost: a string, the cost of the answer set
-   */
   parse_dlv_as(dlv_output: string) {
     let splitted_output = dlv_output.split("\n");
     let result_object: { [id: string]: any } = {
@@ -51,11 +42,6 @@ export class DLVWrapper {
     );
   }
 
-  /**
-   * It takes the path to the dlv executable and the path to the asp file, runs dlv on the asp file,
-   * parses the answer set, and writes the parsed answer set to a file
-   * @param {any} argv - any
-   */
   execute(argv: any) {
     let res = this.run_dlv(argv.dlv_path, argv.asp_file, argv.as_number);
     let split_multiple_as = res.split(/(?<=COST \d+@\d+)/);
@@ -99,5 +85,3 @@ export function run_solver(
   };
   return new DLVWrapper().execute(argv);
 }
-
-

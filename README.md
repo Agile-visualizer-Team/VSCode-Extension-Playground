@@ -1,126 +1,170 @@
 # Visualizer ASP Extension User Manual
-This extension allows you to convert your **ASP answer sets** into various **visualizations**. The available visualizations are:
-* **Graph** - a graph representation of the answer set
-* **Table** - a table representation of the answer set
-* **Matrix** - a matrix representation of the answer set
-* **Image** - a image representation of the answer set
-* **Gif** - a gif representation of the image answer set
 
-The visualizations have some customizations available, such as the ability to change the **color** of the nodes and edges, the **theme**, the **color** of the table, and the ability to choose to use images or colors for AS visualization.
+This extension allows you to convert your **ASP answer sets** into various **visualizations**, such as:
 
-## Installation dependencies
-In order to use this extension, you need to have the following installed:
-* [DLV Solver](https://dlv.demacs.unical.it/home)
-* A Chromium-based browser (Google Chrome, Microsoft Edge, etc.)
-* [FFMPEG](https://ffmpeg.org/) (optional for GIF creation)
+- **Graph** - a graph representation of the answer set
+- **Table** - a table representation of the answer set
+- **Matrix** - a matrix representation of the answer set
+- **Image** - a image representation of the answer set
+- **GIF** - a gif representation of the image answer set
 
-# Getting Started:
-## Extension Folder
-At the start of the extension, you will be required to **create a folder for the extension's files**. This folder will be used to store the *configuration files* to run the extension with the same setting every time. 
+Various degrees of customization are avaliable, such as the ability to change the **color** of the nodes and edges, the **theme**, the **color** of the table, and the ability to use images or colors for AS visualization.
+
+## Dependencies
+
+In order to use this extension, you need to have the following:
+
+- [DLV Solver](https://dlv.demacs.unical.it/home)
+- A Chromium-based browser (Google Chrome is suggested, Microsoft Edge, etc.)
+- [FFMPEG](https://ffmpeg.org/) (needed, and visible in PATH variable, but only for GIF creation)
+
+## Getting Started
+
+### Extension Folder
+
+When using the extension you will be required to **create a folder for the extension's files**. This folder will be used to store the _configuration files_ to run the extension with the same setting every time.
 
 ![Popup](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/popup.png)
 
-## Initial configuration
+### Initial configuration
+
 After creating the folder for the extension's files, the extension will look like this:
 ![initial](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/Initial%20setup.png)
 
-### Linux Gif
-In order to allow the gif creation you need to **set execute permission on gif.sh script contained in the extension folder** (the one that the extension creates when you start it), the execute permission can be setted in this way:
-* **chmod +x gif.sh**
+#### Linux Gif
 
-All the **mandatory** settings are marked with the *required* keyword. In particular, you need to set the following:
+In order to allow the gif creation you need to set **execution permission** on the `gif.sh` script inside `asp-vis/`, the execution permission can be set by running the following command:
 
-* \# of Answer Sets: the number of answer sets to be visualized
-* Solver Path: the path to the DLV solver based on the operating system you are using. 
-* Program File: the path to the ASP program file that contains the rules and facts to be visualized
-* Output directory: the path to the folder where the visualizations will be saved
-* Chrome Executable: the path to the Chrome executable file based on the Chromium-based browser you are using.
-* Template file: the path to the file containing the mapping for the execution to be runned. It's suggested to **generate the file using the extension** appropriate menu.
-    * The first dropdown menu allows you to choose the type of visualization you want to generate. 
-    * Clicking **Save template file** will ask you a name for the json file that will be saved in the extension's folder. 
-    * You can select this file in the dropdown menu to use it as a template for the execution.
-    
-    ![Gif template file](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/gif%20template.gif)
-* Image Directory: the path to the folder containing the images to be used in the image visualization. It's suggested to name the files in the folder with the same name of the node in the ASP program in order to have an easier configuration.
-    
-After all of this you are ready to run the extension with the template file you just created. 
+```bash
+chmod +x gif.sh
+```
 
+## Suggestions
 
-# Features:
-The extension is capable of generating various visualizations, each with its own features. 
+All the **mandatory** settings are marked with the _required_ keyword. In particular, you need to set the following:
 
-## Graph
-In the **Graph** menu it's possible to *Add* or *Remove* nodes and edges from the visualization.
+### \# of Answer Sets
+
+the number of answer sets to be visualized
+
+### Solver Path
+
+the path to the DLV solver based on the operating system you are using.
+
+### Program File
+
+the path to the ASP program file that contains the rules and facts to be visualized
+
+### Output directory
+
+the path to the folder where the visualizations will be saved
+
+### Chrome Executable
+
+the path to the Chrome executable file based on the Chromium-based browser you are using.
+
+### Template file
+
+the path to the file containing the mapping for the execution to be run. It's suggested to **generate the file** using the **extension's dropdown menu**.
+
+### Image Directory
+
+the path to the folder containing the images to be used in the image visualization. It's suggested to name the files in the folder with the same name of the node in the ASP program in order to have an easier configuration.
+
+## Using the extension
+
+The **dropdown menu** allows you to choose the **type of visualization** you want to generate.
+
+Clicking **Save template file** will prompt you to choose a name for the _json file_ that will be saved in the extension's folder.
+
+You can select this file in the dropdown menu to use it as a template for the execution.
+
+![Gif template file](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/gif%20template.gif)
+
+After filling all the required fields (they should show up as green) you are ready to run the extension by using the **Run with config file** button.
+
+## Features:
+
+The extension is capable of generating various visualizations, each with its own features.
+
+### Graph
+
+In the **Graph** menu it's possible to _Add_ or _Remove_ nodes and edges from the visualization.
 
 It's is possible to set the **name of the atom** and, for each atom, add or remove **arguments**.
 
 For each node, it's possible to style it with different color for:
-* Root node
-* Leaves node
-* Non root node
 
-For each edge, you can set the **atom name** and the **attributes** for each edge. It's possible to setup the color of the edges and to choose if the edge is **oriented or not**.
+- Root node
+- Leaves node
+- Non root node
+
+For each edge, you can set the **atom name** and the **attributes** for each edge. It's possible to setup the color of the edges and to choose if the edge is **oriented** too.
 
 ![Screen graph](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/graph.png)
-## Table
 
-In the **Table** menu it's possible to *Add* or *Remove* cells from the visualization. It's mandatory to map the cells to the atoms in the ASP program.
+### Table
+
+In the **Table** menu it's possible to _Add_ or _Remove_ cells from the visualization. It's mandatory to map the cells to the atoms in the ASP program.
 
 In the Table Mapping section, it's possible to setup the columns of the table and set a name for each coulmn.
 
-It's possible to style the table with:
-* The color of the table's header
-* The font size
-* The font family
-* The font weight
-* Choose to use dark mode or not
+It is possible to style the table by changing:
+
+- The color of the table's header
+- The font size
+- The font family
+- The font weight
+- Theme (dark or light)
 
 ![Screen table](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/table.png)
+
 ## Matrix
 
-In the **Matrix** menu it's possible to *Add* or *Remove* cells from the visualization. It's mandatory to map the cells to the atoms in the ASP program.
+In the **Matrix** menu it's possible to _Add_ or _Remove_ cells from the visualization. It's mandatory to map the cells to the atoms in the ASP program.
 
 Here is added the possiblity to choose the **number of answer sets to compute**.
 
-It's possible to style the matrix with:
-* The color of the table's header
-* The font size
-* The font family
-* The font weight
-* Choose to use dark mode or not
+It's possible to style the matrix by changing:
+
+- The color of the table's header
+- The font size
+- The font family
+- The font weight
+- Theme (dark or light)
 
 ![Screen matrix](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/matrix.png)
 
-
 ## Matrix Image
 
-In the **Matrix Image** menu it's possible to *Add* or *Remove* cells from the visualization. It's mandatory to map the cells to the atoms in the ASP program.
+In the **Matrix Image** menu it's possible to _Add_ or _Remove_ cells from the visualization. It's mandatory to map the cells to the atoms in the ASP program.
 
-Here is added the possiblity to choose the **number of answer sets to compute**.
+Here is added the possiblity to choose the maximum **number of answer sets to compute**.
 
-It's possible to choose to use images or colors for the visualization.
+It's possible to use images or colors for the visualization.
 
- If you choose to use images, you need to set the **image directory** in the initial configuration. Plus, you need to set the **image name** for each attribute.
+If you choose to use images, you need to set the **image directory** in the initial configuration. Plus, you need to set the **image name** for each attribute.
 
- If you choose to use colors, you need to set the **color** for each attribute.
+If you choose to use colors, you need to set the **color** for each attribute.
 
-It's possible to style the matrix changing:
-* The color of the table's header
-* The font size
-* The font family
-* The font weight
-* Choose to use dark mode or not
+It's possible to style the matrix by changing:
 
-It's possible to **check** the *Make image sequence* checkbox to prepare the files for the gif creation.
+- The color of the table's header
+- The font size
+- The font family
+- The font weight
+- Theme (dark or light)
+
+It's possible to **check** the _Make image sequence_ checkbox to prepare the files for the gif creation.
 
 ![Matrix images screen](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/matrix_image.png)
 
+## Graph template documentation and advanced usages
 
+For advanced usages, instead of using the UI you can create a JSON template manually to achieve deeper customization.
 
+### JSON template
 
-# Graph template documentation and advanced usages
-For advanced usages, instead of using the UI you can create a JSON template to achieve a fine grained personalization. 
-## JSON template
 ```json
 {
     "template": "graph",
@@ -162,43 +206,51 @@ For advanced usages, instead of using the UI you can create a JSON template to a
     ]
 }
 ```
-## JSON Parameters explaination
-* **layout**: 
-    * Specifies the layout of the nodes in the output image
-    * Can be **dagre** or **avsdf** 
-    * Required: True
 
-* **atom.name**:
-    * Name of the atom that we want to map as a nodes/edge of the graph
-    * Pattern: **"^[A-Za-z][A-Za-z0-9\_]{0,19}$"**
-    * Required: False, if omitted the atom **node** will be mapped by default
+### JSON Parameters explaination
 
-* **nodes.atom.variables**:
-    * Represents the predicates of the atom
-    * Must contain at least **label**
-    * Can contain **color** to specify the color of the node
-    * Other user defined parameters can be referred inside **IF condition operators**
-    * Example: node(name,Y,color), we can map X as the node label using variables = ['label', 'param1','color'].
-    * Required: False, if omitted ['label'] is used
-* **style**:
-    * Required: False, the default style is used
+- **layout**:
 
-* **node_type**:
-    * Can be **root**, **non-root**, **leaf**, **all** and specify what type of node we want to target with this specific style
+  - Specifies the layout of the nodes in the output image
+  - Can be **dagre** or **avsdf**
+  - **Required**: True
 
-* **edges.atom.variables**:
-    * Represents the predicates of the atom
-    * Must contain at least **from** and **to**
-    * Can contain **color** to specify the color of the edge
-    * Can contain **weight** to specify the weight of the edge
-    * Other user defined parameters can be referred inside **IF condition operators**
-    * Required: False, if omitted ['from', 'to'] is used
+- **atom.name**:
 
-* **oriented**:
-    * True if the graph is oriented, false otherwise 
-    * Required: False, if omitted the default value is True
+  - Name of the atom that we want to map as a nodes/edge of the graph
+  - **Pattern**: **"^\[A-Za-z][a-za-z0-9\_]{0,19}$"**
+  - **Required**: False (if omitted the atom **node** will be mapped by default)
 
-## IF condition operators
+- **nodes.atom.variables**:
+  - Represents the predicates of the atom
+  - Must contain at least **label**
+  - Can contain **color** to specify the color of the node
+  - Other user defined parameters can be referred inside **IF condition operators**
+  - **Example**: node(name,Y,color), we can map X as the node label using variables = ['label', 'param1','color'].
+  - **Required**: False, if omitted ['label'] is used
+- **style**:
+
+  - **Required**: False, the default style is used
+
+- **node_type**:
+
+  - Can be **root**, **non-root**, **leaf**, **all** to specify what type of node we want to target with this specific style
+
+- **edges.atom.variables**:
+
+  - Represents the predicates of the atom
+  - Must contain at least **from** and **to**
+  - Can contain **color** to specify the color of the edge
+  - Can contain **weight** to specify the weight of the edge
+  - Other user defined parameters can be referred inside **IF condition operators**
+  - **Required**: False, if omitted ['from', 'to'] is used
+
+- **oriented**:
+  - True if the graph is oriented, false otherwise
+  - **Required**: False, if omitted the default value is True
+
+### IF condition operators
+
 Is it possible to specify colors of root, leaves and non-root by using simple if conditions. Only the first satisfied condition is applied, if none of the if conditions are met then the else is executed.
 | IF Condition operator | Description and example |
 |-----------------------|-------------------------|
@@ -210,77 +262,83 @@ Is it possible to specify colors of root, leaves and non-root by using simple if
 | `lte: 25` | True if the fact variable is less than `25` or equal to `25`, example: `25` or `24` |
 | `gt: 50` | True if the fact variable is greater than `50`, example: `51` |
 | `gte: 50` | True if the fact variable is greater than `50` or equal to `50`, example: `51` or `52` |
-## JSON template example
+
+### JSON template example
+
 ```json
 {
-    "template": "graph",
-    "layout": "dagre",
-    "nodes": [
-        {
-            "atom": {
-                "name": "inNode",
-                "variables": ["label", "weight"]
-            },
-            "style": {
-                "color": {
-                    "root": {
-                        "if": [
-                            {"variable": "label", "matches": "a", "then": "green"}
-                        ],
-                        "else": "orange"
-                    },
-                    "nonRoot": {
-                        "if": [
-                            {"variable": "weight", "lte": 5, "then": "yellow"},
-                            {"variable": "weight", "gt": 6, "then": "red"}
-                        ],
-                        "else": "orange"
-                    }
-                }
-            }
-        },
-        {
-            "atom": {
-                "name": "outNode",
-                "variables": ["label"]
-            },
-            "style": {
-                "color": {
-                    "all": "grey"
-                }
-            }
+  "template": "graph",
+  "layout": "dagre",
+  "nodes": [
+    {
+      "atom": {
+        "name": "inNode",
+        "variables": ["label", "weight"]
+      },
+      "style": {
+        "color": {
+          "root": {
+            "if": [{ "variable": "label", "matches": "a", "then": "green" }],
+            "else": "orange"
+          },
+          "nonRoot": {
+            "if": [
+              { "variable": "weight", "lte": 5, "then": "yellow" },
+              { "variable": "weight", "gt": 6, "then": "red" }
+            ],
+            "else": "orange"
+          }
         }
-    ],
-    "edges": [
-        {
-            "atom": {
-                "name": "inEdge",
-                "variables": ["from", "to", "weight","my_predicate"]
-            },
-            "style": {
-                "color": {
-                    "if": [
-                        {"variable": "weight", "gte": 6, "then": "red"},
-                        {"variable": "weight", "gte": 4, "then": "orange"},
-                        {"variable": "weight", "gte": 2, "then": "yellow"},
-                        {"variable": "my_predicate", "icontains": "example", "then": "purple"}
-                    ],
-                    "else": "green"
-                },
-                "oriented": true
-            }
-        },
-        {
-            "atom": {
-                "name": "outEdge",
-                "variables": ["from", "to", "color"]
-            }
+      }
+    },
+    {
+      "atom": {
+        "name": "outNode",
+        "variables": ["label"]
+      },
+      "style": {
+        "color": {
+          "all": "grey"
         }
-    ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "atom": {
+        "name": "inEdge",
+        "variables": ["from", "to", "weight", "my_predicate"]
+      },
+      "style": {
+        "color": {
+          "if": [
+            { "variable": "weight", "gte": 6, "then": "red" },
+            { "variable": "weight", "gte": 4, "then": "orange" },
+            { "variable": "weight", "gte": 2, "then": "yellow" },
+            {
+              "variable": "my_predicate",
+              "icontains": "example",
+              "then": "purple"
+            }
+          ],
+          "else": "green"
+        },
+        "oriented": true
+      }
+    },
+    {
+      "atom": {
+        "name": "outEdge",
+        "variables": ["from", "to", "color"]
+      }
+    }
+  ]
 }
 ```
+
 This template can be used to visualize this answer set
-```
+
+```c++
 inNode(a).
 inNode(b).
 inNode(g).
@@ -298,12 +356,15 @@ outEdge(c,d,4).
 outEdge(e,h,19).
 outEdge(b,g,8).
 ```
+
 Resulting in this output image
 
 ![Graph images examples](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/graph-example.png)
 
-# Matrix, Table and Images visualization template documentation
+## Matrix, Table and Images visualization template documentation
+
 ## Matrix visualization template
+
 ```json
 {
     "template" : "matrix",
@@ -318,51 +379,62 @@ Resulting in this output image
     }
 }
 ```
+
 ### Matrix template parameters explaination
-* **cell**: 
-    * Array of atom names that will be mapped into a matrix, every atom will be mapped in a different matrix. All the mapped atoms must be of arity 3, having fields row, column, value.
-    * Required: True
 
-* **maxNumOfAnswerSetToConvert**:
-    * Number of maximum answer set mapped into an image
-    * Required: True
+- **cell**:
 
-* **style.header_color**:
-    * Color of the matrix header
-    * Required: False
+  - Array of atom names that will be mapped into a matrix, every atom will be mapped in a different matrix. All the mapped atoms must be of arity 3, having fields row, column, value.
+  - **Required**: True
 
-* **style.header_font_size**:
-    * Font size of the matrix header
-    * Required: False
-    
-* **style.header_font_family**:
-    * Font family of the matrix header
-    * Required: False
+- **maxNumOfAnswerSetToConvert**:
 
-* **style.header_font_weight**:
-    * Font weight of the matrix header
-    * Required: False
-    
-* **style.dark_mode**:
-    * True if we want dark theme, false otherwise
-    * Required: True
-## Matrix template example
+  - Number of maximum answer set mapped into an image
+  - **Required**: True
+
+- **style.header_color**:
+
+  - Color of the matrix header
+  - **Required**: False
+
+- **style.header_font_size**:
+  - Font size of the matrix header
+  - **Required**: False
+- **style.header_font_family**:
+
+  - Font family of the matrix header
+  - **Required**: False
+
+- **style.header_font_weight**:
+
+  - Font weight of the matrix header
+  - **Required**: False
+
+- **style.dark_mode**:
+
+  - True if we want dark theme, false otherwise
+  - **Required**: True
+
+### Matrix template example
+
 ```json
 {
-    "template" : "matrix",
-    "cell" : ["cell", "cell2"],
-    "maxNumOfAnswerSetToConvert" : 4,
-    "style": {
-        "header_color": "#b41b22",
-        "header_font_size": 20,
-        "header_font_family": "Arial",
-        "header_font_weight": "bold",
-        "dark_mode": true
-      }
+  "template": "matrix",
+  "cell": ["cell", "cell2"],
+  "maxNumOfAnswerSetToConvert": 4,
+  "style": {
+    "header_color": "#b41b22",
+    "header_font_size": 20,
+    "header_font_family": "Arial",
+    "header_font_weight": "bold",
+    "dark_mode": true
+  }
 }
 ```
+
 We can use this template to map the following answer set
-```
+
+```c++
 cell(0,0, hello_cell1).
 cell(0,1,hello_cell2).
 cell(0,2,hello_cell3).
@@ -376,10 +448,12 @@ cell2(1,0,hello_cell2_3).
 cell2(1,1,hello_cell2_4).
 cell2(1,2,hello_cell2_5).
 ```
+
 Resulting in the following image
 ![Matrix images examples](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/matrix_example.png)
 
 ## Table visualization template
+
 ```json
 {
     "template": "table",
@@ -399,62 +473,74 @@ Resulting in the following image
     }
 }
 ```
-### Matrix template parameters explaination
-* **cell**: 
-    * Array of atom names that will be mapped into a table, every atom will be mapped in a different table
-    * Required: True
 
-* **maxNumOfAnswerSetToConvert**:
-    * Number of maximum answer set mapped into an image
-    * Required: True
+### Table template parameters explaination
 
-* **style.header_color**:
-    * Color of the table header
-    * Required: False
+- **cell**:
 
-* **style.header_font_size**:
-    * Font size of the table header
-    * Required: False
-    
-* **style.header_font_family**:
-    * Font family of the table header
-    * Required: False
+  - Array of atom names that will be mapped into a table, every atom will be mapped in a different table
+  - **Required**: True
 
-* **style.header_font_weight**:
-    * Font weight of the table header
-    * Required: False
-    
-* **style.dark_mode**:
-    * True if we want dark theme, false otherwise
-    * Required: True
-* **table_field_mapping**:
-    * Dictionary of indexes and corresponding names that we want to give to each column
-    * Required: True (but could be empty)
+- **maxNumOfAnswerSetToConvert**:
+
+  - Number of maximum answer set mapped into an image
+  - **Required**: True
+
+- **style.header_color**:
+
+  - Color of the table header
+  - **Required**: False
+
+- **style.header_font_size**:
+
+  - Font size of the table header
+  - **Required**: False
+
+- **style.header_font_family**:
+
+  - Font family of the table header
+  - **Required**: False
+
+- **style.header_font_weight**:
+
+  - Font weight of the table header
+  - **Required**: False
+
+- **style.dark_mode**:
+
+  - True if we want dark theme, false otherwise
+  - **Required**: True
+
+- **table_field_mapping**:
+
+  - Dictionary of indexes and corresponding names that we want to give to each column
+  - **Required**: True (but can be empty)
+
 ## Table template example
+
 ```json
 {
-    "template": "table",
-    "maxNumOfAnswerSetToConvert": 4,
-    "cell": [
-        "cell",
-        "cell2"
-    ],
-    "style": {
-        "header_color": "#b41b22",
-        "header_font_size": 20,
-        "header_font_family": "Arial",
-        "header_font_weight": "bold",
-        "dark_mode": true
-    },
-    "table_field_mapping": {
-        "0": "column 1",
-        "1": "column 2",
-        "2": "column 3"
-    }
+  "template": "table",
+  "maxNumOfAnswerSetToConvert": 4,
+  "cell": ["cell", "cell2"],
+  "style": {
+    "header_color": "#b41b22",
+    "header_font_size": 20,
+    "header_font_family": "Arial",
+    "header_font_weight": "bold",
+    "dark_mode": true
+  },
+  "table_field_mapping": {
+    "0": "column 1",
+    "1": "column 2",
+    "2": "column 3"
+  }
 }
 ```
+
 We can use this template to map the following answer set
-```
+
+```c++
 cell(0,0, hello_cell1).
 cell(0,1,hello_cell2).
 cell(0,2,hello_cell3).
@@ -468,10 +554,12 @@ cell2(1,0,hello_cell2_3).
 cell2(1,1,hello_cell2_4).
 cell2(1,2,hello_cell2_5).
 ```
+
 Resulting in the following image
 ![Table images examples](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/table_example.png)
 
 ## Image/GIF visualization template
+
 ```json
 {
     "template": "matrix_images | gif",
@@ -495,69 +583,87 @@ Resulting in the following image
     }
 }
 ```
+
 ### Image/GIF template parameters explaination
-* **cell**: 
-    * Array of atom names that will be mapped into an image, every atom will be mapped in a different image. All mapped atoms must be of arity 3 having row, column, value order if matrix_images is used, otherwise if gif is used then they must be of arity 4 having on fourth place also the "time" to build the image sequence, like time 1, 2 and so on.
-    * Required: True
 
-* **maxNumOfAnswerSetToConvert**:
-    * Number of maximum answer set mapped into an image
-    * Required: True
+- **cell**:
 
-* **style.header_color**:
-    * Color of the image header
-    * Required: False
+  - Array of atom names that will be mapped into an image, every atom will be mapped in a different image. All mapped atoms must be of arity 3 having row, column, value order if matrix_images is used, otherwise if gif is used then they must be of arity 4 having on fourth place also the "time" to build the image sequence, like time 1, 2 and so on.
+  - **Required**: True
 
-* **style.header_font_size**:
-    * Font size of the image header
-    * Required: False
-    
-* **style.header_font_family**:
-    * Font family of the image header
-    * Required: False
+- **maxNumOfAnswerSetToConvert**:
 
-* **style.header_font_weight**:
-    * Font weight of the image header
-    * Required: False
-    
-* **style.dark_mode**:
-    * True if we want dark theme, false otherwise
-    * Required: True
-* **useImages**:
-    * If true, colors_binding is skipped and images_binding is used
-    * Required: False, colors_binding will be used by default
-* **color_binding**:
-    * If useImages is False, we can map an atom value to a color, so, if we have cell(X,Y,wall), we can specify "wall": "#FFFFFF" to visualize all mapped atoms that contains wall with the specified color
-    * Required: False if useImages is True
-* **images_binding**:
-    * If useImages is True, we can map an atom value to an image, so, if we have cell(X,Y,wall), we can specify "wall": "wall.png" to visualize all mapped atoms that contains wall as the specified image. NB: the images directory path is given inside the config file of the extension.
-    * Required: False if useImages is False
+  - Number of maximum answer set mapped into an image
+  - **Required**: True
 
-## Images/GIF template example
+- **style.header_color**:
+
+  - Color of the image header
+  - **Required**: False
+
+- **style.header_font_size**:
+
+  - Font size of the image header
+  - **Required**: False
+
+- **style.header_font_family**:
+
+  - Font family of the image header
+  - **Required**: False
+
+- **style.header_font_weight**:
+
+  - Font weight of the image header
+  - **Required**: False
+
+- **style.dark_mode**:
+
+  - True if we want dark theme, false otherwise
+  - **Required**: True
+
+- **useImages**:
+
+  - If true, colors_binding is skipped and images_binding is used
+  - **Required**: False, colors_binding will be used by default
+
+- **color_binding**:
+
+  - If useImages is False, we can map an atom value to a color, so, if we have cell(X,Y,wall), we can specify "wall": "#FFFFFF" to visualize all mapped atoms that contains wall with the specified color
+  - **Required**: False if useImages is True
+
+- **images_binding**:
+
+  - If useImages is True, we can map an atom value to an image, so, if we have cell(X,Y,wall), we can specify "wall": "wall.png" to visualize all mapped atoms that contains wall as the specified image. NB: the images directory path is given inside the config file of the extension.
+  - **Required**: False if useImages is False
+
+### Images/GIF template example
+
+Example 1
+
 ```json
 {
-    "template": "matrix_images",
-    "maxNumOfAnswerSetToConvert": 4,
-    "cell": [
-        "cell"
-    ],
-    "style": {
-        "header_color": "#b41b22",
-        "header_font_size": 20,
-        "header_font_family": "Arial",
-        "header_font_weight": "bold",
-        "dark_mode": true
-    },
-    "useImages": true,
-    "images_binding": {
-        "wall": "wall.png",
-        "floor": "floor.png",
-        "man": "hero.png"
-    }
+  "template": "matrix_images",
+  "maxNumOfAnswerSetToConvert": 4,
+  "cell": ["cell"],
+  "style": {
+    "header_color": "#b41b22",
+    "header_font_size": 20,
+    "header_font_family": "Arial",
+    "header_font_weight": "bold",
+    "dark_mode": true
+  },
+  "useImages": true,
+  "images_binding": {
+    "wall": "wall.png",
+    "floor": "floor.png",
+    "man": "hero.png"
+  }
 }
 ```
+
 We can use this template to map the following answer set
-```
+
+```c++
 cell(0,0,wall).
 cell(0,1,wall).
 cell(0,2,wall).
@@ -601,59 +707,64 @@ cell(6,3,floor).
 cell(6,4,floor).
 cell(6,5,wall).
 ```
+
 Resulting in the following image
 ![Image images examples](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/image_example.png)
 
-Instead, if we use
+Example 2
+
 ```json
 {
-    "template": "matrix_images",
-    "maxNumOfAnswerSetToConvert": 4,
-    "cell": [
-        "cell"
-    ],
-    "style": {
-        "header_color": "#b41b22",
-        "header_font_size": 20,
-        "header_font_family": "Arial",
-        "header_font_weight": "bold",
-        "dark_mode": true
-    },
-    "useImages": false,
-    "colors_binding": {
-        "wall": "#b41b22",
-        "floor": "#FFFFFF",
-        "man": "#000000"
-    },
+  "template": "matrix_images",
+  "maxNumOfAnswerSetToConvert": 4,
+  "cell": ["cell"],
+  "style": {
+    "header_color": "#b41b22",
+    "header_font_size": 20,
+    "header_font_family": "Arial",
+    "header_font_weight": "bold",
+    "dark_mode": true
+  },
+  "useImages": false,
+  "colors_binding": {
+    "wall": "#b41b22",
+    "floor": "#FFFFFF",
+    "man": "#000000"
+  }
 }
 ```
+
 We get the following output
 ![Color images examples](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/color_example.png)
+
+#### Example GIF Template
+
 If we want to use GIFs we can build the template as follows:
+
 ```json
 {
-    "template": "gif",
-    "maxNumOfAnswerSetToConvert": 4,
-    "cell": [
-        "cell"
-    ],
-    "style": {
-        "header_color": "#b41b22",
-        "header_font_size": 20,
-        "header_font_family": "Arial",
-        "header_font_weight": "bold",
-        "dark_mode": true
-    },
-    "useImages": false,
-    "colors_binding": {
-        "wall": "#b41b22",
-        "floor": "#FFFFFF",
-        "man": "#000000"
-    },
+  "template": "gif",
+  "maxNumOfAnswerSetToConvert": 4,
+  "cell": ["cell"],
+  "style": {
+    "header_color": "#b41b22",
+    "header_font_size": 20,
+    "header_font_family": "Arial",
+    "header_font_weight": "bold",
+    "dark_mode": true
+  },
+  "useImages": false,
+  "colors_binding": {
+    "wall": "#b41b22",
+    "floor": "#FFFFFF",
+    "man": "#000000"
+  }
 }
 ```
+
 And using this answer set:
-```
+
+```c++
 cell(0,0,wall,1).
 cell(0,1,wall,1).
 cell(0,2,floor,1).
@@ -691,6 +802,15 @@ cell(2,1,floor,3).
 cell(2,2,man,3).
 cell(2,3,wall,3).
 ```
+
 We will have this result
 ![Gif images examples](https://raw.githubusercontent.com/Agile-visualizer-Team/visualizer-asp/master/usermanual/gif_example.gif)
+
 The images binding can be used as explained before.
+
+## Known issues
+
+- gif creation is not working on windows if the path contains spaces
+- when rendering using the gif template, the previous images in the folder will be overwritten
+- it is possible to see graphical bugs depending on the theme that is used in VSCode and the dimensions of the sidebar
+- more...

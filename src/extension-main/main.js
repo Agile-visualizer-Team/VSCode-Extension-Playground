@@ -90,7 +90,7 @@
         config_ta.value = JSON.stringify(config, null, 2);
         break;
       case "folder_check":
-        //set folder button to disabled if the folder is not set
+        //set folder button to disabled if the folder does not exist
         folder.disabled = message.value;
         break;
     }
