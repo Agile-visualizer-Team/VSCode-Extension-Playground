@@ -13,7 +13,7 @@ export const render = async (
 ) => {
   if (!chrome_exe) {
     vscode.window.showErrorMessage("Chrome executable path not set");
-    return;
+    return false;
   }
 
   fs.writeFileSync(
@@ -42,6 +42,7 @@ export const render = async (
   await browser.close();
 
   fs.rmSync(path.join(output_dir, vis_type + "_" + as_index + ".html"));
+  return true;
 };
 
 export const render_gif = async (
@@ -53,7 +54,7 @@ export const render_gif = async (
 ) => {
   if (!chrome_exe) {
     vscode.window.showErrorMessage("Chrome executable path not set");
-    return;
+    return false;
   }
 
   fs.writeFileSync(
@@ -75,4 +76,5 @@ export const render_gif = async (
   await browser.close();
 
   fs.rmSync(path.join(output_dir, "gif", as + "_" + time + ".html"));
+  return true;
 };
