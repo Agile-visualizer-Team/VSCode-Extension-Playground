@@ -451,15 +451,14 @@ export class MatrixImagesCreatorGIF {
     this.style = this.get_config_style();
     this.base_styling = this.get_base_styling();
 
-    if (fs.existsSync(this.images_directory_path)) {
-      this.run_script(answer_set);
-    } else {
+    if (!fs.existsSync(this.images_directory_path) && this.config_file.useImages) {
       vscode.window.showErrorMessage(
         "The image directory does not exists, please check the path"
-      );
-    }
+      );    } 
+      else{
+        this.run_script(answer_set);
+      }
 
-    this.run_script(answer_set);
   }
 }
 
