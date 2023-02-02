@@ -1,5 +1,5 @@
 {
-  "name": "visualizer-asp",
+  "name": "@Agile-visualizer-Team/agile_visualizer_matrix_visualizaton",
   "displayName": "ASP Visualizer",
   "publisher": "ASP-VISTeam1",
   "repository": {
@@ -7,7 +7,7 @@
     "url": "https://github.com/Agile-visualizer-Team/visualizer-asp"
   },
   "description": "",
-  "version": "1.2.4",
+  "version": "1.4.2069",
   "engines": {
     "vscode": "^1.73.0"
   },
