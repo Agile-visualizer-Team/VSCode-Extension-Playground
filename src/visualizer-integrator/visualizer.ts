@@ -1,3 +1,4 @@
+import * as vscode from "vscode";
 const fs = require("fs");
 const path = require("path");
 import { run_solver } from "../wrapper-dlv/dlv_wrapper";
@@ -7,14 +8,22 @@ import { MatrixCreator } from "../visualizer-matrix/src/matrix_visualization";
 import { MatrixImagesCreatorGIF } from "../visualizer-matrix/src/matrix_images_gif_visualization";
 import { renderGraph } from "../visualizer-graph/src/script";
 
-export function callNode(template_file_path: string, asp_file_path: string, dlv_path: string, as_number: number, out_dir: string, image_directory: string) {
-  console.log("Running dlv...");
+export function callNode(
+  template_file_path: string,
+  asp_file_path: string,
+  dlv_path: string,
+  as_number: number,
+  out_dir: string,
+  image_directory: string
+) {
+  vscode.window.showInformationMessage("Running solver");
   let solver_result: any = run_solver(dlv_path, asp_file_path, "", as_number);
-
   let template_file = JSON.parse(fs.readFileSync(template_file_path, "utf8"));
 
   const visualization_type: string = template_file.template;
-  console.log(`Requested visualization: ${template_file.template}`);
+  // vscode.window.showInformationMessage(
+  //   `Requested visualization: ${template_file.template}`
+  // );
 
   switch (visualization_type) {
     case "graph":
@@ -54,7 +63,7 @@ export function callNode(template_file_path: string, asp_file_path: string, dlv_
         out_dir
       );
       break;
-      
+
     default:
       console.error(`Template unknown: ${template_file.template}`);
       break;

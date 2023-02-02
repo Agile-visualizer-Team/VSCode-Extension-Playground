@@ -1,11 +1,12 @@
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte';
 
 	export let content = 'Scimmia nera con un cappello di paglia e un bastone in mano ';
 	let isTooltipVisible = false;
 	let isLoaded = false;
-	const showTooltip = () => {
-		isTooltipVisible = !isTooltipVisible;
+
+	const showTooltip = (val: boolean) => {
+		isTooltipVisible = val;
 	};
 
 	onMount(() => {
@@ -22,7 +23,8 @@
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<svg
 		id="svg-icon"
-		on:click={() => showTooltip()}
+		on:mouseenter={() => showTooltip(true)}
+		on:mouseleave={() => showTooltip(false)}
 		xmlns="http://www.w3.org/2000/svg"
 		height="48"
 		width="48"
@@ -47,14 +49,16 @@
 
 		opacity: 0;
 		transition: opacity 0.3s;
-		background-color: var(--vscode-textBlockQuote-background);
+		background-color: var(--vscode-editor-selectionBackground);
 		color: var(----vscode-foreground);
 	}
 
 	.visible {
 		visibility: visible;
 		opacity: 1;
+		padding: var(--vscode-margin-vertical);
 	}
+
 	#tooltip-comp {
 		position: relative;
 	}

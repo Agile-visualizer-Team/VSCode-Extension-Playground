@@ -53,11 +53,7 @@
   document.getElementById("template-btn").addEventListener("click", () => {
     vscode.postMessage({ type: "template" });
   });
-  /* 
-  document.getElementById("config-btn").addEventListener("click", () => {
-    vscode.postMessage({ type: "config", value: config_ta.value });
-  });
- */
+  
   document.getElementById("form-div").addEventListener("submit", (_e) => {
     vscode.postMessage({ type: "config", value: config_ta.value });
   });
@@ -94,7 +90,7 @@
         config_ta.value = JSON.stringify(config, null, 2);
         break;
       case "folder_check":
-        //set folder button to disabled if the folder is not set
+        //set folder button to disabled if the folder does not exist
         folder.disabled = message.value;
         break;
     }

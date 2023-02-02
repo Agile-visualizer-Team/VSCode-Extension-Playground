@@ -1,17 +1,18 @@
-import * as vscode from "vscode";
-import { getHtmlForWebview } from "./svelte_build";
 import path = require("path");
+import * as vscode from "vscode";
 import { readFileSync, existsSync } from "fs";
 import { createFolder } from "./check_workspace";
+import { getHtmlForWebview } from "./svelte_build";
+
 export class WebviewView implements vscode.WebviewViewProvider {
   private _view?: vscode.WebviewView;
 
-  constructor(readonly _extensionUri: vscode.Uri) { }
+  constructor(readonly _extensionUri: vscode.Uri) {}
 
   resolveWebviewView(
     webviewView: vscode.WebviewView,
-    context: vscode.WebviewViewResolveContext<unknown>,
-    token: vscode.CancellationToken
+    _context: vscode.WebviewViewResolveContext<unknown>,
+    _token: vscode.CancellationToken
   ): void | Thenable<void> {
     this._view = webviewView;
 
@@ -29,10 +30,7 @@ export class WebviewView implements vscode.WebviewViewProvider {
       let value: vscode.Uri[] | undefined;
 
       switch (data.type) {
-
-
         case "folder":
-          console.log("folder");
           if (vscode.workspace.workspaceFolders !== undefined) {
             let folder = vscode.workspace.workspaceFolders[0];
             let folder_path = folder.uri.fsPath;
@@ -41,12 +39,10 @@ export class WebviewView implements vscode.WebviewViewProvider {
             //If already exists, does nothing
             createFolder(asp_vis_folder);
 
-
             this._view?.webview.postMessage({
               type: "folder_check",
               value: existsSync(asp_vis_folder),
             });
-
           }
           break;
 
@@ -66,7 +62,6 @@ export class WebviewView implements vscode.WebviewViewProvider {
             type: "config_value",
             value: config,
           });
-
           break;
 
         case "gif":
@@ -74,11 +69,12 @@ export class WebviewView implements vscode.WebviewViewProvider {
           if (!wsf) {
             return;
           }
+
           vscode.commands.executeCommand("asp-vis.ffmpeg", wsf[0].uri);
           return;
 
         case "save":
-        case "config":   
+        case "config":
           vscode.commands.executeCommand("asp-vis." + data.type, data.value);
           break;
 

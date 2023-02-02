@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-export function getHtmlForWebview(webview: vscode.Webview, _extensionUri: vscode.Uri): string {const global_css = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, 'global.css'));const _page_css = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'assets', '_page-40af49c4.css'));const start_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'start-a5a90e63.js'));const index_1_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', 'index-d3883455.js'));const singletons_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', 'singletons-073e2371.js'));const index_2_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', 'index-705e6b6a.js'));const layout_svelte_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'components', 'layout.svelte-0164f630.js'));const _layout_ts_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'modules', 'pages', '_layout.ts-070df6f0.js'));const _layout_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', '_layout-af12d980.js'));const _page_svelte_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'components', 'pages', '_page.svelte-2036b911.js'));const main_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, "main.js"));
+export function getHtmlForWebview(webview: vscode.Webview, _extensionUri: vscode.Uri): string {const global_css = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, 'global.css'));const _page_css = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'assets', '_page-8524ad72.css'));const start_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'start-88b0ad58.js'));const index_1_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', 'index-75e0d1ec.js'));const singletons_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', 'singletons-987787d3.js'));const index_2_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', 'index-6096c8c2.js'));const layout_svelte_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'components', 'layout.svelte-b45a2d72.js'));const _layout_ts_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'modules', 'pages', '_layout.ts-070df6f0.js'));const _layout_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'chunks', '_layout-af12d980.js'));const _page_svelte_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, '_app', 'immutable', 'components', 'pages', '_page.svelte-834a815f.js'));const main_js = webview.asWebviewUri(vscode.Uri.joinPath(_extensionUri, "main.js"));
 return `<!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -25,70 +25,70 @@ return `<!DOCTYPE html>
 
 
 
-<div class=" svelte-1dimsne"><center class="svelte-slyfrv"><h1 class="svelte-slyfrv">Settings</h1></center>
+<div class=" svelte-1dimsne"><center class="svelte-1ozlydo"><h1 class="svelte-1ozlydo">Settings</h1></center>
 
-<div class="svelte-slyfrv"><button title="Creates default folder for extension to work." type="button" id="folder-btn" class="svelte-slyfrv">Create extension folder</button></div>
-<div class="svelte-slyfrv"><button title="Run the extension using the parameters saved in config.json" type="button" id="run-btn" class="svelte-slyfrv">Run using config file</button></div>
-<div class="svelte-slyfrv"><button title="Create a gif using the images inside the GIF folder." type="button" id="gif-btn" class="svelte-slyfrv">Convert image sequence to gif</button></div>
+<div class="svelte-1ozlydo"><button title="Creates default folder for extension to work." type="button" id="folder-btn" class="svelte-1ozlydo">Create extension folder</button></div>
+<div class="svelte-1ozlydo"><button title="Run the extension using the parameters saved in config.json" type="button" id="run-btn" class="svelte-1ozlydo">Run using config file</button></div>
+<div class="svelte-1ozlydo"><button title="Create a gif using the images inside the GIF folder." type="button" id="gif-btn" class="svelte-1ozlydo">Convert image sequence to gif</button></div>
 
-<form id="form-div" class="svelte-slyfrv"><div class="svelte-slyfrv"><button title="Save configuration parameters inside config.json" class=" svelte-slyfrv" id="config-btn" type="submit">Save Configuration File</button>
-		<textarea id="config-ta" rows="10" class="svelte-slyfrv"></textarea></div>
+<form id="form-div" class="svelte-1ozlydo"><div class="svelte-1ozlydo"><button title="Save configuration parameters inside config.json" class=" svelte-1ozlydo" id="config-btn" type="submit">Save Configuration File</button>
+		<textarea id="config-ta" rows="10" class="svelte-1ozlydo"></textarea></div>
 
-	<h2 class="svelte-slyfrv"># of Answer Sets</h2>
-	<h5 class="svelte-slyfrv">required</h5>
+	<h2 class="svelte-1ozlydo"># of Answer Sets</h2>
+	<h5 class="svelte-1ozlydo">required</h5>
 
-	<div class="svelte-slyfrv"><input id="sol-in" type="number" min="1" value="1" required class="svelte-slyfrv"></div>
+	<div class="svelte-1ozlydo"><input id="sol-in" type="number" min="1" value="1" required class="svelte-1ozlydo"></div>
 
-	<h2 class="svelte-slyfrv">Solver path</h2>
-	<h5 class="svelte-slyfrv">required</h5>
+	<h2 class="svelte-1ozlydo">Solver path</h2>
+	<h5 class="svelte-1ozlydo">required</h5>
 
-	<div class="svelte-slyfrv"><textarea id="solver-ta" required class="svelte-slyfrv"></textarea>
-		<button title="The DLV Solver file path." type="button" id="solver-btn" class="svelte-slyfrv">Solver Executable</button></div>
+	<div class="svelte-1ozlydo"><textarea id="solver-ta" required class="svelte-1ozlydo"></textarea>
+		<button title="The DLV Solver file path." type="button" id="solver-btn" class="svelte-1ozlydo">Solver Executable</button></div>
 
-	<h2 class="svelte-slyfrv">Program file</h2>
-	<h5 class="svelte-slyfrv">required</h5>
+	<h2 class="svelte-1ozlydo">Program file</h2>
+	<h5 class="svelte-1ozlydo">required</h5>
 
-	<div class="svelte-slyfrv"><textarea id="program-ta" required class="svelte-slyfrv"></textarea>
-		<button title="The ASP program file path." type="button" id="program-btn" class="svelte-slyfrv">Program Path</button></div>
+	<div class="svelte-1ozlydo"><textarea id="program-ta" required class="svelte-1ozlydo"></textarea>
+		<button title="The ASP program file path." type="button" id="program-btn" class="svelte-1ozlydo">Program Path</button></div>
 
-	<h2 class="svelte-slyfrv">Output Directory</h2>
-	<h5 class="svelte-slyfrv">required</h5>
+	<h2 class="svelte-1ozlydo">Output Directory</h2>
+	<h5 class="svelte-1ozlydo">required</h5>
 
-	<div class="svelte-slyfrv"><textarea id="output-ta" required class="svelte-slyfrv"></textarea>
-		<button title="The path in which output files will be saved." type="button" id="output-btn" class="svelte-slyfrv">Output Directory</button></div>
+	<div class="svelte-1ozlydo"><textarea id="output-ta" required class="svelte-1ozlydo"></textarea>
+		<button title="The path in which output files will be saved." type="button" id="output-btn" class="svelte-1ozlydo">Output Directory</button></div>
 
-	<h2 class="svelte-slyfrv">Chrome Executable</h2>
-	<h5 class="svelte-slyfrv">required</h5>
+	<h2 class="svelte-1ozlydo">Chrome Executable</h2>
+	<h5 class="svelte-1ozlydo">required</h5>
 
-	<div class="svelte-slyfrv"><textarea id="chrome-ta" required class="svelte-slyfrv"></textarea>
-		<button title="The path for the Chromium Browser executable." type="button" id="chrome-btn" class="svelte-slyfrv">Chromium Based Browser Executable</button></div>
+	<div class="svelte-1ozlydo"><textarea id="chrome-ta" required class="svelte-1ozlydo"></textarea>
+		<button title="The path for the Chromium Browser executable." type="button" id="chrome-btn" class="svelte-1ozlydo">Chromium Based Browser Executable</button></div>
 
-	<h2 class="svelte-slyfrv">Template file</h2>
-	<h5 class="svelte-slyfrv">required</h5>
+	<h2 class="svelte-1ozlydo">Template file</h2>
+	<h5 class="svelte-1ozlydo">required</h5>
 
-	<div class="split svelte-slyfrv"><textarea id="template-ta" required class="svelte-slyfrv"></textarea>
-		<button title="The path for the ASP Visualizer configuration file. (Tip: Generate it through the extension panel)" type="button" id="template-btn" class="svelte-slyfrv">Template File</button>
+	<div class="split svelte-1ozlydo"><textarea id="template-ta" required class="svelte-1ozlydo"></textarea>
+		<button title="The path for the ASP Visualizer configuration file. (Tip: Generate it through the extension panel)" type="button" id="template-btn" class="svelte-1ozlydo">Template File</button>
 		
-		<button type="button" class="svelte-slyfrv">Create a Template
+		<button type="button" class="svelte-1ozlydo">Create a Template
 		</button></div>
 
-	<h2 class="svelte-slyfrv">Image Directory</h2>
-	<h5 class="svelte-slyfrv">image matrix, optional</h5>
+	<h2 class="svelte-1ozlydo">Image Directory</h2>
+	<h5 class="svelte-1ozlydo">image matrix, optional</h5>
 
-	<div class="svelte-slyfrv"><button title="The path for the images that will be used for the Matrix(Image) visualization." type="button" id="image-btn" class="svelte-slyfrv">Image Resources Directory</button>
-		<textarea id="image-ta" class="svelte-slyfrv"></textarea></div>
+	<div class="svelte-1ozlydo"><button title="The path for the images that will be used for the Matrix(Image) visualization." type="button" id="image-btn" class="svelte-1ozlydo">Image Resources Directory</button>
+		<textarea id="image-ta" class="svelte-1ozlydo"></textarea></div>
 </form>
 </div>
 
 
-		<script type="module" data-sveltekit-hydrate="1rwzqv5">
+		<script type="module" data-sveltekit-hydrate="oi63hb">
 			import { start } from "${start_js}";
 
 			start({
 				env: {},
 				paths: {"assets":"","base":""},
-				target: document.querySelector('[data-sveltekit-hydrate="1rwzqv5"]').parentNode,
-				version: "1675164743809",
+				target: document.querySelector('[data-sveltekit-hydrate="oi63hb"]').parentNode,
+				version: "1675361029789",
 				hydrate: {
 					node_ids: [0, 2],
 					data: [null,null],
