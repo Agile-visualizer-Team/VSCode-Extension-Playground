@@ -1,5 +1,5 @@
 {
-  "name": "@agile-visualizer-team/visualizer-asp",
+  "name": "visualizer-asp",
   "displayName": "ASP Visualizer",
   "publisher": "ASP-VISTeam1",
   "repository": {
@@ -87,7 +87,6 @@
     "eslint": "^8.26.0",
     "glob": "^8.0.3",
     "mocha": "^10.1.0",
-    "node-html-to-image": "^3.2.4",
     "puppeteer-core": "^19.6.2",
     "table": "^6.8.1",
     "ts-loader": "^9.4.1",

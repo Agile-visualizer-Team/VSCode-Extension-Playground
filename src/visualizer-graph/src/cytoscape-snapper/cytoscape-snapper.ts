@@ -1,7 +1,6 @@
-const puppeteer = require("puppeteer");
-import { Browser, Page } from "puppeteer";
 import * as os from "os";
 import * as path from "path";
+import * as puppeteer from "puppeteer-core";
 
 export class CytoscapeSnapper {
   start(): Promise<CytoscapeSnapperInstance> {
@@ -12,7 +11,7 @@ export class CytoscapeSnapper {
           args: ["--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage"],
           executablePath: process.env.CHROME_PATH
         })
-        .then((browser: Browser) => {
+        .then((browser: puppeteer.Browser) => {
           resolve(new CytoscapeSnapperInstance(browser));
         })
         .catch((e: any) => {
@@ -23,16 +22,16 @@ export class CytoscapeSnapper {
 }
 
 export class CytoscapeSnapperInstance {
-  constructor(private readonly browser: Browser) {}
+  constructor(private readonly browser: puppeteer.Browser) {}
 
   shot(
     options: CytoscapeSnapperShotOptions
   ): Promise<CytoscapeSnapperShotResult> {
     return new Promise<CytoscapeSnapperShotResult>((resolve, reject) => {
-      let page: Page;
+      let page: puppeteer.Page;
       return this.browser
         .newPage()
-        .then((puppeteerPage: Page) => {
+        .then((puppeteerPage: puppeteer.Page) => {
           page = puppeteerPage;
         })
         .then(() => {

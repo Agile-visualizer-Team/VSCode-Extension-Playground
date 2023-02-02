@@ -119,7 +119,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     // run a script to create a gif with child_process
     if (process.platform === "win32") {
-      child = spawn("powershell.exe", ["-Command", script], {
+      child = spawn("pwsh.exe", ["-Command", script], {
         cwd: path.join(process.env.OUT_DIR, "gif"),
       });
     } else {

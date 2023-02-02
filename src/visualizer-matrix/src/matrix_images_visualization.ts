@@ -423,8 +423,6 @@ export class MatrixImagesCreator {
         "The image directory does not exists, please check the path"
       );
     }
-
-    this.run_script(answer_set);
   }
 }
 

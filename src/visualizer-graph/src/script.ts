@@ -133,7 +133,6 @@ class GraphScript {
 
     const parser = new GraphParser(template, answerSets);
     const graphs = parser.parse();
-
     renderer.render(
       graphs,
       (index) => {

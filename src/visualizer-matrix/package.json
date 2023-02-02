@@ -9,7 +9,6 @@
     "get-pixels": "^3.3.3",
     "gif-encoder": "^0.7.2",
     "mocha": "10.1.0",
-    "node-html-to-image": "^3.2.4",
     "readline-sync": "^1.4.10",
     "table": "^6.8.1",
     "yargs": "^17.6.2"
@@ -24,7 +23,6 @@
     "@types/yargs": "^17.0.15",
     "chai": "4.3.7",
     "mocha": "10.1.0",
-    "node-html-to-image": "^3.2.4",
     "nyc": "^15.1.0",
     "sinon": "14.0.2",
     "source-map-support": "^0.5.21",
