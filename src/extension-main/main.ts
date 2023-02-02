@@ -115,10 +115,18 @@ export function activate(context: vscode.ExtensionContext) {
       }
     }
 
+    let child;
+
     // run a script to create a gif with child_process
-    const child = spawn("pwsh.exe", ["-Command", script], {
-      cwd: path.join(process.env.OUT_DIR, "gif"),
-    });
+    if (process.platform === "win32") {
+      child = spawn("powershell.exe", ["-Command", script], {
+        cwd: path.join(process.env.OUT_DIR, "gif"),
+      });
+    } else {
+      child = spawn(script, {
+        cwd: path.join(process.env.OUT_DIR, "gif"),
+      });
+    }
 
     child.on("close", (code) => {
       if (code === 0) {

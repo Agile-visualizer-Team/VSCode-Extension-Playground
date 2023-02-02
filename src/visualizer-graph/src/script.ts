@@ -137,12 +137,12 @@ class GraphScript {
     renderer.render(
       graphs,
       (index) => {
-        // vscode.window.showInformationMessage(`Rendering graph ${index}...`);
+        vscode.window.showInformationMessage(`Rendering graph ${index}...`);
       },
       (index, graph, output) => {
-        // vscode.window.showInformationMessage(
-        //   `Graph ${index} rendered successfully...`
-        // );
+        vscode.window.showInformationMessage(
+          `Graph ${index} rendered successfully...`
+        );
         const filename = "graph-" + index + "-" + Date.now() + ".png";
         const filepath = outputDirPath + "/" + filename;
 

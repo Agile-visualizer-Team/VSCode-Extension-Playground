@@ -16,7 +16,7 @@ export function callNode(
   out_dir: string,
   image_directory: string
 ) {
-  // vscode.window.showInformationMessage("Running solver");
+  vscode.window.showInformationMessage("Running solver");
   let solver_result: any = run_solver(dlv_path, asp_file_path, "", as_number);
   let template_file = JSON.parse(fs.readFileSync(template_file_path, "utf8"));
 
